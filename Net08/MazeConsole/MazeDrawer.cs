@@ -17,7 +17,7 @@ namespace MazeConsole
                 }
                 if (cell is Ground)
                 {
-                    Console.Write(".");
+                    Console.Write(" ");
                 }
             }
 
