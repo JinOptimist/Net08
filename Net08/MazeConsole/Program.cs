@@ -7,11 +7,12 @@ namespace MazeConsole
     {
         static void Main(string[] args)
         {
+            //Test
             var builder = new MazeBuilder();
 
             var drawer = new MazeDrawer();
 
-            var maze = builder.Build(30, 20, drawer.Draw);
+            var maze = builder.Build(30, 20);
 
             drawer.Draw(maze);
 
