@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace MazeConsole.Cells
+﻿namespace MazeCore.Cells
 {
     public class Ground : BaseCell
     {

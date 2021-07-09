@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MazeCore;
+using System;
 
 namespace MazeConsole
 {
@@ -7,8 +8,14 @@ namespace MazeConsole
         static void Main(string[] args)
         {
             var builder = new MazeBuilder();
-            
-            var maze = builder.Build();
+
+            var drawer = new MazeDrawer();
+
+            var maze = builder.Build(30, 20, drawer.Draw);
+
+            drawer.Draw(maze);
+
+            Console.ReadLine();
         }
     }
 }

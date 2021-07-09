@@ -1,17 +1,20 @@
-﻿using MazeConsole.Cells;
+﻿using MazeCore.Cells;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 
-namespace MazeConsole
+namespace MazeCore
 {
     public class MazeBuilder
     {
         private Maze _maze;
         private Random _random = new Random();
-        public Maze Build(int width = 10, int height = 5)
+        private Action<Maze> _drawStepByStep;
+        public Maze Build(int width = 10, int height = 5, Action<Maze> drawStepByStep = null)
         {
+            _drawStepByStep = drawStepByStep;
             _maze = new Maze()
             {
                 Width = width,
@@ -28,19 +31,21 @@ namespace MazeConsole
 
         private void BuildGround()
         {
-            int minerX = 0;
-            int minerY = 0;
             var wallsToDestroy = new List<BaseCell>() {
-                _maze.Cells.Single(x=> x.X == minerX && x.Y == minerY)
+                GetRandom(_maze.Cells)
             };
 
             while (wallsToDestroy.Any())
             {
-                var wallToDestroy = GetRandom(wallsToDestroy);
-                minerX = wallToDestroy.X;
-                minerY = wallToDestroy.Y;
+                if (_drawStepByStep != null)
+                {
+                    _drawStepByStep.Invoke(_maze);
+                    Thread.Sleep(100);
+                }
 
-                var ground = new Ground(minerX, minerY, _maze);
+                var wallToDestroy = GetRandom(wallsToDestroy);
+
+                var ground = new Ground(wallToDestroy.X, wallToDestroy.Y, _maze);
                 var oldWall = _maze.ReplaceCell(ground);
                 wallsToDestroy.Remove(oldWall);
 
@@ -80,7 +85,7 @@ namespace MazeConsole
                 .OfType<CellType>();
         }
 
-        private BaseCell GetRandom(List<BaseCell> cells)
+        private T GetRandom<T>(List<T> cells)
         {
             var index = _random.Next(cells.Count);
             return cells[index];
