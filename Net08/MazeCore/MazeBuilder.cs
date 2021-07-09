@@ -26,7 +26,14 @@ namespace MazeCore
 
             BuildGround();
 
+            BuildMoney();
+
             return _maze;
+        }
+
+        private void BuildMoney()
+        {
+//            throw new NotImplementedException();
         }
 
         private void BuildGround()
