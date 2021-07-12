@@ -13,10 +13,12 @@ namespace MazeConsole
                 Console.SetCursorPosition(cell.X, cell.Y);
                 if (cell is Wall)
                 {
-                    Console.Write("#");
+                    Console.BackgroundColor = ConsoleColor.Gray;
+                    Console.Write(" ");
                 }
                 if (cell is Ground)
                 {
+                    Console.BackgroundColor = ConsoleColor.Black;
                     Console.Write(" ");
                 }
             }
