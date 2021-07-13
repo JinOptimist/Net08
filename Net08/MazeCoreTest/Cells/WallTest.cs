@@ -1,17 +1,24 @@
-﻿using NUnit.Framework;
+﻿using MazeCore.Cells;
+using NUnit.Framework;
 using System;
+using System.Collections.Generic;
+using System.Text;
 
-namespace MazeCoreTest
+namespace MazeCoreTest.Cells
 {
     public class WallTest
     {
         [Test]
-        public void Fun()
+        public void TryStep_ReturnAlwysFalse()
         {
-            var wall = new Wall();
-            
-            Assert.Pass();
-        }
+            //Preparing
+            var wall = new Wall(0, 0, null);
 
+            //Act
+            var answer = wall.TryStep();
+
+            //Assert
+            Assert.AreEqual(false, answer);
+        }
     }
 }
