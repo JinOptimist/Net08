@@ -12,6 +12,7 @@ namespace MazeCore
         private IMaze _maze;
         private Random _random = new Random();
         private Action<IMaze> _drawStepByStep;
+
         public IMaze Build(int width = 10, int height = 5, Action<IMaze> drawStepByStep = null)
         {
             _drawStepByStep = drawStepByStep;

@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MazeConsole", "MazeConsole\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MazeCore", "MazeCore\MazeCore.csproj", "{4411BF49-0FE8-4D9D-89C0-47E0DC6AB23B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MazeCoreTest", "MazeCoreTest\MazeCoreTest.csproj", "{41FFF328-AA76-434B-81D8-DBBD74182E68}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MazeCoreTest", "MazeCoreTest\MazeCoreTest.csproj", "{41FFF328-AA76-434B-81D8-DBBD74182E68}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
