@@ -1,0 +1,11 @@
+C:\Users\korolev_ai\source\repos\MazeBuild\MazeCore\bin\Debug\net5.0\MazeCore.deps.json
+C:\Users\korolev_ai\source\repos\MazeBuild\MazeCore\bin\Debug\net5.0\MazeCore.dll
+C:\Users\korolev_ai\source\repos\MazeBuild\MazeCore\bin\Debug\net5.0\ref\MazeCore.dll
+C:\Users\korolev_ai\source\repos\MazeBuild\MazeCore\bin\Debug\net5.0\MazeCore.pdb
+C:\Users\korolev_ai\source\repos\MazeBuild\MazeCore\obj\Debug\net5.0\MazeCore.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\korolev_ai\source\repos\MazeBuild\MazeCore\obj\Debug\net5.0\MazeCore.AssemblyInfoInputs.cache
+C:\Users\korolev_ai\source\repos\MazeBuild\MazeCore\obj\Debug\net5.0\MazeCore.AssemblyInfo.cs
+C:\Users\korolev_ai\source\repos\MazeBuild\MazeCore\obj\Debug\net5.0\MazeCore.csproj.CoreCompileInputs.cache
+C:\Users\korolev_ai\source\repos\MazeBuild\MazeCore\obj\Debug\net5.0\MazeCore.dll
+C:\Users\korolev_ai\source\repos\MazeBuild\MazeCore\obj\Debug\net5.0\ref\MazeCore.dll
+C:\Users\korolev_ai\source\repos\MazeBuild\MazeCore\obj\Debug\net5.0\MazeCore.pdb

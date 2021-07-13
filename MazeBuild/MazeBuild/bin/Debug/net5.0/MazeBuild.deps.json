@@ -1,0 +1,36 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v5.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v5.0": {
+      "MazeBuild/1.0.0": {
+        "dependencies": {
+          "MazeCore": "1.0.0"
+        },
+        "runtime": {
+          "MazeBuild.dll": {}
+        }
+      },
+      "MazeCore/1.0.0": {
+        "runtime": {
+          "MazeCore.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "MazeBuild/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "MazeCore/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}
