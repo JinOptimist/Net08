@@ -13,14 +13,19 @@ namespace MazeConsole
                 Console.SetCursorPosition(cell.X, cell.Y);
                 if (cell is Wall)
                 {
-                    Console.BackgroundColor = ConsoleColor.Gray;
-                    Console.Write(" ");
+                    Console.BackgroundColor = ConsoleColor.White;
+                    Console.Write(" "); //стены
                 }
                 if (cell is Ground)
                 {
-                    Console.BackgroundColor = ConsoleColor.Black;
-                    Console.Write(" ");
+                    Console.BackgroundColor = ConsoleColor.DarkGray;
+                    Console.Write(" "); //проходы
                 }
+                /*if (cell is Water)
+                {
+                    Console.BackgroundColor = ConsoleColor.Blue;
+                    Console.Write(" "); //вода
+                }*/
             }
 
             Console.SetCursorPosition(0, maze.Height + 1);

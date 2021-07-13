@@ -24,24 +24,35 @@ namespace MazeCore
 
             BuildWall();
 
+            //BuildWater();
+
             BuildGround();
 
             return _maze;
         }
 
+        private void BuildWater()
+        {
+            var WaterGet = new List<BaseCell>() 
+            {
+                GetRandom(_maze.Cells)
+            };
+        }
+
         private void BuildGround()
         {
-            var wallsToDestroy = new List<BaseCell>() {
+            var wallsToDestroy = new List<BaseCell>() 
+            {
                 GetRandom(_maze.Cells)
             };
 
             while (wallsToDestroy.Any())
             {
-                if (_drawStepByStep != null)
+                if (_drawStepByStep != null)        //замедление отобрпжения
                 {
                     _drawStepByStep.Invoke(_maze);
                     Thread.Sleep(100);
-                }
+                }                   
 
                 var wallToDestroy = GetRandom(wallsToDestroy);
 

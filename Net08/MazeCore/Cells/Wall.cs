@@ -5,6 +5,7 @@ namespace MazeCore.Cells
     {
         public Wall(int x, int y, Maze maze) : base(x, y, maze)
         {
+
         }
 
         public override bool TryStep()
