@@ -6,5 +6,7 @@
         IMaze Maze { get; set; }
         int X { get; set; }
         int Y { get; set; }
+        int HP { get; set; }
+        int Stamina { get; set; }
     }
 }
