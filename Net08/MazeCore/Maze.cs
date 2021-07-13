@@ -12,6 +12,8 @@ namespace MazeCore
         public int Height { get; set; }
         public List<BaseCell> Cells { get; set; }
 
+        public Hero Hero { get; set; }
+
         /// <summary>
         /// Remove old cell with the same coordinate and return add new cell
         /// </summary>

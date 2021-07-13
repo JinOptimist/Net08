@@ -13,6 +13,8 @@ namespace MazeConsole
 
             var maze = builder.Build(30, 20, drawer.Draw);
 
+            //var maze = builder.Build(5, 5);
+
             drawer.Draw(maze);
 
             Console.ReadLine();
