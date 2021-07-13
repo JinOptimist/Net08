@@ -25,6 +25,8 @@ namespace MazeCore
             BuildWall();
 
             BuildGround();
+            for(int i = 0;i<8;i++)
+            BuildPit();
 
             return _maze;
         }
@@ -40,7 +42,7 @@ namespace MazeCore
                 if (_drawStepByStep != null)
                 {
                     _drawStepByStep.Invoke(_maze);
-                    Thread.Sleep(100);
+                    Thread.Sleep(10);
                 }
 
                 var wallToDestroy = GetRandom(wallsToDestroy);
@@ -68,6 +70,12 @@ namespace MazeCore
                     _maze.Cells.Add(wall);
                 }
             }
+        }
+        private void BuildPit()
+        {
+            var wall = GetRandom<Wall>(_maze.Cells.OfType<Wall>().ToList());
+            var pit = new Pit(wall.X, wall.Y, _maze);
+            _maze.ReplaceCell(pit);
         }
 
         private IEnumerable<BaseCell> GetNears(BaseCell cell)
