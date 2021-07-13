@@ -2,7 +2,7 @@
 {
     public class Ground : BaseCell
     {
-        public Ground(int x, int y, Maze maze) : base(x, y, maze)
+        public Ground(int x, int y, IMaze maze) : base(x, y, maze)
         {
 
         }

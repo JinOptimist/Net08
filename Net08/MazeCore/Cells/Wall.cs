@@ -3,7 +3,7 @@ namespace MazeCore.Cells
 {
     public class Wall : BaseCell
     {
-        public Wall(int x, int y, Maze maze) : base(x, y, maze)
+        public Wall(int x, int y, IMaze maze) : base(x, y, maze)
         {
 
         }

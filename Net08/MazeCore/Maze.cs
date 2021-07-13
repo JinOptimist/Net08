@@ -6,12 +6,12 @@ using System.Text;
 
 namespace MazeCore
 {
-    public class Maze
+    public class Maze : IMaze
     {
         public int Width { get; set; }
         public int Height { get; set; }
         public List<BaseCell> Cells { get; set; }
-        public Hero Hero { get; set; }
+        public IHero Hero { get; set; }
 
         /// <summary>
         /// Remove old cell with the same coordinate and return add new cell

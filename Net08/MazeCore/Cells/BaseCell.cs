@@ -4,9 +4,9 @@
     {
         public int X { get; set; }
         public int Y { get; set; }
-        public Maze Maze { get; private set; }
+        public IMaze Maze { get; private set; }
 
-        public BaseCell(int x, int y, Maze maze)
+        public BaseCell(int x, int y, IMaze maze)
         {
             X = x;
             Y = y;

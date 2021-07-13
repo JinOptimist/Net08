@@ -9,10 +9,10 @@ namespace MazeCore
 {
     public class MazeBuilder
     {
-        private Maze _maze;
+        private IMaze _maze;
         private Random _random = new Random();
-        private Action<Maze> _drawStepByStep;
-        public Maze Build(int width = 10, int height = 5, Action<Maze> drawStepByStep = null)
+        private Action<IMaze> _drawStepByStep;
+        public IMaze Build(int width = 10, int height = 5, Action<IMaze> drawStepByStep = null)
         {
             _drawStepByStep = drawStepByStep;
             _maze = new Maze()
@@ -86,7 +86,8 @@ namespace MazeCore
             return GetNears<BaseCell>(cell);
         }
 
-        private IEnumerable<BaseCell> GetNears<CellType>(BaseCell cell) where CellType : BaseCell
+        private IEnumerable<BaseCell> GetNears<CellType>(BaseCell cell) 
+            where CellType : BaseCell
         {
             return _maze.Cells
                 .Where(c =>
