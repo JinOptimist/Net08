@@ -19,6 +19,14 @@ namespace MazeConsole
                 {
                     Console.Write(".");
                 }
+                if (cell is GoldHeap)
+                {
+                    Console.Write("$");
+                }
+                if (cell is Trap)
+                {
+                    Console.Write("^");
+                }
             }
 
             Console.SetCursorPosition(0, maze.Height + 1);

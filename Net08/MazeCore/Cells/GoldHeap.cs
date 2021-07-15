@@ -9,10 +9,10 @@ namespace MazeCore.Cells
         private int _goldCount;
         public GoldHeap(int x, int y, IMaze maze, int goldCount) : base(x, y, maze)
         {
-            //if (goldCount < 0)
-            //{
-            //    throw new Exception("Gold heap can't has negative gold count");
-            //}
+            if (goldCount < 0)
+            {
+                throw new Exception("Gold heap can't has negative gold count");
+            }
 
             _goldCount = goldCount;
         }

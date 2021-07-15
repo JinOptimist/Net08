@@ -27,7 +27,53 @@ namespace MazeCore
 
             BuildGround();
 
+            BuildGoldHeap(80);
+
+            BuildTrap(20);
+
             return _maze;
+        }
+
+        private void BuildTrap(int chanceToCreateTrap)
+        {           
+            
+            var allgolds = _maze.Cells.OfType<GoldHeap>().ToList();
+            foreach (var gold in allgolds)
+            {
+                var numb = _random.Next(0, 10);
+                for (int i = 0; i < chanceToCreateTrap / 10; i++)
+                {
+                    if (numb == i)
+                    {
+                        var ground = GetNears(gold).Last();
+                        var trap = new Trap(ground.X, ground.Y, _maze, 3,40);
+                        _maze.ReplaceCell(trap);
+                        break;
+                    }
+                }
+
+            }
+        }
+
+        private void BuildGoldHeap(int chanceToCreateGoldHeap)
+        {
+            var allgrounds = _maze.Cells.OfType<Ground>().ToList();
+            foreach (var ground in allgrounds)
+            {
+                var numb = _random.Next(0, 10);
+                if (GetNears(ground).OfType<Wall>().Count()==3)
+                {
+                    for (int i = 0; i < chanceToCreateGoldHeap / 10; i++)
+                    {
+                        if (numb == i)
+                        {
+                            var gold = new GoldHeap(ground.X, ground.Y, _maze, 500);
+                            _maze.ReplaceCell(gold);
+                            break;
+                        }
+                    }
+                }
+            }
         }
 
         private void BuildGround()
@@ -41,7 +87,7 @@ namespace MazeCore
                 if (_drawStepByStep != null)
                 {
                     _drawStepByStep.Invoke(_maze);
-                    Thread.Sleep(100);
+                    Thread.Sleep(0);
                 }
 
                 var wallToDestroy = GetRandom(wallsToDestroy);
