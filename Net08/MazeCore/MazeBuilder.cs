@@ -24,19 +24,56 @@ namespace MazeCore
 
             BuildWall();
 
-            //BuildWater();
-
             BuildGround();
+
+            BuildLava(_maze);
 
             return _maze;
         }
 
-        private void BuildWater()
+        private void BuildLava()
         {
-            var WaterGet = new List<BaseCell>() 
+            var wallsToDestroy = new List<BaseCell>() 
             {
                 GetRandom(_maze.Cells)
             };
+
+
+            for (int index = 0; index < 10; index++)
+            {
+
+                if (_drawStepByStep != null)
+                {
+                    _drawStepByStep.Invoke(_maze);
+                    Thread.Sleep(100);
+                }
+
+                var wallToDestroy = GetRandom(wallsToDestroy);
+
+                var lava = new Lava(wallToDestroy.X, wallToDestroy.Y, _maze);
+                var oldWall = _maze.ReplaceCell(lava);
+                wallsToDestroy.Remove(oldWall);
+
+                var nearestWalls = GetNears<Wall>(lava);
+                wallsToDestroy.AddRange(nearestWalls);
+
+            }
+
+            //while (wallsToDestroy.Any())
+            //{
+            //    if (_drawStepByStep != null)      
+            //    {
+            //        _drawStepByStep.Invoke(_maze);
+            //        Thread.Sleep(100);
+            //    }
+
+
+
+                //wallsToDestroy = wallsToDestroy
+                //    .Where(wall => GetNears<Ground>(wall).Count() < 2)
+                //    .ToList();
+            //}
+
         }
 
         private void BuildGround()
@@ -48,7 +85,7 @@ namespace MazeCore
 
             while (wallsToDestroy.Any())
             {
-                if (_drawStepByStep != null)        //замедление отобрпжения
+                if (_drawStepByStep != null)       
                 {
                     _drawStepByStep.Invoke(_maze);
                     Thread.Sleep(100);
