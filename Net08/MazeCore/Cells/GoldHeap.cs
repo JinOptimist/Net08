@@ -3,7 +3,6 @@
     public class GoldHeap : BaseCell
     {
         private int _goldCount;
-
         public GoldHeap(int x, int y, IMaze maze, int goldCount) : base(x, y, maze)
         {
             if (goldCount < 0)
