@@ -27,7 +27,35 @@ namespace MazeCore
 
             BuildGround();
 
+            BuildWithRandomPortal();
+
+            BuildWithGoldHeap();
+
             return _maze;
+        }
+                
+        private void BuildWithRandomPortal(int countOfPortals = 3)
+        {
+            var listOfGrounds = _maze.Cells.OfType<Ground>().ToList();
+
+            for (int i = 0; i < countOfPortals; i++)
+            {
+                var groundToDestroy = GetRandom(listOfGrounds);
+                var randomPortal = new RandomPortal(groundToDestroy.X, groundToDestroy.Y, _maze);
+                _maze.ReplaceCell(randomPortal);
+            }
+        }
+
+        private void BuildWithGoldHeap(int countOfGoldHeap = 3)
+        {
+            var listOfGoldHeap = _maze.Cells.OfType<Ground>().ToList();
+
+            for (int i = 0; i < countOfGoldHeap; i++)
+            {
+                var groundToDestroy = GetRandom(listOfGoldHeap);
+                var goldHeap = new GoldHeap(groundToDestroy.X, groundToDestroy.Y, _maze, 100);
+                _maze.ReplaceCell(goldHeap);
+            }
         }
 
         private void BuildGround()
