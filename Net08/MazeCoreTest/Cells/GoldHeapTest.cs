@@ -3,6 +3,8 @@ using MazeCore.Cells;
 using Moq;
 using NUnit.Framework;
 using System;
+using System.Collections.Generic;
+using System.Text;
 
 namespace MazeCoreTest.Cells
 {
@@ -11,43 +13,49 @@ namespace MazeCoreTest.Cells
         [Test]
         [TestCase(10, 50, 60)]
         [TestCase(20, 10, 30)]
-        public void TryStep_ReturnAlwaysFalse(
-            int heroInitGold, 
-            int GoldHeapCount,
+        [TestCase(0, 50, 50)]
+        public void TryStep_ReturnAlwysFalse(
+            int heroGoldInit, 
+            int goldHeapCount,
             int heroGoldAfter)
         {
-            // Preparing
+            //Preparing
             var mazeMock = new Mock<IMaze>();
             var heroMock = new Mock<IHero>();
+
             heroMock.SetupProperty(x => x.Gold);
-            heroMock.Object.Gold = heroInitGold;
+            heroMock.Object.Gold = heroGoldInit;
 
             mazeMock.Setup(x => x.Hero).Returns(heroMock.Object);
 
-            var goldHeap = new GoldHeap(0, 0, mazeMock.Object, GoldHeapCount);
+            var goldHeap =
+                new GoldHeap(0, 0, mazeMock.Object, goldHeapCount);
 
-            // Act
+            //Act
             var answer = goldHeap.TryStep();
 
-            // Assert
+            //Assert
             Assert.AreEqual(true, answer);
+
             mazeMock.Verify(x =>
                 x.ReplaceCell(It.IsAny<Ground>()), Times.Once);
 
-            Assert.AreEqual(heroGoldAfter, heroMock.Object.Gold);
+            Assert.AreEqual(
+                heroGoldAfter, 
+                heroMock.Object.Gold);
         }
 
         [Test]
         [TestCase(-1)]
         [TestCase(-10)]
         [TestCase(-99)]
-        public void Contructor_ThrowAfterNegativeGold(int goldCount)
+
+        public void Constructor_ThrowAfterNegativeGold(int goldCount)
         {
-            // Preparing
+            //Preparing
 
-            // Act
-
-            // Assert
+            //Act
+            //Assert
             Assert.Throws<Exception>(() => new GoldHeap(0, 0, null, goldCount));
         }
 
@@ -55,14 +63,14 @@ namespace MazeCoreTest.Cells
         [TestCase(1)]
         [TestCase(10)]
         [TestCase(99)]
-        public void Contructor_ThrowAfterPositiveGold(int goldCount)
+        public void Constructor_DoesntThrowAfterPositiveGold(int goldCount)
         {
-            // Preparing
+            //Preparing
 
-            // Act
+            //Act
             new GoldHeap(0, 0, null, goldCount);
 
-            // Assert
+            //Assert
             Assert.Pass();
         }
     }
