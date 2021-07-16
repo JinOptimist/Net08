@@ -26,5 +26,7 @@ namespace MazeCore
         public int Gold { get; set; }
         public int HP { get; set; }
         public int Stamina { get; set; }
+
+        public List<string> Inventory { get; set; } = new List<string>();
     }
 }
