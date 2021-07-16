@@ -7,15 +7,17 @@ namespace MazeConsole
     {
         static void Main(string[] args)
         {
+            //Dima was here
             var builder = new MazeBuilder();
 
             var drawer = new MazeDrawer();
 
-            var maze = builder.Build(30, 20, drawer.Draw);
+            var maze = builder.Build(10, 10,5, drawer.Draw);
 
             drawer.Draw(maze);
 
             Console.ReadLine();
+            
         }
     }
 }

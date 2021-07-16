@@ -4,22 +4,21 @@ using System.Text;
 
 namespace MazeCore.Cells
 {
-    public class GoldHeap : BaseCell
+    public class Food : BaseCell
     {
-        private int _goldCount;
-        public GoldHeap(int x, int y, IMaze maze, int goldCount) : base(x, y, maze)
+        private int _food;
+        public Food(int x, int y, IMaze maze, int food) : base(x, y, maze)
         {
-            if (goldCount < 0)
+            _food = food;
+            if (_food < 0 || _food > 100)
             {
                 throw new Exception("Gold heap can't has negative gold count");
             }
-
-            _goldCount = goldCount;
         }
 
         public override bool TryStep()
         {
-            Maze.Hero.Gold += _goldCount;
+            Maze.Hero.Stamina += _food;
             var ground = new Ground(X, Y, Maze);
             Maze.ReplaceCell(ground);
             return true;
