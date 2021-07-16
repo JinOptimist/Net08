@@ -13,6 +13,8 @@ namespace MazeCore
         public List<BaseCell> Cells { get; set; }
         public IHero Hero { get; set; }
 
+        private Random _random = new Random();
+
         /// <summary>
         /// Remove old cell with the same coordinate and return add new cell
         /// </summary>
@@ -24,6 +26,32 @@ namespace MazeCore
             Cells.Remove(oldCell);
             Cells.Add(newCell);
             return oldCell;
+        }
+
+        /// <summary>
+        /// Get other random cell of current type
+        /// </summary>
+        /// <typeparam name="CellType"></typeparam>
+        /// <param name="cell"></param>
+        /// <returns>Searched cell</returns>
+        public BaseCell GetCellRandomOthers<CellType>(BaseCell cell) where CellType : BaseCell
+        {
+            return GetRandom(GetCellsOthers<Teleport>(cell).ToList());
+        }
+
+        private IEnumerable<BaseCell> GetCellsOthers<CellType>(BaseCell cell) where CellType : BaseCell
+        {
+            return Cells
+                .Where(c =>
+                   c.X != cell.X || c.Y != cell.Y
+                )
+                .OfType<CellType>();
+        }
+
+        private T GetRandom<T>(List<T> cells)
+        {
+            var index = _random.Next(cells.Count);
+            return cells[index];
         }
     }
 }

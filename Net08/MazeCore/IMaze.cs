@@ -10,6 +10,7 @@ namespace MazeCore
         IHero Hero { get; set; }
         int Width { get; set; }
 
+        BaseCell GetCellRandomOthers<CellType>(BaseCell cell) where CellType : BaseCell;
         BaseCell ReplaceCell(BaseCell newCell);
     }
 }
