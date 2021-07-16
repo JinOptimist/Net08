@@ -19,6 +19,10 @@ namespace MazeConsole
                 {
                     Console.Write(".");
                 }
+                if (cell is Food)
+                {
+                    Console.Write("F");
+                }
             }
 
             Console.SetCursorPosition(0, maze.Height + 1);

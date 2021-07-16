@@ -11,10 +11,14 @@ namespace MazeCore
     {
         private Maze _maze;
         private Random _random = new Random();
-        private Action<Maze> _drawStepByStep;
-        public Maze Build(int width = 10, int height = 5, Action<Maze> drawStepByStep = null)
+        private Action<IMaze> _drawStepByStep;
+        private int _percentOfFood;
+
+        public IMaze Build(int width = 10, int height = 5, int prercentOfFood = 10, Action<IMaze> drawStepByStep = null)
         {
             _drawStepByStep = drawStepByStep;
+            _percentOfFood = prercentOfFood;
+
             _maze = new Maze()
             {
                 Width = width,
@@ -26,7 +30,36 @@ namespace MazeCore
 
             BuildGround();
 
+            BuildFood();
+
             return _maze;
+        }
+
+        private void BuildFood()
+        {
+            if (_percentOfFood > 100  || _percentOfFood < 0)
+            {
+                throw new Exception("Can not be more than 100 percen and less than 0");
+            }
+
+            var CountOfFood = _maze.Cells
+                .OfType<Ground>()
+                .Count() * _percentOfFood / 100;
+
+            var AllGround = _maze.Cells.OfType<Ground>().ToList();
+
+            for (int i = 0; i < CountOfFood; i++)
+            {
+                var futurefood = GetRandom(AllGround);
+
+                var food = new Food(futurefood.X, futurefood.Y, _maze, _random.Next(20));
+
+                _maze.ReplaceCell(food);
+
+                AllGround.Remove(futurefood);
+
+                _drawStepByStep.Invoke(_maze);
+            }
         }
 
         private void BuildGround()
@@ -75,7 +108,8 @@ namespace MazeCore
             return GetNears<BaseCell>(cell);
         }
 
-        private IEnumerable<BaseCell> GetNears<CellType>(BaseCell cell) where CellType : BaseCell
+        private IEnumerable<BaseCell> GetNears<CellType>(BaseCell cell)
+            where CellType : BaseCell
         {
             return _maze.Cells
                 .Where(c =>
