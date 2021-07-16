@@ -7,7 +7,7 @@ namespace MazeCore
     {
         List<BaseCell> Cells { get; set; }
         int Height { get; set; }
-        IHero Hero { get; set; }
+        IHero Hero { get; }
         int Width { get; set; }
 
         BaseCell ReplaceCell(BaseCell newCell);
