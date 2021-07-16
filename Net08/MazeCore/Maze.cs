@@ -48,7 +48,7 @@ namespace MazeCore
                 .OfType<CellType>();
         }
 
-        private T GetRandom<T>(List<T> cells)
+        public T GetRandom<T>(List<T> cells)
         {
             var index = _random.Next(cells.Count);
             return cells[index];

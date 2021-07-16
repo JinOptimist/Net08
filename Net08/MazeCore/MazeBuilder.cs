@@ -10,7 +10,6 @@ namespace MazeCore
     public class MazeBuilder
     {
         private IMaze _maze;
-        private Random _random = new Random();
         private Action<IMaze> _drawStepByStep;
         public IMaze Build(int width = 10, int height = 5, Action<IMaze> drawStepByStep = null)
         {
@@ -26,20 +25,27 @@ namespace MazeCore
 
             BuildGround();
 
-            BuildMoney();
+            BuildTeleport();
 
             return _maze;
         }
 
-        private void BuildMoney()
+        private void BuildWall()
         {
-//            throw new NotImplementedException();
+            for (int y = 0; y < _maze.Height; y++)
+            {
+                for (int x = 0; x < _maze.Width; x++)
+                {
+                    var wall = new Wall(x, y, _maze);
+                    _maze.Cells.Add(wall);
+                }
+            }
         }
 
         private void BuildGround()
         {
             var wallsToDestroy = new List<BaseCell>() {
-                GetRandom(_maze.Cells)
+                _maze.GetRandom(_maze.Cells)
             };
 
             while (wallsToDestroy.Any())
@@ -50,7 +56,7 @@ namespace MazeCore
                     Thread.Sleep(100);
                 }
 
-                var wallToDestroy = GetRandom(wallsToDestroy);
+                var wallToDestroy = _maze.GetRandom(wallsToDestroy);
 
                 var ground = new Ground(wallToDestroy.X, wallToDestroy.Y, _maze);
                 var oldWall = _maze.ReplaceCell(ground);
@@ -65,15 +71,16 @@ namespace MazeCore
             }
         }
 
-        private void BuildWall()
+        private void BuildTeleport()
         {
-            for (int y = 0; y < _maze.Height; y++)
+            var grounds = GetCells<Ground>().ToList();
+            for (var i = 0; i < 10; i++)
             {
-                for (int x = 0; x < _maze.Width; x++)
-                {
-                    var wall = new Wall(x, y, _maze);
-                    _maze.Cells.Add(wall);
-                }
+                var groundToTeleport = _maze.GetRandom(grounds);
+
+                var teleport = new Teleport(groundToTeleport.X, groundToTeleport.Y, _maze);
+                _maze.ReplaceCell(teleport);
+                grounds.Remove(groundToTeleport);
             }
         }
 
@@ -92,10 +99,10 @@ namespace MazeCore
                 .OfType<CellType>();
         }
 
-        private T GetRandom<T>(List<T> cells)
+        private IEnumerable<CellType> GetCells<CellType>() where CellType : BaseCell
         {
-            var index = _random.Next(cells.Count);
-            return cells[index];
+            return _maze.Cells
+                .OfType<CellType>();
         }
     }
 }

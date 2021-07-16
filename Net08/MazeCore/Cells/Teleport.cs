@@ -13,6 +13,8 @@ namespace MazeCore.Cells
 
         public override bool TryStep()
         {
+            if (Maze == null)
+                return false;
             var item = Maze.GetCellRandomOthers<Teleport>(this);
             Maze.Hero.X = item.X;
             Maze.Hero.Y = item.Y;

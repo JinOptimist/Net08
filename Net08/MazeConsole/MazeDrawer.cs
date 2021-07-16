@@ -15,9 +15,13 @@ namespace MazeConsole
                 {
                     Console.Write("#");
                 }
-                if (cell is Ground)
+                else if (cell is Ground)
                 {
                     Console.Write(".");
+                }
+                else if (cell is Teleport)
+                {
+                    Console.Write("T");
                 }
             }
 

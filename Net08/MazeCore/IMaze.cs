@@ -11,6 +11,7 @@ namespace MazeCore
         int Width { get; set; }
 
         BaseCell GetCellRandomOthers<CellType>(BaseCell cell) where CellType : BaseCell;
+        T GetRandom<T>(List<T> cells);
         BaseCell ReplaceCell(BaseCell newCell);
     }
 }
