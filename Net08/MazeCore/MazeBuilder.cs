@@ -12,13 +12,12 @@ namespace MazeCore
         private IMaze _maze;
         private Random _random = new Random();
         private Action<IMaze> _drawStepByStep;
-        private int _percentOfFood;
 
-        public IMaze Build(int width = 10, int height = 5, int prercentOfFood = 10, Action<IMaze> drawStepByStep = null)
+        public IMaze Build(int width = 10, 
+            int height = 5, 
+            Action<IMaze> drawStepByStep = null)
         {
             _drawStepByStep = drawStepByStep;
-            _percentOfFood = prercentOfFood;
-
             _maze = new Maze()
             {
                 Width = width,
@@ -30,43 +29,28 @@ namespace MazeCore
 
             BuildGround();
 
-            BuildFood();
+            BuildItemCell();
 
             return _maze;
         }
 
-        private void BuildFood()
+        private void BuildItemCell()
         {
-            if (_percentOfFood > 100  || _percentOfFood < 0)
-            {
-                throw new Exception("Can not be more than 100 percen and less than 0");
-            }
-
-            var CountOfFood = _maze.Cells
-                .OfType<Ground>()
-                .Count() * _percentOfFood / 100;
-
-            var AllGround = _maze.Cells.OfType<Ground>().ToList();
-
-            for (int i = 0; i < CountOfFood; i++)
-            {
-                var futurefood = GetRandom(AllGround);
-
-                var food = new Food(futurefood.X, futurefood.Y, _maze, _random.Next(20));
-
-                _maze.ReplaceCell(food);
-
-                AllGround.Remove(futurefood);
-
-                _drawStepByStep.Invoke(_maze);
-            }
+            var grounds = _maze.Cells.OfType<Ground>().ToList();
+            var rand = GetRandom(grounds);
+            var bucket = new CellWithItem(rand.X, rand.Y, rand.Maze, ItemsConst.EmptyBucket);
+            _maze.ReplaceCell(bucket);
         }
 
         private void BuildGround()
         {
+            var randomCell = GetRandom(_maze.Cells);
             var wallsToDestroy = new List<BaseCell>() {
-                GetRandom(_maze.Cells)
+                randomCell
             };
+
+            _maze.Hero.X = randomCell.X;
+            _maze.Hero.Y = randomCell.Y; 
 
             while (wallsToDestroy.Any())
             {
@@ -108,7 +92,7 @@ namespace MazeCore
             return GetNears<BaseCell>(cell);
         }
 
-        private IEnumerable<BaseCell> GetNears<CellType>(BaseCell cell)
+        private IEnumerable<BaseCell> GetNears<CellType>(BaseCell cell) 
             where CellType : BaseCell
         {
             return _maze.Cells
