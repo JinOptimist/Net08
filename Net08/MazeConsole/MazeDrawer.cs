@@ -7,7 +7,7 @@ namespace MazeConsole
 {
     public class MazeDrawer
     {
-        public void Draw(Maze maze)
+        public void Draw(IMaze maze)
         {
             foreach (var cell in maze.Cells)
             {
