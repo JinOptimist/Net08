@@ -22,7 +22,7 @@ namespace MazeConsole
                 {
                     Console.Write(".");
                 }
-                if (cell is Gold)
+                if (cell is GoldHeap)
                 {
                     Console.Write("$");
                 }
