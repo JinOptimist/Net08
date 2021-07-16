@@ -1,6 +1,7 @@
 ﻿using MazeCore;
 using MazeCore.Cells;
 using System;
+using System.Text;
 
 namespace MazeConsole
 {
@@ -13,7 +14,9 @@ namespace MazeConsole
                 Console.SetCursorPosition(cell.X, cell.Y);
                 if (cell is Wall)
                 {
-                    Console.Write("#");
+                    //Console.Write("U+2B1C",UTF32Encoding.Equals(U+2B1C));
+                    Console.OutputEncoding = System.Text.Encoding.UTF8;
+                    Console.WriteLine("#");
                 }
                 if (cell is Ground)
                 {
@@ -21,7 +24,7 @@ namespace MazeConsole
                 }
                 if (cell is Gold)
                 {
-                    Console.Write("&");
+                    Console.Write("$");
                 }
             }
 
