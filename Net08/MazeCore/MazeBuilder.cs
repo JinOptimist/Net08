@@ -13,7 +13,9 @@ namespace MazeCore
         private Random _random = new Random();
         private Action<IMaze> _drawStepByStep;
 
-        public IMaze Build(int width = 10, int height = 5, Action<IMaze> drawStepByStep = null)
+        public IMaze Build(int width = 10, 
+            int height = 5, 
+            Action<IMaze> drawStepByStep = null)
         {
             _drawStepByStep = drawStepByStep;
             _maze = new Maze()
@@ -27,9 +29,7 @@ namespace MazeCore
 
             BuildGround();
 
-            BuildGoldHeap(80);
-
-            BuildTrap(20);
+            BuildItemCell();
 
             return _maze;
         }
@@ -76,11 +76,23 @@ namespace MazeCore
             }
         }
 
+        private void BuildItemCell()
+        {
+            var grounds = _maze.Cells.OfType<Ground>().ToList();
+            var rand = GetRandom(grounds);
+            var bucket = new CellWithItem(rand.X, rand.Y, rand.Maze, ItemsConst.EmptyBucket);
+            _maze.ReplaceCell(bucket);
+        }
+
         private void BuildGround()
         {
+            var randomCell = GetRandom(_maze.Cells);
             var wallsToDestroy = new List<BaseCell>() {
-                GetRandom(_maze.Cells)
+                randomCell
             };
+
+            _maze.Hero.X = randomCell.X;
+            _maze.Hero.Y = randomCell.Y; 
 
             while (wallsToDestroy.Any())
             {

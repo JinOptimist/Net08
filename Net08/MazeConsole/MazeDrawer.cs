@@ -8,7 +8,7 @@ namespace MazeConsole
     {
         public void Draw(IMaze maze)
         {
-            foreach (var cell in maze.Cells)
+            foreach (var cell in maze.CellsWithHero)
             {
                 Console.SetCursorPosition(cell.X, cell.Y);
                 if (cell is Wall)
@@ -19,13 +19,13 @@ namespace MazeConsole
                 {
                     Console.Write(".");
                 }
-                if (cell is GoldHeap)
+                if (cell is CellWithItem)
                 {
-                    Console.Write("$");
+                    Console.Write("?");
                 }
-                if (cell is Trap)
+                if (cell is CellWithHero)
                 {
-                    Console.Write("^");
+                    Console.Write("@");
                 }
             }
 
