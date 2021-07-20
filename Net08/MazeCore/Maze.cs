@@ -51,7 +51,7 @@ namespace MazeCore
         /// <returns>Removed cell</returns>
         public BaseCell ReplaceCell(BaseCell newCell)
         {
-            var oldCell = Cells.Single(cell => cell.X == newCell.X && cell.Y == newCell.Y);
+             var oldCell = Cells.Single(cell => cell.X == newCell.X && cell.Y == newCell.Y);
             Cells.Remove(oldCell);
             Cells.Add(newCell);
             return oldCell;

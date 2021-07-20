@@ -1,0 +1,34 @@
+﻿.header {
+    background: aqua;
+    font-size: 30px;
+    text-align: center;
+    height: 60px;
+}
+    .header img {
+        max-width: 40px;
+        max-height: 40px;
+    }
+
+    .center-block {
+        display: flex;
+    }
+
+.menu{
+    width: 100px;
+}
+
+.content{
+    flex: 1;
+    border: 1px red solid;
+}
+
+.footer {
+    background: red;
+}
+
+
+
+img{
+    max-width: 100px;
+    max-height: 100px;
+}
