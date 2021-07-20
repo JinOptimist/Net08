@@ -39,10 +39,20 @@ namespace MazeCore
                 GetRandom(_maze.Cells)
             };
 
-            var procentLavi = 0.33;  //при 1 почему не все ячейки заполняются?
+            var procentLavi = 33; 
             var wallsToDestroyLava = _maze.Cells.OfType<Wall>().ToList();
 
-            for (int indexndex = 0; indexndex < wallsToDestroyLava.Count * procentLavi; indexndex++)  
+            if (procentLavi > 100)
+            {
+                procentLavi = 100;
+            }
+            else if (procentLavi < 0)
+            {
+                procentLavi = 0;
+            }
+
+
+            for (int indexndex = 0; indexndex < wallsToDestroyLava.Count * procentLavi / 100; indexndex++)  
             {
 
                 if (_drawStepByStep != null)
@@ -51,7 +61,7 @@ namespace MazeCore
                     Thread.Sleep(100);
                 }
 
-                var wallToDestroy = GetRandom(wallsToDestroyLava);
+                var wallToDestroy = GetRandom(_maze.Cells.OfType<Wall>().ToList());
                 var lava = new Lava(wallToDestroy.X, wallToDestroy.Y, _maze);
                 var oldWall = _maze.ReplaceCell(lava);
                 wallsToDestroy.Remove(oldWall);     //удаление старой ячейки стены из списка всех
