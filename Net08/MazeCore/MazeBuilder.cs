@@ -26,20 +26,23 @@ namespace MazeCore
 
             BuildGround();
 
-            BuildLava(_maze);
+            BuildLava();
 
             return _maze;
         }
 
         private void BuildLava()
         {
-            var wallsToDestroy = new List<BaseCell>() 
+
+            var wallsToDestroy = new List<BaseCell>()
             {
                 GetRandom(_maze.Cells)
             };
 
+            var procentLavi = 0.33;  //при 1 почему не все ячейки заполняются?
+            var wallsToDestroyLava = _maze.Cells.OfType<Wall>().ToList();
 
-            for (int index = 0; index < 10; index++)
+            for (int indexndex = 0; indexndex < wallsToDestroyLava.Count * procentLavi; indexndex++)  
             {
 
                 if (_drawStepByStep != null)
@@ -48,32 +51,15 @@ namespace MazeCore
                     Thread.Sleep(100);
                 }
 
-                var wallToDestroy = GetRandom(wallsToDestroy);
-
+                var wallToDestroy = GetRandom(wallsToDestroyLava);
                 var lava = new Lava(wallToDestroy.X, wallToDestroy.Y, _maze);
                 var oldWall = _maze.ReplaceCell(lava);
-                wallsToDestroy.Remove(oldWall);
+                wallsToDestroy.Remove(oldWall);     //удаление старой ячейки стены из списка всех
 
                 var nearestWalls = GetNears<Wall>(lava);
                 wallsToDestroy.AddRange(nearestWalls);
-
             }
-
-            //while (wallsToDestroy.Any())
-            //{
-            //    if (_drawStepByStep != null)      
-            //    {
-            //        _drawStepByStep.Invoke(_maze);
-            //        Thread.Sleep(100);
-            //    }
-
-
-
-                //wallsToDestroy = wallsToDestroy
-                //    .Where(wall => GetNears<Ground>(wall).Count() < 2)
-                //    .ToList();
-            //}
-
+            
         }
 
         private void BuildGround()

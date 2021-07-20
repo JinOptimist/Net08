@@ -11,7 +11,7 @@ namespace MazeConsole
 
             var drawer = new MazeDrawer();
 
-            var maze = builder.Build(20, 10/*, drawer.Draw*/);
+            var maze = builder.Build(20, 10, drawer.Draw);
 
             drawer.Draw(maze);
 
