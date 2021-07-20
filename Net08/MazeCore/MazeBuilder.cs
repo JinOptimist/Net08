@@ -13,7 +13,9 @@ namespace MazeCore
         private Random _random = new Random();
         private Action<IMaze> _drawStepByStep;
 
-        public IMaze Build(int width = 10, int height = 5, Action<IMaze> drawStepByStep = null)
+        public IMaze Build(int width = 10, 
+            int height = 5, 
+            Action<IMaze> drawStepByStep = null)
         {
             _drawStepByStep = drawStepByStep;
             _maze = new Maze()
@@ -27,42 +29,20 @@ namespace MazeCore
 
             BuildGround();
 
-            BuildWithRandomPortal();
-
-            BuildWithGoldHeap();
+            BuildItemCell();
 
             return _maze;
-        }
-                
-        private void BuildWithRandomPortal(int countOfPortals = 3)
-        {
-            var listOfGrounds = _maze.Cells.OfType<Ground>().ToList();
-
-            for (int i = 0; i < countOfPortals; i++)
-            {
-                var groundToDestroy = GetRandom(listOfGrounds);
-                var randomPortal = new RandomPortal(groundToDestroy.X, groundToDestroy.Y, _maze);
-                _maze.ReplaceCell(randomPortal);
-            }
-        }
-
-        private void BuildWithGoldHeap(int countOfGoldHeap = 3)
-        {
-            var listOfGoldHeap = _maze.Cells.OfType<Ground>().ToList();
-
-            for (int i = 0; i < countOfGoldHeap; i++)
-            {
-                var groundToDestroy = GetRandom(listOfGoldHeap);
-                var goldHeap = new GoldHeap(groundToDestroy.X, groundToDestroy.Y, _maze, 100);
-                _maze.ReplaceCell(goldHeap);
-            }
         }
 
         private void BuildGround()
         {
+            var randomCell = GetRandom(_maze.Cells);
             var wallsToDestroy = new List<BaseCell>() {
-                GetRandom(_maze.Cells)
+                randomCell
             };
+
+            _maze.Hero.X = randomCell.X;
+            _maze.Hero.Y = randomCell.Y; 
 
             while (wallsToDestroy.Any())
             {

@@ -1,4 +1,6 @@
-﻿namespace MazeCore
+﻿using System.Collections.Generic;
+
+namespace MazeCore
 {
     public interface IHero
     {
@@ -8,5 +10,7 @@
         int Y { get; set; }
         int HP { get; set; }
         int Stamina { get; set; }
+
+        List<string> Inventory { get; set; }
     }
 }
