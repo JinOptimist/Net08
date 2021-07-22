@@ -1,0 +1,19 @@
+﻿@model List<CatViewModel> 
+
+<div class="gallery">
+    @foreach (var cat in Model)
+    {
+        <div class="cat-girl">
+            <div class="name">
+                @cat.Name
+            </div>
+            <div class="image">
+                <img src="@cat.Url" />
+            </div>
+            <div class="buttons">
+                <a class="button">+</a>
+                <a href="/Cat/Remove?name=@cat.Name" class="button">-</a>
+            </div>
+        </div>
+    }
+</div>

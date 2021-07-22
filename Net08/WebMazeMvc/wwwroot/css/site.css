@@ -4,20 +4,21 @@
     text-align: center;
     height: 60px;
 }
+
     .header img {
         max-width: 40px;
         max-height: 40px;
     }
 
-    .center-block {
-        display: flex;
-    }
+.center-block {
+    display: flex;
+}
 
-.menu{
+.menu {
     width: 100px;
 }
 
-.content{
+.content {
     flex: 1;
     border: 1px red solid;
 }
@@ -26,9 +27,24 @@
     background: red;
 }
 
-
-
-img{
+img {
     max-width: 100px;
     max-height: 100px;
+}
+
+
+.gallery {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.buttons {
+    display: flex;
+}
+
+.button {
+    flex: 1;
+    text-align: center;
+    border: 1px red solid;
+    margin: 5px;
 }

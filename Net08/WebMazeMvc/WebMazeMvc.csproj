@@ -8,4 +8,8 @@
     <Folder Include="wwwroot\image\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\MazeCore\MazeCore.csproj" />
+  </ItemGroup>
+
 </Project>
