@@ -53,3 +53,15 @@ img {
 .input-validation-error {
     border: 1px red solid;
 }
+
+.field-box {
+    display: flex;
+}
+
+.filed-name {
+    width: 200px;
+}
+
+.field-value {
+    flex: 1;
+}

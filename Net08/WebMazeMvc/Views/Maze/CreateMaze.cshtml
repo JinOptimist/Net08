@@ -1,21 +1,33 @@
 ﻿@model MazeViewModel
 
 <div>
-    <form action="/Maze/CreateMaze" method="post">
-        <div>
-            Title:
-            @Html.TextBoxFor(x => x.Title)
-            @Html.ValidationMessageFor(x => x.Title)
+    <form action="/Maze/Draw" method="post">
+        <div class="field-box">
+            <div class="filed-name">
+                @Html.DisplayNameFor(x => x.Title):
+            </div>
+            <div class="field-value">
+                @Html.TextBoxFor(x => x.Title)
+                @Html.ValidationMessageFor(x => x.Title)
+            </div>
         </div>
-        <div>
-            Width:
-            @Html.TextBoxFor(x => x.Width)
-            @Html.ValidationMessageFor(x => x.Width)
+        <div class="field-box">
+            <div class="filed-name">
+                @Html.DisplayNameFor(x => x.Width):
+            </div>
+            <div class="field-value">
+                @Html.TextBoxFor(x => x.Width)
+                @Html.ValidationMessageFor(x => x.Width)
+            </div>
         </div>
-        <div>
-            Height:
-            @Html.TextBoxFor(x => x.Height)
-            @Html.ValidationMessageFor(x => x.Height)
+        <div class="field-box">
+            <div class="filed-name">
+                @Html.DisplayNameFor(x => x.Height):
+            </div>
+            <div class="field-value">
+                @Html.TextBoxFor(x => x.Height)
+                @Html.ValidationMessageFor(x => x.Height)
+            </div>
         </div>
         <div>
             <input type="submit" value="Отправить" />
