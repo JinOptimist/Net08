@@ -36,14 +36,6 @@ namespace MazeCore
             return _maze;
         }
 
-        private void BuildItemCell()
-        {
-            var grounds = _maze.Cells.OfType<Ground>().ToList();
-            var rand = GetRandom(grounds);
-            var bucket = new CellWithItem(rand.X, rand.Y, rand.Maze, ItemsConst.EmptyBucket);
-            _maze.ReplaceCell(bucket);
-        }
-
         private void BuildGround()
         {
             var randomCell = GetRandom(_maze.Cells);
