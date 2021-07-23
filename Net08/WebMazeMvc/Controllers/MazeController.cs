@@ -24,13 +24,13 @@ namespace WebMazeMvc.Controllers
                 return View(mazeViewModel);
             }
 
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Draw", "Maze",new { height = mazeViewModel.Height, width = mazeViewModel .Width});
         }
 
-        public IActionResult Draw()
+        public IActionResult Draw(int height, int width)
         {
             var mazeBuilder = new MazeBuilder();
-            var maze = mazeBuilder.Build(20, 20);
+            var maze = mazeBuilder.Build(height, width);
 
             var mazeViewModel = new MazeDrawViewModel()
             {

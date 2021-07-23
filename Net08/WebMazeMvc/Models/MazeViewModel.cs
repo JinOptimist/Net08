@@ -13,9 +13,11 @@ namespace WebMazeMvc.Models
         public string Title { get; set; }
 
         [Min(4)]
+        [Max(100)]
         public int Width { get; set; }
 
         [Min(3)]
+        [Max(100)]
         public int Height { get; set; }
     }
 }

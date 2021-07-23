@@ -13,8 +13,8 @@ namespace MazeCore
         private Random _random = new Random();
         private Action<IMaze> _drawStepByStep;
 
-        public IMaze Build(int width = 10, 
-            int height = 5, 
+        public IMaze Build(int width = 10,
+            int height = 5,
             Action<IMaze> drawStepByStep = null)
         {
             _drawStepByStep = drawStepByStep;
@@ -52,7 +52,7 @@ namespace MazeCore
             };
 
             _maze.Hero.X = randomCell.X;
-            _maze.Hero.Y = randomCell.Y; 
+            _maze.Hero.Y = randomCell.Y;
 
             while (wallsToDestroy.Any())
             {
@@ -78,6 +78,7 @@ namespace MazeCore
         }
         private void BuildGroundMyVersion()
         {
+
             var wallsToDestroy = new List<BaseCell>() {
                 _maze.Cells[0]
             };
@@ -135,6 +136,16 @@ namespace MazeCore
                 }
             }
         }
+        private BaseCell BuildCellWithProbability(BaseCell maincell, BaseCell secondaryСell, double Probability)
+        {
+            var probability = _random.NextDouble();
+            if (Probability > probability)
+            {
+
+            }
+            return maincell;
+        }
+
         private void BuildGoldHeap(int gold)
         {
             var deadlock = _maze.Cells.Where(ground => GetNears<Wall>(ground).Count() >= 3).ToList();
@@ -144,11 +155,8 @@ namespace MazeCore
                 var oldwall = _maze.ReplaceCell(ground);
             }
         }
-        
-    
 
-
-    private void BuildWall()
+        private void BuildWall()
         {
             for (int y = 0; y < _maze.Height; y++)
             {
@@ -192,6 +200,6 @@ namespace MazeCore
             var index = _random.Next(cells.Count);
             return cells[index];
         }
-       
+
     }
 }
