@@ -48,3 +48,8 @@ img {
     border: 1px red solid;
     margin: 5px;
 }
+
+
+.input-validation-error {
+    border: 1px red solid;
+}
