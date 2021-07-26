@@ -20,3 +20,7 @@
     .cell.CellWithItem {
         background-image: url('/image/maze/loot.png');
     }
+
+    .cell.Guard {
+        background-image: url('/image/maze/guard.png');
+    }

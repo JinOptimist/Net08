@@ -33,7 +33,24 @@ namespace MazeCore
 
             BuildItemCell();
 
+            BuildGuards(1, 5, 3, 8);
+
             return _maze;
+        }
+
+        private void BuildGuards(int minCount, int maxCount, int maxDamage, int maxHealth)
+        {
+            var grounds = _maze.Cells
+                .OfType<Ground>()
+                .Where(ground => GetNears<Ground>(ground).Count() >= 3)
+                .Take(minCount + _random.Next(maxCount - minCount))
+                .ToList();
+
+            foreach (var cell in grounds)
+            {
+                var guard = new Guard(cell.X, cell.Y, _maze, _random.Next(maxDamage), _random.Next(maxHealth));
+                _maze.ReplaceCell(guard);
+            }
         }
 
         private void BuildItemCell()
@@ -145,10 +162,7 @@ namespace MazeCore
             }
         }
         
-    
-
-
-    private void BuildWall()
+        private void BuildWall()
         {
             for (int y = 0; y < _maze.Height; y++)
             {
@@ -164,7 +178,6 @@ namespace MazeCore
         {
             return GetNears<BaseCell>(cell);
         }
-
         private IEnumerable<BaseCell> GetNears<CellType>(BaseCell cell)
             where CellType : BaseCell
         {

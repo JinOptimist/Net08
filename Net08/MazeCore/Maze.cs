@@ -93,6 +93,11 @@ namespace MazeCore
                 Hero.X = destinationX;
                 Hero.Y = destinationY;
             }
+
+            foreach(var item in Cells)
+            {
+                item.FinishStepHero();
+            }
         }
     }
 }
