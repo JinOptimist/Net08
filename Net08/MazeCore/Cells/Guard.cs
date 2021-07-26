@@ -54,6 +54,9 @@ namespace MazeCore.Cells
                 .OfType<Ground>()
                 .ToList();
 
+            _lastX = X;
+            _lastY = Y;
+
             if (items.Count > 0)
             {
                 var moveCell = items[0];
@@ -61,12 +64,10 @@ namespace MazeCore.Cells
                 var ground = new Ground(X, Y, Maze);
                 Maze.ReplaceCell(ground);
 
-                var guard = new Guard(this, moveCell.X, moveCell.Y);
-                Maze.ReplaceCell(guard);
+                X = moveCell.X;
+                Y = moveCell.Y;
+                Maze.ReplaceCell(this);
             }
-
-            _lastX = X;
-            _lastY = Y;
         }
     }
 }
