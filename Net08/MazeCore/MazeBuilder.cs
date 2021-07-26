@@ -33,6 +33,8 @@ namespace MazeCore
 
             BuildItemCell();
 
+            BuildLava(33);
+
             return _maze;
         }
 
@@ -144,11 +146,49 @@ namespace MazeCore
                 var oldwall = _maze.ReplaceCell(ground);
             }
         }
-        
-    
+
+        private void BuildLava(int a)
+        {
+
+            var wallsToDestroy = new List<BaseCell>()
+            {
+                GetRandom(_maze.Cells)
+            };
+
+            var procentLavi = a;
+            var wallsToDestroyLava = _maze.Cells.OfType<Wall>().ToList();
+
+            if (procentLavi > 100)
+            {
+                procentLavi = 100;
+            }
+            else if (procentLavi < 0)
+            {
+                procentLavi = 0;
+            }
 
 
-    private void BuildWall()
+            for (int indexndex = 0; indexndex < wallsToDestroyLava.Count * procentLavi / 100; indexndex++)
+            {
+
+                if (_drawStepByStep != null)
+                {
+                    _drawStepByStep.Invoke(_maze);
+                    Thread.Sleep(100);
+                }
+
+                var wallToDestroy = GetRandom(_maze.Cells.OfType<Wall>().ToList());
+                var lava = new Lava(wallToDestroy.X, wallToDestroy.Y, _maze);
+                var oldWall = _maze.ReplaceCell(lava);
+                wallsToDestroy.Remove(oldWall);    
+
+                var nearestWalls = GetNears<Wall>(lava);
+                wallsToDestroy.AddRange(nearestWalls);
+            }
+
+        }
+
+        private void BuildWall()
         {
             for (int y = 0; y < _maze.Height; y++)
             {
