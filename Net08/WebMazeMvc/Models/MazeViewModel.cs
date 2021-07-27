@@ -11,15 +11,15 @@ namespace WebMazeMvc.Models
     public class MazeViewModel
     {
         [Required]
-        [DisplayName("Название лабиринта")]
+        [DisplayName("Название")]
         public string Title { get; set; }
 
         [Min(4)]
-        [DisplayName("Ширина лабиринта")]
+        [DisplayName("Ширина")]
         public int Width { get; set; }
 
         [Min(3)]
-        [DisplayName("Высота лабиринта")]
+        [DisplayName("Высота")]
         public int Height { get; set; }
     }
 }
