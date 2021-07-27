@@ -17,22 +17,17 @@ namespace WebMazeMvc.Controllers
         }
 
         [HttpPost]
-        public IActionResult CreateMaze(MazeViewModel mazeViewModel)
+        public IActionResult Draw(MazeViewModel mazeViewModel)
         {
             if (!ModelState.IsValid)
             {
-                return View(mazeViewModel);
+                return View("CreateMaze", mazeViewModel);
             }
 
-            return RedirectToAction("Index", "Home");
-        }
-
-        public IActionResult Draw()
-        {
             var mazeBuilder = new MazeBuilder();
-            var maze = mazeBuilder.Build(20, 20);
+            var maze = mazeBuilder.Build(mazeViewModel.Width, mazeViewModel.Height);
 
-            var mazeViewModel = new MazeDrawViewModel()
+            var mazeDrawViewModel = new MazeDrawViewModel()
             {
                 Width = maze.Width,
                 Height = maze.Height,
@@ -43,12 +38,11 @@ namespace WebMazeMvc.Controllers
             {
                 for (int x = 0; x < maze.Width; x++)
                 {
-                    mazeViewModel.Cells[x, y] = maze[x, y].GetType().Name;
+                    mazeDrawViewModel.Cells[x, y] = maze[x, y].GetType().Name;
                 }
-
             }
 
-            return View(mazeViewModel);
+            return View(mazeDrawViewModel);
         }
     }
 }

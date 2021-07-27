@@ -1,0 +1,11 @@
+﻿@model List<UserForRemoveViewModel>
+
+ 
+<div>
+    @foreach (var user in Model)
+    {
+        <div>
+            @user.Login <a href="/User/Remove?id=@user.Id">Удалить</a>
+        </div>
+    }
+</div>
