@@ -10,7 +10,7 @@ using WebMazeMvc.Models;
 
 namespace WebMazeMvc.Controllers
 {
-    public class NewsController: Controller
+    public class NewsController : Controller
     {
         private NewsRepository _newsRepository;
 
@@ -18,17 +18,17 @@ namespace WebMazeMvc.Controllers
         {
             _newsRepository = newsRepository;
         }
-
+        
         [HttpGet]
         public IActionResult All()
         {
-            var allUsers = _newsRepository.GetAll();
+            var allNews = _newsRepository.GetAll();
 
-            var viewModels = allUsers
+            var viewModels = allNews
                 .Select(x => new AddNewsViewModel()
                 {
-                     Title= x.Title,
-                     Source= x.Source
+                    Title = x.Title,
+                    Source = x.Source
                 }).ToList();
             return View(viewModels);
         }
@@ -39,7 +39,7 @@ namespace WebMazeMvc.Controllers
             return View();
         }
 
-            [HttpPost]
+        [HttpPost]
         public IActionResult Add(AddNewsViewModel viewModel)
         {
             var news = new News()
@@ -53,6 +53,13 @@ namespace WebMazeMvc.Controllers
             return RedirectToAction("All", "News");
         }
 
+        [HttpGet]
+        public IActionResult Remove()
+        {
+            return View();
+        }
+
+        [HttpPost]
         public IActionResult Remove(AddNewsViewModel addNewsViewModel)
         {
 
