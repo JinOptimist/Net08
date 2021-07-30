@@ -23,6 +23,7 @@ namespace MazeCore
         public int Y { get; set; }
 
         public IMaze Maze { get; set; }
+        public int Damage { get; set; }
         public int Gold { get; set; }
         public int HP { get; set; }
         public int Stamina { get; set; }
