@@ -13,7 +13,7 @@ namespace WebMazeMvc.Controllers
         {
             _mazeDbContext = mazeDbContext;
         }
-
+        
         public IActionResult Index()
         {
             var allUsers = _mazeDbContext.Users.ToList();

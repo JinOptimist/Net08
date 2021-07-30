@@ -65,3 +65,17 @@ img {
 .field-value {
     flex: 1;
 }
+.Menu_Action_Genre p{
+    width: 150px;
+    border: solid;
+    display:flex;
+}
+.Remove_Box_Genre {
+    display: flex;
+}
+.Remove_Name_Genre {
+    width: 200px;
+}
+.link_Remove_Genre{
+    flex:1;
+}

@@ -27,6 +27,7 @@ namespace WebMazeMvc.Controllers
         [HttpPost]
         public IActionResult Registration(RegistrationViewModel viewModel)
         {
+            
             var user = new User()
             {
                 Login = viewModel.Login,
