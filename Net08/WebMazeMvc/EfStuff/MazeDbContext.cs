@@ -13,6 +13,7 @@ namespace WebMazeMvc.EfStuff
 
         public DbSet<News> News { get; set; }
 
+        public DbSet<Game> Games { get; set; }
         public MazeDbContext (DbContextOptions options) : base(options)
         {
         }
