@@ -12,10 +12,5 @@ namespace WebMazeMvc.EfStuff.Repositories
             : base(dbContext)
         {
         }
-
-        public List<News> GetWeek()
-        {
-            return _dbSet.Where(x => x.Source.Contains("week")).ToList();
-        }
     }
 }

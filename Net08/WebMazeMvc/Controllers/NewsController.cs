@@ -13,12 +13,15 @@ namespace WebMazeMvc.Controllers
     public class NewsController : Controller
     {
         private NewsRepository _newsRepository;
+        private UserRepository _userRepository;
 
-        public NewsController(NewsRepository newsRepository)
+        public NewsController(NewsRepository newsRepository, 
+            UserRepository userRepository)
         {
             _newsRepository = newsRepository;
+            _userRepository = userRepository;
         }
-        
+
         [HttpGet]
         public IActionResult All()
         {
@@ -42,10 +45,13 @@ namespace WebMazeMvc.Controllers
         [HttpPost]
         public IActionResult Add(AddNewsViewModel viewModel)
         {
+            var user = _userRepository.Get(viewModel.CreaterId);
+
             var news = new News()
             {
                 Title = viewModel.Title,
-                Source = viewModel.Source
+                Source = viewModel.Source,
+                Creaater = user
             };
 
             _newsRepository.Save(news);
@@ -64,6 +70,15 @@ namespace WebMazeMvc.Controllers
         {
 
             var news = _newsRepository.Get(addNewsViewModel.Id);
+
+            _newsRepository.Remove(news);
+
+            return RedirectToAction("All", "News");
+        }
+
+        public IActionResult EasyRemove(long id)
+        {
+            var news = _newsRepository.Get(id);
 
             _newsRepository.Remove(news);
 

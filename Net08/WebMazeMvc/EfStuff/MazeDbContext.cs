@@ -10,12 +10,26 @@ namespace WebMazeMvc.EfStuff
     public class MazeDbContext : DbContext
     {
         public DbSet<User> Users { get; set; }
-
         public DbSet<Genre> Genres { get; set; }
         public DbSet<News> News { get; set; }
 
-        public MazeDbContext (DbContextOptions options) : base(options)
+        public MazeDbContext(DbContextOptions options) : base(options)
         {
+        }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<User>()
+                .HasMany(x => x.NewsCreatedByMe)
+                .WithOne(x => x.Creaater);
+
+            base.OnModelCreating(modelBuilder);
+        }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseLazyLoadingProxies();
+            base.OnConfiguring(optionsBuilder);
         }
     }
 }

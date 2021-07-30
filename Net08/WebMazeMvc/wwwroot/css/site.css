@@ -79,3 +79,8 @@ img {
 .link-Remove-Genre{
     flex:1;
 }
+
+.news{
+    padding-left: 20px;
+    border-left: 1px red solid;
+}

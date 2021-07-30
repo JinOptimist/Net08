@@ -28,7 +28,7 @@ namespace WebMazeMvc.Controllers
         [HttpPost]
         public IActionResult Registration(RegistrationViewModel viewModel)
         {
-            
+
             var user = new User()
             {
                 Login = viewModel.Login,
@@ -45,10 +45,16 @@ namespace WebMazeMvc.Controllers
             var allUsers = _userRepository.GetAll();
 
             var viewModels = allUsers
-                .Select(x => new UserForRemoveViewModel()
+                .Select(dbUser => new UserForRemoveViewModel()
                 {
-                    Id = x.Id,
-                    Login = x.Login
+                    Id = dbUser.Id,
+                    Login = dbUser.Login,
+                    MyNews = dbUser.NewsCreatedByMe
+                        .Select(x => new ShortNewsViewModel
+                        {
+                            Id = x.Id,
+                            Title = x.Title
+                        }).ToList()
                 }).ToList();
 
             return View(viewModels);

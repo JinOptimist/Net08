@@ -10,5 +10,7 @@ namespace WebMazeMvc.EfStuff.Model
         public string Title { get; set; }
 
         public string Source { get; set; }
+
+        public virtual User Creaater { get; set; }
     }
 }
