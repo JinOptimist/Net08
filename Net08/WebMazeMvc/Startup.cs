@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using WebMazeMvc.EfStuff;
+using WebMazeMvc.EfStuff.Repositories;
 
 namespace WebMazeMvc
 {
@@ -27,6 +28,14 @@ namespace WebMazeMvc
         {
             var connectString = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=Maze08;Integrated Security=True;";
             services.AddDbContext<MazeDbContext>(x => x.UseSqlServer(connectString));
+
+            services.AddScoped<UserRepository>(container =>
+                new UserRepository(container.GetService<MazeDbContext>())
+                );
+
+            services.AddScoped<NewsRepository>(container =>
+                new NewsRepository(container.GetService<MazeDbContext>())
+                );
 
             services.AddControllersWithViews();
         }
