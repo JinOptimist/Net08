@@ -65,17 +65,17 @@ img {
 .field-value {
     flex: 1;
 }
-.Menu_Action_Genre p{
+.menu-Action-Genre p{
     width: 150px;
     border: solid;
     display:flex;
 }
-.Remove_Box_Genre {
+.remove-Box-Genre {
     display: flex;
 }
-.Remove_Name_Genre {
+.remove-Name-Genre {
     width: 200px;
 }
-.link_Remove_Genre{
+.link-Remove-Genre{
     flex:1;
 }
