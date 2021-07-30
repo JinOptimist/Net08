@@ -6,43 +6,11 @@ using WebMazeMvc.EfStuff.Model;
 
 namespace WebMazeMvc.EfStuff.Repositories
 {
-    public class UserRepository
+    public class UserRepository : BaseRepository<User>
     {
-        private MazeDbContext _mazeDbContext;
-
         public UserRepository(MazeDbContext dbContext)
+            : base(dbContext)
         {
-            _mazeDbContext = dbContext;
-        }
-
-        public User Get(long id)
-        {
-            return _mazeDbContext.Users.SingleOrDefault(x => x.Id == id);
-        }
-
-        public List<User> GetAll()
-        {
-            return _mazeDbContext.Users.ToList();
-        }
-
-        public void Save(User user)
-        {
-            if (user.Id > 0)
-            {
-                _mazeDbContext.Update(user);
-            }
-            else
-            {
-                _mazeDbContext.Users.Add(user);
-            }
-
-            _mazeDbContext.SaveChanges();
-        }
-
-        public void Remove(User user)
-        {
-            _mazeDbContext.Users.Remove(user);
-            _mazeDbContext.SaveChanges();
         }
     }
 }

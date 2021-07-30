@@ -5,23 +5,24 @@ using System.Linq;
 using System.Threading.Tasks;
 using WebMazeMvc.EfStuff;
 using WebMazeMvc.EfStuff.Model;
+using WebMazeMvc.EfStuff.Repositories;
 using WebMazeMvc.Models;
 
 namespace WebMazeMvc.Controllers
 {
     public class NewsController: Controller
     {
-        private MazeDbContext _mazeDbContext;
+        private NewsRepository _newsRepository;
 
-        public NewsController(MazeDbContext mazeDbContext)
+        public NewsController(NewsRepository newsRepository)
         {
-            _mazeDbContext = mazeDbContext;
+            _newsRepository = newsRepository;
         }
 
         [HttpGet]
-        public IActionResult AllNews()
+        public IActionResult All()
         {
-            var allUsers = _mazeDbContext.News.ToList();
+            var allUsers = _newsRepository.GetAll();
 
             var viewModels = allUsers
                 .Select(x => new AddNewsViewModel()
@@ -32,8 +33,14 @@ namespace WebMazeMvc.Controllers
             return View(viewModels);
         }
 
-        [HttpPost]
-        public IActionResult AddNews(AddNewsViewModel viewModel)
+        [HttpGet]
+        public IActionResult Add()
+        {
+            return View();
+        }
+
+            [HttpPost]
+        public IActionResult Add(AddNewsViewModel viewModel)
         {
             var news = new News()
             {
@@ -41,9 +48,7 @@ namespace WebMazeMvc.Controllers
                 Source = viewModel.Source
             };
 
-            _mazeDbContext.News.Add(news);
-
-            _mazeDbContext.SaveChanges();
+            _newsRepository.Save(news);
 
             return RedirectToAction("All", "News");
         }
@@ -51,12 +56,9 @@ namespace WebMazeMvc.Controllers
         public IActionResult Remove(AddNewsViewModel addNewsViewModel)
         {
 
-            var news = _mazeDbContext
-                .News
-                .Single(x => x.Id == addNewsViewModel.Id);
+            var news = _newsRepository.Get(addNewsViewModel.Id);
 
-            _mazeDbContext.News.Remove(news);
-            _mazeDbContext.SaveChanges();
+            _newsRepository.Remove(news);
 
             return RedirectToAction("All", "News");
         }

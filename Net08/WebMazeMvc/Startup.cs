@@ -33,6 +33,10 @@ namespace WebMazeMvc
                 new UserRepository(container.GetService<MazeDbContext>())
                 );
 
+            services.AddScoped<NewsRepository>(container =>
+                new NewsRepository(container.GetService<MazeDbContext>())
+                );
+
             services.AddControllersWithViews();
         }
 
