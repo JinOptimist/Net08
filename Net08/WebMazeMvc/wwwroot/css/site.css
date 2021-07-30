@@ -75,7 +75,7 @@ img {
     text-align: center;
     border: 2px blue solid;
     margin: 4px;
-    align-items: flex-end;
+    flex-direction: column;
 }
 
 .namegame {
@@ -91,8 +91,6 @@ img {
     .oneGame img {
         max-width: 50px;
         max-height: 50px;
-        justify-content: center;
-        align-items: center;
     }
 
 .linkgame {
