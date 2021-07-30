@@ -8,17 +8,20 @@ using WebMazeMvc.Models;
 using WebMazeMvc.EfStuff.Model;
 using System.Globalization;
 using Microsoft.AspNetCore.Http;
+using WebMazeMvc.EfStuff.Repositories;
 
 namespace WebMazeMvc.Controllers
 {
     public class GenreController : Controller
     {
-        private MazeDbContext _mazeDbContext;
 
-        public GenreController(MazeDbContext mazeDbContext)
+        private GenreRepository _genreRepository;
+
+        public GenreController(GenreRepository genreRepository)
         {
-            _mazeDbContext = mazeDbContext;
+            _genreRepository = genreRepository;
         }
+
         [HttpGet]
         public IActionResult AddGenre()
         {
@@ -33,18 +36,17 @@ namespace WebMazeMvc.Controllers
                 GenreGame = genre.NameGenre
             };
 
-            _mazeDbContext.Genres.Add(newgenre);
-            _mazeDbContext.SaveChanges();
+            _genreRepository.Save(newgenre);
             return RedirectToAction("GenreAction");
         }
         public IActionResult RemoveGenre()
         {
-            var allGenre = _mazeDbContext.Genres.ToList();
+            var allGenre = _genreRepository.GetAll();
 
             var viewModels = allGenre
                .Select(x => new GenreViewModel()
                {
-                   Id= x.Id,
+                   Id = x.Id,
                    NameGenre = x.GenreGame
                }).ToList();
 
@@ -53,14 +55,13 @@ namespace WebMazeMvc.Controllers
        
         public IActionResult DeleteGenre(int id)
         {
-            var genreToRemove = _mazeDbContext.Genres.SingleOrDefault(x => x.Id == id);
+            var genreToRemove = _genreRepository.Get(id);
             if (genreToRemove == null)
             {
                 return View();
             }
 
-            _mazeDbContext.Genres.Remove(genreToRemove);
-            _mazeDbContext.SaveChanges();
+            _genreRepository.Remove(genreToRemove);
             return RedirectToAction("GenreAction");
         }
         public IActionResult GenreAction()
@@ -69,7 +70,7 @@ namespace WebMazeMvc.Controllers
         }
         public IActionResult All()
         {
-            var allGenre = _mazeDbContext.Genres.ToList();
+            var allGenre = _genreRepository.GetAll();
 
             var viewModels = allGenre
                .Select(x => new GenreViewModel()

@@ -5,9 +5,8 @@ using System.Threading.Tasks;
 
 namespace WebMazeMvc.EfStuff.Model
 {
-    public class Genre
+    public class Genre: BaseModel
     {
-        public long Id { get; set; }
 
         public string GenreGame{ get; set; }
     }
