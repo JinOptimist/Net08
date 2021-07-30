@@ -14,7 +14,7 @@ namespace WebMazeMvc.Controllers
         {
             _userRepository = userRepository;
         }
-
+        
         public IActionResult Index()
         {
             var allUsers = _userRepository.GetAll();
