@@ -7,7 +7,6 @@ namespace WebMazeMvc.EfStuff.Model
 {
     public class Genre: BaseModel
     {
-
         public string GenreGame{ get; set; }
     }
 }

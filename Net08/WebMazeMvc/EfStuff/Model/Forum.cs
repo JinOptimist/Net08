@@ -5,11 +5,11 @@ using System.Threading.Tasks;
 
 namespace WebMazeMvc.EfStuff.Model
 {
-    public class News : BaseModel
+    public class Forum : BaseModel
     {
-        public string Title { get; set; }
+        public string Topic { get; set; }
 
-        public string Source { get; set; }
+        public DateTime DateCreated { get; set; }
 
         public virtual User Creater { get; set; }
 

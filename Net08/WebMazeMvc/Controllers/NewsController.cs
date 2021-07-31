@@ -51,7 +51,7 @@ namespace WebMazeMvc.Controllers
             {
                 Title = viewModel.Title,
                 Source = viewModel.Source,
-                Creaater = user
+                Creater = user
             };
 
             _newsRepository.Save(news);
