@@ -1,0 +1,22 @@
+﻿@model List<GameViewModel>
+
+<div class="allgames">
+    @foreach (var game in Model)
+    {
+        <div class="oneGame">
+
+            <div class="namegame">
+                @game.NameGame
+            </div>
+
+            <div class="png">
+                <img src="@game.Url" />
+            </div>
+
+            <a href=@game.Link class="linkgame">
+                ссылка на игру
+            </a>
+
+        </div>
+     }
+</div>

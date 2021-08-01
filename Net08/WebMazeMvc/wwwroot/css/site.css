@@ -84,3 +84,37 @@ img {
     padding-left: 20px;
     border-left: 1px red solid;
 }
+
+.allgames {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.oneGame {
+    text-align: center;
+    border: 2px blue solid;
+    margin: 4px;
+    flex-direction: column;
+}
+
+.namegame {
+    font-size: 20px;
+}
+
+.logogame {
+    width: 60px;
+    height: 60px;
+    text-align: center;
+}
+
+    .oneGame img {
+        max-width: 50px;
+        max-height: 50px;
+    }
+
+.linkgame {
+    font-size: 12px;
+}
+
+
+    
