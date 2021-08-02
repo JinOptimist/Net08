@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace WebMazeMvc.EfStuff.Model
+namespace WebMazeMvc.Models
 {
-    public class Genre : BaseModel
+    public class GenreSelected
     {
+        public long Id { get; set; }
+        public bool IsSelected { get; set; }
         public string GenreName { get; set; }
-        public virtual List<Game> Games { get; set; }
     }
 }

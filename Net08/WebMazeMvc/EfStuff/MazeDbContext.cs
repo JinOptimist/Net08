@@ -12,6 +12,7 @@ namespace WebMazeMvc.EfStuff
         public DbSet<User> Users { get; set; }
         public DbSet<Genre> Genres { get; set; }
         public DbSet<News> News { get; set; }
+        public DbSet<Game> Games { get; set; }
 
         public MazeDbContext(DbContextOptions options) : base(options)
         {
@@ -23,12 +24,14 @@ namespace WebMazeMvc.EfStuff
                 .HasMany(x => x.NewsCreatedByMe)
                 .WithOne(x => x.Creaater);
 
+            modelBuilder.Entity<Genre>()
+                .HasMany(x => x.Games)
+                .WithMany(x => x.Genres);
+
             base.OnModelCreating(modelBuilder);
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        public DbSet<Game> Games { get; set; }
-        public MazeDbContext (DbContextOptions options) : base(options)
         {
             optionsBuilder.UseLazyLoadingProxies();
             base.OnConfiguring(optionsBuilder);

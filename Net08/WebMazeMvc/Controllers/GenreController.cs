@@ -25,6 +25,7 @@ namespace WebMazeMvc.Controllers
         [HttpGet]
         public IActionResult AddGenre()
         {
+
             return View();
         }
         [HttpPost]
@@ -33,7 +34,7 @@ namespace WebMazeMvc.Controllers
             
             var newgenre = new Genre
             {
-                GenreGame = genre.NameGenre
+                GenreName = genre.NameGenre
             };
 
             _genreRepository.Save(newgenre);
@@ -47,7 +48,7 @@ namespace WebMazeMvc.Controllers
                .Select(x => new GenreViewModel()
                {
                    Id = x.Id,
-                   NameGenre = x.GenreGame
+                   NameGenre = x.GenreName
                }).ToList();
 
             return View(viewModels);
@@ -75,7 +76,7 @@ namespace WebMazeMvc.Controllers
             var viewModels = allGenre
                .Select(x => new GenreViewModel()
                {
-                  NameGenre =  x.GenreGame
+                  NameGenre =  x.GenreName
                }).ToList();
 
             return View(viewModels);

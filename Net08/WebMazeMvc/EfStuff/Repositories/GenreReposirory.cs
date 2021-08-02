@@ -11,8 +11,6 @@ namespace WebMazeMvc.EfStuff.Repositories
         public GenreRepository(MazeDbContext dbContext) 
             : base(dbContext)
         {
-
         }
-
     }
 }
