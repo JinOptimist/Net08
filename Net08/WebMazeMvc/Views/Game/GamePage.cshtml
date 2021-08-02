@@ -1,0 +1,40 @@
+﻿@model GameViewModel
+
+<div class="soloGame">
+
+
+    <div class="gamehat">
+
+
+            <img src="@Model.Url" />
+
+        <div class="gameText">
+
+            <div class="sologamename">
+                @Model.GameName
+            </div>
+
+            <div class="gameDescription">
+                <div class="allGamenameGenres">
+                    @for (int i = 0; i < 5; i++)
+                    {
+
+                        <a href=@Model.Link class=".gameLinkGenres">
+                            #ссылка_на_жанр
+                        </a>
+
+                    }
+                </div>
+
+                <div class="gameDeletion">
+
+                    <a href="/Game/Remove?Id=@Model.Id">
+                        Удалить
+                    </a>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

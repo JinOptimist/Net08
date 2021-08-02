@@ -7,7 +7,7 @@ namespace WebMazeMvc.Models
 {
     public class GameViewModel
     {
-
+        public long Id { get; set; }
         public string GameName { get; set; }
 
         public string Link { get; set; }

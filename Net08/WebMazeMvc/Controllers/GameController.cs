@@ -25,6 +25,7 @@ namespace WebMazeMvc.Controllers
 
             var viewModels = allgame.Select(x => new GameViewModel()
             {
+                Id = x.Id,
                 GameName = x.GameName,
                 Link = x.Link,
                 Url = x.Url
@@ -60,7 +61,23 @@ namespace WebMazeMvc.Controllers
 
             _gamesRepository.Remove(game);
 
-            return RedirectToAction("All");
+            return RedirectToAction("AllGames");
+        }
+
+
+        public IActionResult GamePage(long id)
+        {
+            var game = _gamesRepository.Get(id);
+
+            var viewModels = new GameViewModel
+            {
+                Id = game.Id,
+                GameName = game.GameName,
+                Url = game.Url,
+                Link = game.Link
+            };
+
+            return View(viewModels);
         }
     }
 }

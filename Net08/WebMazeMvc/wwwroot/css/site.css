@@ -88,11 +88,51 @@ img {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color : black;
+    background-color: black;
 }
 
     .gamepole img {
-        max-width: 56px;
-        max-height: 56px;
+        max-width: 100px;
+        max-height: 54px;
     }
+
+.gamehat {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+    .gamehat img {
+        max-width: 200px;
+        max-height: 400px;
+    }
+
+    .gameText {
+        flex-wrap: wrap;
+        flex: 1;
+    }
+
+.sologamename {
+    max-width: 500px;
+    display: flex;
+    justify-content: center;
+}
+
+.allGamenameGenres {
+    font-size: 12px;
+    max-width: 200px;
+    flex-wrap: wrap;
+    margin-left: 10px;
+}
+
+.gameLinkGenres {
+    text-indent: 20px;
+}
+
+.gameDescription {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    margin-right: 40px;
+}
 
