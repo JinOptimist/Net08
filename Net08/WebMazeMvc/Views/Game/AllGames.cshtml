@@ -5,18 +5,22 @@
     {
         <div class="oneGame">
 
-            <div class="namegame">
-                @game.GameName
-            </div>
+            <a href=@game.Link>
+                <div  class="namegame">
+                    @game.GameName
+                </div>
+            </a>
 
-            <div class="png">
-                <img src="@game.Url" />
-            </div>
+            <a href=@game.Link>
+                <div class="gamepole">
+                    <img src="@game.Url" />
+                </div>
+            </a>
 
-            <a href=@game.Link class="linkgame">
-                ссылка на игру
+            <a href=@game.Link class="сылка на жанр">
+                ссылка на жанр
             </a>
 
         </div>
-     }
+    }
 </div>
