@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using WebMazeMvc.Models;
 
 namespace WebMazeMvc.EfStuff.Model
 {
@@ -14,5 +15,13 @@ namespace WebMazeMvc.EfStuff.Model
         public virtual User Creater { get; set; }
 
         public virtual List<Comment> Comments { get; set; }
+
+        public virtual long NewsId { get; set; }
+        public virtual News News { get; set; }
+
+        internal ForumViewModel Select(Func<object, ForumViewModel> p)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

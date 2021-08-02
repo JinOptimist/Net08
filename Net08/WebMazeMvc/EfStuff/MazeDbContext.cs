@@ -33,6 +33,15 @@ namespace WebMazeMvc.EfStuff
                 .HasMany(x => x.CommentsCreatedByMe)
                 .WithOne(x => x.Creater);
 
+            modelBuilder.Entity<News>()
+                .HasOne(x => x.Forum)
+                .WithOne(x => x.News)
+                .HasForeignKey<Forum>(x => x.NewsId);
+
+            modelBuilder.Entity<Comment>()
+                .HasOne(x => x.Forum)
+                .WithMany(x => x.Comments);
+
             base.OnModelCreating(modelBuilder);
         }
 

@@ -14,5 +14,9 @@ namespace WebMazeMvc.Models
         public string Source { get; set; }
 
         public long CreaterId { get; set; }
+
+        public ForumViewModel LnkedForum { get; set; }
+
+        public List<CommentViewModel> CommentsFromForum { get; set; }
     }
 }

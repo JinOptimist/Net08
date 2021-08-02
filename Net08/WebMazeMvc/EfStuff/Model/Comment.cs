@@ -12,5 +12,7 @@ namespace WebMazeMvc.EfStuff.Model
         public DateTime DateCreated { get; set; }
 
         public virtual User Creater { get; set; }
+
+        public virtual Forum Forum { get; set; }
     }
 }

@@ -31,7 +31,16 @@ namespace WebMazeMvc.Controllers
                 .Select(x => new AddNewsViewModel()
                 {
                     Title = x.Title,
-                    Source = x.Source
+                    Source = x.Source,
+                    LnkedForum = new ForumViewModel()
+                    {
+                        Topic = x.Forum.Topic
+                    },
+                    CommentsFromForum = x.Forum.Comments.Select(y => new CommentViewModel
+                    {
+                        Message = y.Message,
+                        Id = y.Id
+                    }).ToList()
                 }).ToList();
             return View(viewModels);
         }
