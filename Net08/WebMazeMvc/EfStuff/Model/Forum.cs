@@ -16,12 +16,7 @@ namespace WebMazeMvc.EfStuff.Model
 
         public virtual List<Comment> Comments { get; set; }
 
-        public virtual long NewsId { get; set; }
+        public long NewsId { get; set; }
         public virtual News News { get; set; }
-
-        internal ForumViewModel Select(Func<object, ForumViewModel> p)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

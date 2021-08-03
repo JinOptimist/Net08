@@ -32,7 +32,7 @@ namespace WebMazeMvc.Controllers
                 {
                     Title = x.Title,
                     Source = x.Source,
-                    LnkedForum = new ForumViewModel()
+                    Topic = new ForumViewModel()
                     {
                         Topic = x.Forum.Topic
                     },
