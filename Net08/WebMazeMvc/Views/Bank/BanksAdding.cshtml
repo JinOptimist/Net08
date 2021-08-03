@@ -1,0 +1,18 @@
+﻿@model BanksAddingViewModel 
+<form action="/Bank/BanksAdding" method="post">
+    <div>
+        <a href="/Bank/AllBanks">Вернуться к банкам</a>
+    </div>
+
+    <div>
+        @Html.TextBoxFor(x => x.Name)
+    </div>
+
+    <div>
+        @Html.TextBoxFor(x => x.Country)
+    </div>
+
+    <div>
+        <input type="submit" value="добавить банк" />
+    </div>
+</form>

@@ -119,6 +119,24 @@ namespace WebMazeMvc.Migrations
                     b.ToTable("News");
                 });
 
+            modelBuilder.Entity("WebMazeMvc.EfStuff.Model.Bank", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Country")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Banks");
+                });
+
             modelBuilder.Entity("WebMazeMvc.EfStuff.Model.User", b =>
                 {
                     b.Property<long>("Id")

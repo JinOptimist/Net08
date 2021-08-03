@@ -15,9 +15,12 @@ namespace WebMazeMvc.EfStuff
         public DbSet<Forum> Forums { get; set; }
         public DbSet<Comment> Comments { get; set; }
 
+        public DbSet<Bank> Banks { get; set; }
+
         public MazeDbContext(DbContextOptions options) : base(options)
         {
         }
+        
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
