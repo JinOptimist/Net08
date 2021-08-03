@@ -1,0 +1,17 @@
+﻿@model List<AddNewsViewModel>
+
+
+<div>
+    @foreach (var news in Model)
+    {
+        <div>
+            @news.Title
+        </div>
+        <div>
+            @news.Source
+        </div>
+        <div>
+         -----------------------------------------------------------  
+        </div>
+    }
+</div>

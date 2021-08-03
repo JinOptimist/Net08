@@ -5,17 +5,18 @@ using System.Linq;
 using System.Threading.Tasks;
 using WebMazeMvc.EfStuff;
 using WebMazeMvc.EfStuff.Model;
+using WebMazeMvc.EfStuff.Repositories;
 using WebMazeMvc.Models;
 
 namespace WebMazeMvc.Controllers
 {
     public class UserController : Controller
     {
-        private MazeDbContext _mazeDbContext;
+        private UserRepository _userRepository;
 
-        public UserController(MazeDbContext mazeDbContext)
+        public UserController(UserRepository userRepository)
         {
-            _mazeDbContext = mazeDbContext;
+            _userRepository = userRepository;
         }
 
         [HttpGet]
@@ -27,28 +28,33 @@ namespace WebMazeMvc.Controllers
         [HttpPost]
         public IActionResult Registration(RegistrationViewModel viewModel)
         {
+
             var user = new User()
             {
                 Login = viewModel.Login,
                 Password = viewModel.Password
             };
 
-            _mazeDbContext.Users.Add(user);
-
-            _mazeDbContext.SaveChanges();
+            _userRepository.Save(user);
 
             return RedirectToAction("Index", "Home");
         }
 
         public IActionResult All()
         {
-            var allUsers = _mazeDbContext.Users.ToList();
+            var allUsers = _userRepository.GetAll();
 
             var viewModels = allUsers
-                .Select(x => new UserForRemoveViewModel()
+                .Select(dbUser => new UserForRemoveViewModel()
                 {
-                    Id = x.Id,
-                    Login = x.Login
+                    Id = dbUser.Id,
+                    Login = dbUser.Login,
+                    MyNews = dbUser.NewsCreatedByMe
+                        .Select(x => new ShortNewsViewModel
+                        {
+                            Id = x.Id,
+                            Title = x.Title
+                        }).ToList()
                 }).ToList();
 
             return View(viewModels);
@@ -56,12 +62,9 @@ namespace WebMazeMvc.Controllers
 
         public IActionResult Remove(long id)
         {
-            var user = _mazeDbContext
-                .Users
-                .Single(x => x.Id == id);
+            var user = _userRepository.Get(id);
 
-            _mazeDbContext.Users.Remove(user);
-            _mazeDbContext.SaveChanges();
+            _userRepository.Remove(user);
 
             return RedirectToAction("All");
         }

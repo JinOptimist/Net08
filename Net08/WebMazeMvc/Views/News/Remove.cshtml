@@ -1,0 +1,10 @@
+﻿@model AddNewsViewModel
+<form action="/News/Remove" method="post">
+    <div>
+        @Html.TextBoxFor(x => x.Id) Id
+    </div>
+
+    <div>
+        <input type="submit" value="Удалить новость" />
+    </div>
+</form>

@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebMazeMvc.EfStuff;
 
 namespace WebMazeMvc.Migrations
 {
     [DbContext(typeof(MazeDbContext))]
-    partial class MazeDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210730175252_AddNewsCreater")]
+    partial class AddNewsCreater
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -55,27 +57,6 @@ namespace WebMazeMvc.Migrations
                     b.HasIndex("CreaaterId");
 
                     b.ToTable("News");
-                });
-
-            modelBuilder.Entity("WebMazeMvc.EfStuff.Model.BankCard", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("CardNumber")
-                        .HasColumnType("int");
-
-                    b.Property<byte>("ValidityMonth")
-                        .HasColumnType("tinyint");
-
-                    b.Property<byte>("ValidityYear")
-                        .HasColumnType("tinyint");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("BankCards");
                 });
 
             modelBuilder.Entity("WebMazeMvc.EfStuff.Model.User", b =>
