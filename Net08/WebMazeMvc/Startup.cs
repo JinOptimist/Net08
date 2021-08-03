@@ -30,16 +30,20 @@ namespace WebMazeMvc
             var connectString = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=Maze08;Integrated Security=True;";
             services.AddDbContext<MazeDbContext>(x => x.UseSqlServer(connectString));
 
-            services.AddScoped<UserRepository>(container =>
+            services.AddScoped(container =>
                 new UserRepository(container.GetService<MazeDbContext>())
                 );
-            services.AddScoped<GenreRepository>(container =>
+
+            services.AddScoped(container =>
                new GenreRepository(container.GetService<MazeDbContext>())
                );
 
-
-            services.AddScoped<NewsRepository>(container =>
+            services.AddScoped(container =>
                 new NewsRepository(container.GetService<MazeDbContext>())
+                );
+
+            services.AddScoped(container =>
+                new ForumRepository(container.GetService<MazeDbContext>())
                 );
 
             services.AddControllersWithViews();
