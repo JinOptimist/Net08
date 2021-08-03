@@ -5,10 +5,8 @@ using System.Threading.Tasks;
 
 namespace WebMazeMvc.EfStuff.Model
 {
-    public class Bank
+    public class Bank : BaseModel
     {
-
-        public long Id { get; set; }
 
         public string Name { get; set; }
 

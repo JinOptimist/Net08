@@ -13,12 +13,13 @@ namespace WebMazeMvc.EfStuff
         public DbSet<Genre> Genres { get; set; }
         public DbSet<News> News { get; set; }
 
+        public DbSet<Bank> Banks { get; set; }
+
         public MazeDbContext(DbContextOptions options) : base(options)
         {
         }
-        public DbSet<Bank> Banks { get; set; }
+        
 
-        public MazeDbContext (DbContextOptions options) : base(options)
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<User>()

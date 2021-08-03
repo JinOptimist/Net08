@@ -1,30 +1,42 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using WebMazeMvc.EfStuff;
 using WebMazeMvc.EfStuff.Model;
+using WebMazeMvc.EfStuff.Repositories;
 using WebMazeMvc.Models;
+using WebMazeMvc.Services;
 
 namespace WebMazeMvc.Controllers
 {
     public class BankController: Controller
     {
-        private MazeDbContext _mazeDbContext;
+        
 
-        public BankController(MazeDbContext mazeDbContext)
+        private BankRepository _BankRepository;
+
+        
+
+        
+
+        public BankController(BankRepository bankRepository)
         {
-            _mazeDbContext = mazeDbContext;
+            _BankRepository = bankRepository;
+           
         }
-
+        
         [HttpGet]
+        [Authorize]
         public IActionResult BanksAdding()
         {
             return View();
         }
 
         [HttpPost]
+        [Authorize]
         public IActionResult BanksAdding(BanksAddingViewModel viewModel)
         {
             var bank = new Bank()
@@ -33,16 +45,16 @@ namespace WebMazeMvc.Controllers
                 Country = viewModel.Country
             };
 
-            _mazeDbContext.Banks.Add(bank);
+            _BankRepository.Save(bank);
 
-            _mazeDbContext.SaveChanges();
+          
 
             return RedirectToAction("AllBanks");
         }
-
+        [Authorize]
         public IActionResult AllBanks()
         {
-            var allBanks = _mazeDbContext.Banks.ToList();
+            var allBanks = _BankRepository.GetAll();
 
             var viewModels = allBanks
                 .Select(x => new AllBanksForRemoveViewModel()
@@ -53,15 +65,12 @@ namespace WebMazeMvc.Controllers
 
             return View(viewModels);
         }
-
+        [Authorize]
         public IActionResult Remove(long id)
         {
-            var bank = _mazeDbContext
-                .Banks
-                .Single(x => x.Id == id);
+            var bank = _BankRepository.Get(id);
 
-            _mazeDbContext.Banks.Remove(bank);
-            _mazeDbContext.SaveChanges();
+            _BankRepository.Remove(bank);
 
             return RedirectToAction("AllBanks");
         }

@@ -50,7 +50,9 @@ namespace WebMazeMvc
             services.AddScoped<NewsRepository>(container =>
                 new NewsRepository(container.GetService<MazeDbContext>())
                 );
-
+            services.AddScoped<BankRepository>(container =>
+                new BankRepository(container.GetService<MazeDbContext>())
+                );
             services.AddScoped<UserService>(container =>
                 new UserService(
                     container.GetService<UserRepository>(),
