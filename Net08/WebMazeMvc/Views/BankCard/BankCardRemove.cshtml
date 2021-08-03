@@ -1,0 +1,15 @@
+﻿@model BankCardRemoveViewModel
+
+<form action="/BankCard/BankCardRemove" method="post">
+    <div class="field-box">
+        <div class="filed-name">
+            @Html.DisplayNameFor(x => x.Id):
+        </div>
+        <div class="field-value">
+            @Html.TextBoxFor(x => x.Id)
+            @Html.ValidationMessageFor(x => x.Id)
+        </div>
+    </div>
+
+    <div> <input type="submit" value="removeCard" /> </div>
+</form>

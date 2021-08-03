@@ -1,6 +1,6 @@
 ﻿<html>
 <head>
-    <link rel="stylesheet" href="~/css/site.css?v=1">
+    <link rel="stylesheet" href="~/css/site.css?ver=1">
 
     @RenderSection("Head", false)
 </head>
@@ -17,6 +17,12 @@
             <a href="/Cat/Add">Add cat</a>
             <a href="/Maze/CreateMaze">Create Maze</a>
             <a href="/User/Registration">Registration</a>
+            <button class="card"> BankCard </button>
+            <div class="card-option hidden">
+                <a href="/BankCard/BankCardAdd">BankCardAdd</a>
+                <a href="/BankCard/BankCardRemove">BankCardRemove</a>
+                <a href="/BankCard/BankCardGetAll">BankCardGetAll</a>
+            </div>
         </div>
         <div class="content">
             @RenderBody()
@@ -25,6 +31,7 @@
 
     <div class="footer">
         Подвал
-    </div>
+    </div>    
 </body>
+<script src="~/js/site.js"></script>
 </html>

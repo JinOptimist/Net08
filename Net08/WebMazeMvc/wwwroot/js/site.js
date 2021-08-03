@@ -1,4 +1,7 @@
-﻿// Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
-// for details on configuring this project to bundle and minify static web assets.
+﻿const buttonElem = document.querySelector(".card")
+const optionElem = document.querySelector(".card-option")
 
-// Write your JavaScript code.
+
+buttonElem.addEventListener("click", () => {
+    optionElem.classList.toggle("hidden")
+})

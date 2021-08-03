@@ -1,0 +1,10 @@
+﻿@model List<BankCardGetAllViewModel>
+ 
+<div>
+    @foreach (var card in Model)
+    {
+        <div> Id card: @card.Id </div>
+        <div> Number of card: @card.CardNumber </div>
+        <div> Validity: @card.ValidityMonth / @card.ValidityYear </div>        
+    }
+</div>

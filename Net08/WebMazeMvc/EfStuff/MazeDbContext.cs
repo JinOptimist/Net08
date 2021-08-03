@@ -11,6 +11,8 @@ namespace WebMazeMvc.EfStuff
     {
         public DbSet<User> Users { get; set; }
 
+        public DbSet<BankCard> BankCards { get; set; }
+
         public MazeDbContext (DbContextOptions options) : base(options)
         {
         }
