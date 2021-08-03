@@ -5,11 +5,14 @@ using System.Threading.Tasks;
 
 namespace WebMazeMvc.Models
 {
-    public class UserForRemoveViewModel
+    public class AddNewsViewModel
     {
         public long Id { get; set; }
-        public string Login { get; set; }
 
-        public List<ShortNewsViewModel> MyNews { get; set; }
+        public string Title { get; set; }
+
+        public string Source { get; set; }
+
+        public long CreaterId { get; set; }
     }
 }

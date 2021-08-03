@@ -1,0 +1,14 @@
+﻿@model List<ShortNewsViewModel>
+
+<h1>Мои новости</h1>
+<div>
+    @foreach (var news in Model)
+    {
+        <div>
+            @news.Title (@news.Id)
+        </div>
+        <div>
+         -----------------------------------------------------------  
+        </div>
+    }
+</div>
