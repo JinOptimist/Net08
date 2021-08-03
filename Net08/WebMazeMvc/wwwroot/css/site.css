@@ -136,3 +136,22 @@ img {
     margin-right: 40px;
 }
 
+.menu-Action-Genre p{
+    width: 150px;
+    border: solid;
+    display:flex;
+}
+.remove-Box-Genre {
+    display: flex;
+}
+.remove-Name-Genre {
+    width: 200px;
+}
+.link-Remove-Genre{
+    flex:1;
+}
+
+.news{
+    padding-left: 20px;
+    border-left: 1px red solid;
+}

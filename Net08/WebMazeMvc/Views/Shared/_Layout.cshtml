@@ -12,28 +12,31 @@
 
     <div class="center-block">
         <div class="menu">
-            <div>
-                <a href="/Home/Index">Home</a>
-            </div>
-            <div>
+            <a href="/Home/Index">Home</a>
+            @if (User.Identity.IsAuthenticated)
+            {
+                <a href="/User/Logout">Exit</a>
                 <a href="/Cat/Gallery">Gallery</a>
-            </div>
-            <div>
-                <a href="/Cat/Add">Add cat</a>
-            </div>
-            <div>
-                <a href="/Maze/CreateMaze">Create Maze</a>
-            </div>
-            <div>
-                <a href="/User/Registration">Registration</a>
-            </div>
-            <div>
-                <a href="/Game/AllGames">Games</a>
-            </div>
-            <div>
-                <a href="/Game/AddGame">Add Game</a>
-            </div>
-            
+            }
+            else
+            {
+                <a href="/User/Login">Login</a>
+            }
+
+
+            <a href="/Cat/Add">Add cat</a>
+            <a href="/Maze/CreateMaze">Create Maze</a>
+            <a href="/User/Registration">Registration</a>
+            <a href="/Genre/GenreAction">Operation Genre</a>
+            <a href="/News/All">AllNews</a>
+            <a href="/News/Add">AddNews</a>
+            <a href="/Game/AllGames">Games</a>
+            <a href="/Game/AddGame">Add Game</a>
+            @if (User.Identity.IsAuthenticated)
+            {
+                <a href="/User/MyNews">MyNews</a>
+            }
+            <a href="/News/Remove">RemoveNews</a>
         </div>
         <div class="content">
             @RenderBody()
