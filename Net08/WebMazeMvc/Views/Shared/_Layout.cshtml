@@ -30,6 +30,10 @@
             <a href="/Genre/GenreAction">Operation Genre</a>
             <a href="/News/All">AllNews</a>
             <a href="/News/Add">AddNews</a>
+            @if (User.Identity.IsAuthenticated)
+            {
+                <a href="/User/MyNews">MyNews</a>
+            }
             <a href="/News/Remove">RemoveNews</a>
         </div>
         <div class="content">

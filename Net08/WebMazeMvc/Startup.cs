@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -11,6 +12,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using WebMazeMvc.EfStuff;
 using WebMazeMvc.EfStuff.Repositories;
+using WebMazeMvc.Services;
 
 namespace WebMazeMvc
 {
@@ -45,15 +47,22 @@ namespace WebMazeMvc
             services.AddScoped<GenreRepository>(container =>
                new GenreRepository(container.GetService<MazeDbContext>())
                );
-
-
             services.AddScoped<NewsRepository>(container =>
                 new NewsRepository(container.GetService<MazeDbContext>())
                 );
 
+            services.AddScoped<UserService>(container =>
+                new UserService(
+                    container.GetService<UserRepository>(),
+                    container.GetService<IHttpContextAccessor>()
+                )
+            );
+
             services.AddControllersWithViews();
+
+            services.AddHttpContextAccessor();
         }
-        
+
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {

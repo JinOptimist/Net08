@@ -9,16 +9,20 @@ using WebMazeMvc.EfStuff;
 using WebMazeMvc.EfStuff.Model;
 using WebMazeMvc.EfStuff.Repositories;
 using WebMazeMvc.Models;
+using WebMazeMvc.Services;
 
 namespace WebMazeMvc.Controllers
 {
     public class UserController : Controller
     {
         private UserRepository _userRepository;
+        private UserService _userService;
 
-        public UserController(UserRepository userRepository)
+        public UserController(UserRepository userRepository, 
+            UserService userService)
         {
             _userRepository = userRepository;
+            _userService = userService;
         }
 
         [HttpGet]
@@ -97,6 +101,20 @@ namespace WebMazeMvc.Controllers
                             Id = x.Id,
                             Title = x.Title
                         }).ToList()
+                }).ToList();
+
+            return View(viewModels);
+        }
+
+        public IActionResult MyNews()
+        {
+            var user = _userService.GetCurrent();
+
+            var viewModels = user.NewsCreatedByMe
+                .Select(x => new ShortNewsViewModel
+                {
+                    Id = x.Id,
+                    Title = x.Title
                 }).ToList();
 
             return View(viewModels);
