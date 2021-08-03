@@ -128,5 +128,32 @@ namespace WebMazeMvc.Controllers
 
             return RedirectToAction("All");
         }
+
+        [HttpGet]
+        public IActionResult GetMyForums()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        public IActionResult GetForumsCreatedByMe()
+        {
+            var allUsers = _userRepository.GetAll();
+
+            var viewModels = allUsers
+                .Select(dbUser => new UserForRemoveViewModel()
+                {
+                    Id = dbUser.Id,
+                    Login = dbUser.Login,
+                    MyNews = dbUser.NewsCreatedByMe
+                        .Select(x => new ShortNewsViewModel
+                        {
+                            Id = x.Id,
+                            Title = x.Title
+                        }).ToList()
+                }).ToList();
+
+            return View(viewModels);
+        }
     }
 }
