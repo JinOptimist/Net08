@@ -1,7 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using WebMazeMvc.EfStuff;
 using WebMazeMvc.EfStuff.Model;
@@ -17,6 +19,46 @@ namespace WebMazeMvc.Controllers
         public UserController(UserRepository userRepository)
         {
             _userRepository = userRepository;
+        }
+
+        [HttpGet]
+        public IActionResult Login()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Login(RegistrationViewModel viewModel)
+        {
+            var user = _userRepository.Get(viewModel.Login, viewModel.Password);
+
+            if (user == null)
+            {
+                ModelState.AddModelError(nameof(RegistrationViewModel.Login),
+                    "Не правильный логин или пароль");
+                return View(viewModel);
+            }
+
+            var claims = new List<Claim>();
+            claims.Add(new Claim("Id", user.Id.ToString()));
+            claims.Add(new Claim(ClaimTypes.Name, user.Login));
+            claims.Add(new Claim(
+                ClaimTypes.AuthenticationMethod,
+                Startup.AuthName));
+
+            var claimsIdentity = new ClaimsIdentity(claims, Startup.AuthName);
+
+            var claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
+
+            await HttpContext.SignInAsync(claimsPrincipal);
+
+            return View();
+        }
+
+        public async Task<IActionResult> Logout()
+        {
+            await HttpContext.SignOutAsync();
+            return RedirectToAction("Index", "Home");
         }
 
         [HttpGet]

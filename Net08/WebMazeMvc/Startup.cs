@@ -21,6 +21,7 @@ namespace WebMazeMvc
             Configuration = configuration;
         }
 
+        public const string AuthName = "CoockieSmile";
 
         public IConfiguration Configuration { get; }
 
@@ -29,6 +30,14 @@ namespace WebMazeMvc
         {
             var connectString = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=Maze08;Integrated Security=True;";
             services.AddDbContext<MazeDbContext>(x => x.UseSqlServer(connectString));
+
+            services.AddAuthentication(AuthName)
+                .AddCookie(AuthName, config =>
+                {
+                    config.LoginPath = "/User/Login";
+                    config.AccessDeniedPath = "/User/Denied";
+                    config.Cookie.Name = "Smile";
+                });
 
             services.AddScoped<UserRepository>(container =>
                 new UserRepository(container.GetService<MazeDbContext>())
@@ -63,6 +72,10 @@ namespace WebMazeMvc
 
             app.UseRouting();
 
+            //Who am I?
+            app.UseAuthentication();
+
+            //Waht can I see?
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
