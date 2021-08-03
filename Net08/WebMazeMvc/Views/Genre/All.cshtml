@@ -1,11 +1,17 @@
-﻿@model List<GenreViewModel>
+﻿@model List<AllGenreGameViewModel>
 
- 
-<div>
-    @foreach (var genre in Model)
-    {
-        <div>
-            @genre.NameGenre
-        </div>
-    }
-</div>
+@foreach (var genre in Model)
+{
+    <details class="cover-show-genre-and-games">
+
+         <summary class="show-genre"> <span>@genre.NameGenre</span>  количество игр - @genre.genreGameViewModel.Count()</summary>
+         <ol>
+             @foreach (var game in genre.genreGameViewModel)
+             {
+                 <li>
+                    @game.NameGame
+                  </li>
+              }
+        </ol>   
+    </details>
+}

@@ -74,12 +74,19 @@ namespace WebMazeMvc.Controllers
             var allGenre = _genreRepository.GetAll();
 
             var viewModels = allGenre
-               .Select(x => new GenreViewModel()
+               .Select(x => new AllGenreGameViewModel 
                {
-                  NameGenre =  x.GenreName
+                   NameGenre = x.GenreName,
+                   Id = x.Id,
+                   genreGameViewModel = x.Games
+                   .Select(q => new GenreGameViewModel
+                   {
+                       NameGame = q.GameName,
+                       Id = q.Id
+                   }).ToList()
                }).ToList();
 
             return View(viewModels);
-        }
+        }     
     }
 }
