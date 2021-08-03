@@ -14,5 +14,9 @@ namespace WebMazeMvc.EfStuff.Model
         public string AvatarUrl { get; set; }
 
         public virtual List<News> NewsCreatedByMe { get; set; }
+
+        public virtual List<Forum> ForumsCreatedByMe { get; set; }
+
+        public virtual List<Comment> CommentsCreatedByMe { get; set; }
     }
 }
