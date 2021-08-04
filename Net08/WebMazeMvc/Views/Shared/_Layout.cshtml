@@ -13,16 +13,31 @@
     <div class="center-block">
         <div class="menu">
             <a href="/Home/Index">Home</a>
-            <a href="/Cat/Gallery">Gallery</a>
+            @if (User.Identity.IsAuthenticated)
+            {
+                <a href="/User/Logout">Exit</a>
+                <a href="/Cat/Gallery">Gallery</a>
+            }
+            else
+            {
+                <a href="/User/Login">Login</a>
+            }
+
+
             <a href="/Cat/Add">Add cat</a>
             <a href="/Maze/CreateMaze">Create Maze</a>
             <a href="/User/Registration">Registration</a>
             <a href="/Genre/GenreAction">Operation Genre</a>
             <a href="/News/All">AllNews</a>
             <a href="/News/Add">AddNews</a>
+            @if (User.Identity.IsAuthenticated)
+            {
+                <a href="/User/MyNews">MyNews</a>
+            }
             <a href="/News/Remove">RemoveNews</a>
             <a href="/Game/AllGames">Games</a>
             <a href="/Game/AddGame">Add Game</a>
+            <a href="/Bank/AllBanks">Banks</a>
         </div>
         <div class="content">
             @RenderBody()
