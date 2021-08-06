@@ -1,13 +1,13 @@
 ﻿@model List<GenreViewModel>
 
-<div class=" remove-Genre-All-List">
+<div class=" remove-genre-all-List">
     @foreach (var genre in Model)
     {
        <div class="remove-Box-Genre">
-          <div class="remove-Name-Genre">
+          <div class="remove-name-genre">
             @genre.NameGenre
           </div>
-          <div class="link-Remove-Genre">
+          <div class="link-remove-genre">
             <a href="/Genre/DeleteGenre?id=@genre.Id"> Delete </a>
           </div>
       </div>

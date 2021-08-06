@@ -77,15 +77,15 @@ img {
     font-size: initial;
 }
 
-.remove-Box-Genre {
+.remove-box-genre {
     display: flex;
 }
 
-.remove-Name-Genre {
+.remove-name-genre {
     width: 200px;
 }
 
-.link-Remove-Genre {
+.link-remove-genre {
     flex: 1;
 }
 
