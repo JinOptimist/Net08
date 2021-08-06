@@ -10,6 +10,6 @@ namespace WebMazeMvc.Models
         public long Id { get; set; }
         public string Login { get; set; }
 
-        public List<ShortNewsViewModel> MyNews { get; set; }
+        public List<ShortNewsViewModel> NewsCreatedByMe { get; set; }
     }
 }

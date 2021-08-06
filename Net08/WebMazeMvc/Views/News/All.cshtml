@@ -10,7 +10,9 @@
         <div>
             @news.Source
         </div>
-
+        <div>
+            @news.Topic
+        </div>
         foreach (var comment in news.CommentsFromForum)
         {
             <div class="news">
