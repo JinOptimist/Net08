@@ -26,10 +26,18 @@ namespace WebMazeMvc.Controllers
         }
 
         [HttpGet]
-        public IActionResult All()
+        public IActionResult AllInformation()
+        {
+            var allNews = _newsRepository.GetAll().Where(x => x.Forum != null && x.Forum.Comments != null).ToList();
+            var viewModels = _mapper.Map<List<AllIformationViewModle>>(allNews);
+            return View(viewModels);
+        }
+
+        [HttpGet]
+        public IActionResult AllNews()
         {
             var allNews = _newsRepository.GetAll();
-            var viewModels = _mapper.Map<List<AddNewsViewModel>>(allNews);
+            var viewModels = _mapper.Map<List<AllNewsViewModel>>(allNews);
             return View(viewModels);
         }
 
