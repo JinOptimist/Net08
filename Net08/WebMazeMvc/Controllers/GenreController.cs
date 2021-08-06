@@ -39,6 +39,11 @@ namespace WebMazeMvc.Controllers
                 GenreName = genre.NameGenre
             };
 
+            if (!ModelState.IsValid)
+            {
+                return View(genre);
+            }
+
             _genreRepository.Save(newgenre);
             return RedirectToAction("GenreAction");
         }
