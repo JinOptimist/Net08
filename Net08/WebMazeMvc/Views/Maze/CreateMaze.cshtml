@@ -1,0 +1,36 @@
+﻿@model MazeViewModel
+
+<div>
+    <form action="/Maze/Draw" method="post">
+        <div class="field-box">
+            <div class="filed-name">
+                @Html.DisplayNameFor(x => x.Title):
+            </div>
+            <div class="field-value">
+                @Html.TextBoxFor(x => x.Title)
+                @Html.ValidationMessageFor(x => x.Title)
+            </div>
+        </div>
+        <div class="field-box">
+            <div class="filed-name">
+                @Html.DisplayNameFor(x => x.Width):
+            </div>
+            <div class="field-value">
+                @Html.TextBoxFor(x => x.Width)
+                @Html.ValidationMessageFor(x => x.Width)
+            </div>
+        </div>
+        <div class="field-box">
+            <div class="filed-name">
+                @Html.DisplayNameFor(x => x.Height):
+            </div>
+            <div class="field-value">
+                @Html.TextBoxFor(x => x.Height)
+                @Html.ValidationMessageFor(x => x.Height)
+            </div>
+        </div>
+        <div>
+            <input type="submit" value="Отправить" />
+        </div>
+    </form>
+</div>

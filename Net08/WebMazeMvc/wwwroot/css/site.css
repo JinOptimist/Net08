@@ -48,3 +48,39 @@ img {
     border: 1px red solid;
     margin: 5px;
 }
+
+
+.input-validation-error {
+    border: 1px red solid;
+}
+
+.field-box {
+    display: flex;
+}
+
+.filed-name {
+    width: 200px;
+}
+
+.field-value {
+    flex: 1;
+}
+.menu-Action-Genre p{
+    width: 150px;
+    border: solid;
+    display:flex;
+}
+.remove-Box-Genre {
+    display: flex;
+}
+.remove-Name-Genre {
+    width: 200px;
+}
+.link-Remove-Genre{
+    flex:1;
+}
+
+.news{
+    padding-left: 20px;
+    border-left: 1px red solid;
+}

@@ -1,0 +1,11 @@
+﻿@model GenreViewModel
+<form action="/Genre/AddGenre" method="post">
+    <div>
+        @Html.TextBoxFor(x=>x.NameGenre)
+    </div>
+    <div>
+        <input type ="submit" name="Create" />
+    </div>
+</form>
+
+

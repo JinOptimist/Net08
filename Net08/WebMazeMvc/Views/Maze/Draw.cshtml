@@ -1,0 +1,18 @@
+﻿@model MazeDrawViewModel
+
+@section Head{
+    <link rel="stylesheet" href="~/css/maze.css?v=2">
+}
+
+<div class="maze">
+    @for (int y = 0; y < Model.Height; y++)
+    {
+        <div class="row">
+            @for (int x = 0; x < Model.Width; x++)
+            {
+                var cellType = Model.Cells[x, y];
+                <span class="cell @cellType"></span>
+            }
+        </div>
+    }
+</div>
