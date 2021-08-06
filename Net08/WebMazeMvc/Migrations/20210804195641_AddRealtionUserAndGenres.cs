@@ -6,13 +6,6 @@ namespace WebMazeMvc.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AddColumn<long>(
-                name: "NewsId",
-                table: "News",
-                type: "bigint",
-                nullable: false,
-                defaultValue: 0L);
-
             migrationBuilder.CreateTable(
                 name: "GenreUser",
                 columns: table => new
@@ -47,10 +40,6 @@ namespace WebMazeMvc.Migrations
         {
             migrationBuilder.DropTable(
                 name: "GenreUser");
-
-            migrationBuilder.DropColumn(
-                name: "NewsId",
-                table: "News");
         }
     }
 }
