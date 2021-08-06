@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebMazeMvc.EfStuff;
 
 namespace WebMazeMvc.Migrations
 {
     [DbContext(typeof(MazeDbContext))]
-    partial class MazeDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210802200546_newsNewLinks")]
+    partial class newsNewLinks
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -19,25 +21,60 @@ namespace WebMazeMvc.Migrations
                 .HasAnnotation("ProductVersion", "5.0.8")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("WebMazeMvc.EfStuff.Model.Game", b =>
+            modelBuilder.Entity("WebMazeMvc.EfStuff.Model.Comment", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("GameName")
+                    b.Property<long?>("CreaterId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime>("DateCreated")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long?>("ForumId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Message")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Link")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<long?>("NewsId")
+                        .HasColumnType("bigint");
 
-                    b.Property<string>("Url")
+                    b.HasKey("Id");
+
+                    b.HasIndex("CreaterId");
+
+                    b.HasIndex("ForumId");
+
+                    b.HasIndex("NewsId");
+
+                    b.ToTable("Comments");
+                });
+
+            modelBuilder.Entity("WebMazeMvc.EfStuff.Model.Forum", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<long?>("CreaterId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime>("DateCreated")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Topic")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Games");
+                    b.HasIndex("CreaterId");
+
+                    b.ToTable("Forums");
                 });
 
             modelBuilder.Entity("WebMazeMvc.EfStuff.Model.Genre", b =>
@@ -62,7 +99,7 @@ namespace WebMazeMvc.Migrations
                         .HasColumnType("bigint")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<long?>("CreaaterId")
+                    b.Property<long?>("CreaterId")
                         .HasColumnType("bigint");
 
                     b.Property<string>("Source")
@@ -73,7 +110,7 @@ namespace WebMazeMvc.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CreaaterId");
+                    b.HasIndex("CreaterId");
 
                     b.ToTable("News");
                 });
@@ -99,17 +136,57 @@ namespace WebMazeMvc.Migrations
                     b.ToTable("Users");
                 });
 
+            modelBuilder.Entity("WebMazeMvc.EfStuff.Model.Comment", b =>
+                {
+                    b.HasOne("WebMazeMvc.EfStuff.Model.User", "Creater")
+                        .WithMany("CommentsCreatedByMe")
+                        .HasForeignKey("CreaterId");
+
+                    b.HasOne("WebMazeMvc.EfStuff.Model.Forum", null)
+                        .WithMany("Comments")
+                        .HasForeignKey("ForumId");
+
+                    b.HasOne("WebMazeMvc.EfStuff.Model.News", null)
+                        .WithMany("Comments")
+                        .HasForeignKey("NewsId");
+
+                    b.Navigation("Creater");
+                });
+
+            modelBuilder.Entity("WebMazeMvc.EfStuff.Model.Forum", b =>
+                {
+                    b.HasOne("WebMazeMvc.EfStuff.Model.User", "Creater")
+                        .WithMany("ForumsCreatedByMe")
+                        .HasForeignKey("CreaterId");
+
+                    b.Navigation("Creater");
+                });
+
             modelBuilder.Entity("WebMazeMvc.EfStuff.Model.News", b =>
                 {
-                    b.HasOne("WebMazeMvc.EfStuff.Model.User", "Creaater")
+                    b.HasOne("WebMazeMvc.EfStuff.Model.User", "Creater")
                         .WithMany("NewsCreatedByMe")
-                        .HasForeignKey("CreaaterId");
+                        .HasForeignKey("CreaterId");
 
-                    b.Navigation("Creaater");
+                    b.Navigation("Creater");
+                });
+
+            modelBuilder.Entity("WebMazeMvc.EfStuff.Model.Forum", b =>
+                {
+                    b.Navigation("Comments");
+                });
+
+            modelBuilder.Entity("WebMazeMvc.EfStuff.Model.News", b =>
+                {
+                    b.Navigation("Comments");
                 });
 
             modelBuilder.Entity("WebMazeMvc.EfStuff.Model.User", b =>
                 {
+                    b.Navigation("CommentsCreatedByMe");
+
+                    b.Navigation("ForumsCreatedByMe");
+
                     b.Navigation("NewsCreatedByMe");
                 });
 #pragma warning restore 612, 618
