@@ -22,19 +22,18 @@ namespace WebMazeMvc.Services
 
         public User GetCurrent()
         {
-            if (!_httpContextAccessor
-                .HttpContext
-                .User
-                .Identity
-                .IsAuthenticated)
-                return null;
-
             var idStr = _httpContextAccessor
                 .HttpContext
                 .User
                 .Claims
-                .Single(x => x.Type == "Id")
-                .Value;
+                .SingleOrDefault(x => x.Type == "Id")
+                ?.Value;
+
+            if (idStr == null)
+            {
+                return null;
+            }
+
             var id = int.Parse(idStr);
             return _userRepository.Get(id);
         }
