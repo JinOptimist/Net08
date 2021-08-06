@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebMazeMvc.EfStuff;
 
 namespace WebMazeMvc.Migrations
 {
     [DbContext(typeof(MazeDbContext))]
-    partial class MazeDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210802210014_AddNewsForumCommentLink")]
+    partial class AddNewsForumCommentLink
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -81,32 +83,6 @@ namespace WebMazeMvc.Migrations
                     b.ToTable("Forums");
                 });
 
-            modelBuilder.Entity("WebMazeMvc.EfStuff.Model.BankCard", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("CardNumber")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<long?>("OwnerId")
-                        .HasColumnType("bigint");
-
-                    b.Property<string>("ValidityMonth")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ValidityYear")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("OwnerId");
-
-                    b.ToTable("BankCards");
-                });
-
             modelBuilder.Entity("WebMazeMvc.EfStuff.Model.Genre", b =>
                 {
                     b.Property<long>("Id")
@@ -143,24 +119,6 @@ namespace WebMazeMvc.Migrations
                     b.HasIndex("CreaterId");
 
                     b.ToTable("News");
-                });
-
-            modelBuilder.Entity("WebMazeMvc.EfStuff.Model.Bank", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Country")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Banks");
                 });
 
             modelBuilder.Entity("WebMazeMvc.EfStuff.Model.User", b =>

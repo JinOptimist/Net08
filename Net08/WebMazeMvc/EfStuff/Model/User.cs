@@ -15,6 +15,10 @@ namespace WebMazeMvc.EfStuff.Model
 
         public virtual List<News> NewsCreatedByMe { get; set; }
 
+        public virtual List<Forum> ForumsCreatedByMe { get; set; }
+
+        public virtual List<Comment> CommentsCreatedByMe { get; set; }
+
         public virtual List<BankCard> BankCard { get; set; }
     }
 }

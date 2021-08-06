@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebMazeMvc.EfStuff;
 
 namespace WebMazeMvc.Migrations
 {
     [DbContext(typeof(MazeDbContext))]
-    partial class MazeDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210802200546_newsNewLinks")]
+    partial class newsNewLinks
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -65,9 +67,6 @@ namespace WebMazeMvc.Migrations
                     b.Property<DateTime>("DateCreated")
                         .HasColumnType("datetime2");
 
-                    b.Property<long>("NewsId")
-                        .HasColumnType("bigint");
-
                     b.Property<string>("Topic")
                         .HasColumnType("nvarchar(max)");
 
@@ -75,36 +74,7 @@ namespace WebMazeMvc.Migrations
 
                     b.HasIndex("CreaterId");
 
-                    b.HasIndex("NewsId")
-                        .IsUnique();
-
                     b.ToTable("Forums");
-                });
-
-            modelBuilder.Entity("WebMazeMvc.EfStuff.Model.BankCard", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("CardNumber")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<long?>("OwnerId")
-                        .HasColumnType("bigint");
-
-                    b.Property<string>("ValidityMonth")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ValidityYear")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("OwnerId");
-
-                    b.ToTable("BankCards");
                 });
 
             modelBuilder.Entity("WebMazeMvc.EfStuff.Model.Genre", b =>
@@ -145,24 +115,6 @@ namespace WebMazeMvc.Migrations
                     b.ToTable("News");
                 });
 
-            modelBuilder.Entity("WebMazeMvc.EfStuff.Model.Bank", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Country")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Banks");
-                });
-
             modelBuilder.Entity("WebMazeMvc.EfStuff.Model.User", b =>
                 {
                     b.Property<long>("Id")
@@ -190,7 +142,7 @@ namespace WebMazeMvc.Migrations
                         .WithMany("CommentsCreatedByMe")
                         .HasForeignKey("CreaterId");
 
-                    b.HasOne("WebMazeMvc.EfStuff.Model.Forum", "Forum")
+                    b.HasOne("WebMazeMvc.EfStuff.Model.Forum", null)
                         .WithMany("Comments")
                         .HasForeignKey("ForumId");
 
@@ -199,8 +151,6 @@ namespace WebMazeMvc.Migrations
                         .HasForeignKey("NewsId");
 
                     b.Navigation("Creater");
-
-                    b.Navigation("Forum");
                 });
 
             modelBuilder.Entity("WebMazeMvc.EfStuff.Model.Forum", b =>
@@ -209,15 +159,7 @@ namespace WebMazeMvc.Migrations
                         .WithMany("ForumsCreatedByMe")
                         .HasForeignKey("CreaterId");
 
-                    b.HasOne("WebMazeMvc.EfStuff.Model.News", "News")
-                        .WithOne("Forum")
-                        .HasForeignKey("WebMazeMvc.EfStuff.Model.Forum", "NewsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("Creater");
-
-                    b.Navigation("News");
                 });
 
             modelBuilder.Entity("WebMazeMvc.EfStuff.Model.News", b =>
@@ -237,8 +179,6 @@ namespace WebMazeMvc.Migrations
             modelBuilder.Entity("WebMazeMvc.EfStuff.Model.News", b =>
                 {
                     b.Navigation("Comments");
-
-                    b.Navigation("Forum");
                 });
 
             modelBuilder.Entity("WebMazeMvc.EfStuff.Model.User", b =>

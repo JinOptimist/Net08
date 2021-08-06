@@ -5,8 +5,11 @@ using System.Threading.Tasks;
 
 namespace WebMazeMvc.EfStuff.Model
 {
-    public class Genre: BaseModel
+    public class Bank : BaseModel
     {
-        public string GenreGame{ get; set; }
+
+        public string Name { get; set; }
+
+        public string Country { get; set; }
     }
 }
