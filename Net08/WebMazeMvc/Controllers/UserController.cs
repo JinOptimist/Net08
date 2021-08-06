@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authentication;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -17,12 +18,15 @@ namespace WebMazeMvc.Controllers
     {
         private UserRepository _userRepository;
         private UserService _userService;
+        private IMapper _mapper;
 
-        public UserController(UserRepository userRepository, 
-            UserService userService)
+        public UserController(UserRepository userRepository,
+            UserService userService, 
+            IMapper mapper)
         {
             _userRepository = userRepository;
             _userService = userService;
+            _mapper = mapper;
         }
 
         [HttpGet]
@@ -110,12 +114,7 @@ namespace WebMazeMvc.Controllers
         {
             var user = _userService.GetCurrent();
 
-            var viewModels = user.NewsCreatedByMe
-                .Select(x => new ShortNewsViewModel
-                {
-                    Id = x.Id,
-                    Title = x.Title
-                }).ToList();
+            var viewModels = _mapper.Map<List<ShortNewsViewModel>>(user.NewsCreatedByMe);
 
             return View(viewModels);
         }
