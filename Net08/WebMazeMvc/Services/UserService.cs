@@ -29,7 +29,7 @@ namespace WebMazeMvc.Services
                 .SingleOrDefault(x => x.Type == "Id")
                 ?.Value;
 
-            if (idStr == null)
+            if (string.IsNullOrEmpty(idStr))
             {
                 return null;
             }
