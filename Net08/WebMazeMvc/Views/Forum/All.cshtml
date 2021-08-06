@@ -11,8 +11,8 @@
         @if (User.Identity.IsAuthenticated)
         {
             <li><a href="/Forum/My">Мои форумы</a></li>
+            <button class="menu"><a href="/Forum/Add">Добавить</a></button>
         }
-        <button class="menu"><a href="/Forum/Add">Добавить</a></button>
         </ul>
     </nav>
     <div>
@@ -25,12 +25,9 @@
             @forum.DateCreated
         </div>
         <div>
-            @if (@forum.Creater != null)
-                @forum.Creater.Login
+            @forum.NameCreater
         </div>
-        @if (User.Identity.IsAuthenticated 
-            && @forum.Creater != null 
-            && @forum.Creater.Id == int.Parse(User.Claims.Single(x => x.Type == "Id").Value))
+        @if (@forum.CanEdit)
         {
             <div>
                 <a href="/Forum/Delete?id=@forum.Id">Delete</a>

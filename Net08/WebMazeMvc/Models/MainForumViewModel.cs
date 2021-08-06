@@ -14,6 +14,8 @@ namespace WebMazeMvc.Models
 
         public DateTime DateCreated { get; set; }
 
-        public virtual User Creater { get; set; }
+        public String NameCreater { get; set; }
+
+        public Boolean CanEdit { get; set; }
     }
 }

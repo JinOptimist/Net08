@@ -1,8 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using WebMazeMvc.EfStuff.Model;
 using WebMazeMvc.EfStuff.Repositories;
 using WebMazeMvc.Models;
@@ -23,6 +23,8 @@ namespace WebMazeMvc.Controllers
 
         public IActionResult All()
         {
+            var user = _userService.GetCurrent();
+
             var allForums = _forumRepository.GetAll();
 
             var viewModels = allForums
@@ -31,18 +33,17 @@ namespace WebMazeMvc.Controllers
                     Id = x.Id,
                     Topic = x.Topic,
                     DateCreated = x.DateCreated,
-                    Creater = x.Creater
+                    NameCreater = x.Creater.Login,
+                    CanEdit = x.Creater == user
                 }).ToList();
 
             return View(viewModels);
         }
 
+        [Authorize]
         public IActionResult My()
         {
             var user = _userService.GetCurrent();
-
-            if (user == null)
-                return RedirectToAction("Login", "User");
 
             var allForums = _forumRepository.GetAll()
                 .Where(x => x.Creater == user);
@@ -53,7 +54,8 @@ namespace WebMazeMvc.Controllers
                     Id = x.Id,
                     Topic = x.Topic,
                     DateCreated = x.DateCreated,
-                    Creater = x.Creater
+                    NameCreater = x.Creater.Login,
+                    CanEdit = true
                 }).ToList();
 
             return View(viewModels);
@@ -65,13 +67,11 @@ namespace WebMazeMvc.Controllers
             return View();
         }
 
+        [Authorize]
         [HttpPost]
         public IActionResult Add(AddForumViewModel viewModel)
         {
             var user = _userService.GetCurrent();
-
-            if (user == null)
-                return RedirectToAction("Login", "User");
 
             var forum = new Forum()
             {
