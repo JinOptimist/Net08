@@ -23,7 +23,9 @@ namespace WebMazeMvc.Models.CustomValidationAttribute
             var yearCheck = new Regex(@"^20[0-9]{2}$");
 
             if (!(value is string) || !yearCheck.IsMatch(value.ToString()))
+            {
                 return false;
+            }
 
             var validityYear = int.Parse(value.ToString());
             

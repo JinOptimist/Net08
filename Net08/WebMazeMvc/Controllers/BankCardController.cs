@@ -101,20 +101,5 @@ namespace WebMazeMvc.Controllers
 
             return RedirectToAction("BankCardGetAll", "BankCard");
         }
-
-        public IActionResult CheckCardNumber(string cardNumber)
-        {
-            var a = _bankCardRepository.GetAll();          
-
-            foreach (var item in a)
-            {
-                if (item.CardNumber == cardNumber)
-                {
-                    return Json(false);
-                }
-            }
-              
-            return Json(false);
-        }
     }
 }

@@ -22,7 +22,10 @@ namespace WebMazeMvc.Models.CustomValidationAttribute
             var month = viewModel.ValidityMonth;
             var year = viewModel.ValidityYear;
 
-            if (month == null || year == null) return false;
+            if (month == null || year == null)
+            {
+                return false;
+            } 
 
             return CheckCardExpiration(month.ToString(), year.ToString());
         }
@@ -35,7 +38,9 @@ namespace WebMazeMvc.Models.CustomValidationAttribute
             var yearCheck = new Regex(@"^20[0-9]{2}$");
 
             if (!monthCheck.IsMatch(expirationMonth) || !yearCheck.IsMatch(expirationYear))
+            {
                 return false;
+            }
 
             var month = int.Parse(expirationMonth);
             var year = int.Parse(expirationYear);

@@ -17,11 +17,9 @@ namespace WebMazeMvc.Models
         [Remote("CheckCardNumber", "BankCard", ErrorMessage = "Карта с таким номером уже существует")]
         public string CardNumber { get; set; }
 
-        //[BankCardValidityMonth]
         [DisplayName("Месяц действия")]
         public string ValidityMonth { get; set; }
 
-        //[BankCardValidityYear]
         [DisplayName("Год действия")]
         public string ValidityYear { get; set; }
     }
