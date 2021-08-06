@@ -14,9 +14,11 @@ namespace MazeConsole
                 Console.SetCursorPosition(cell.X, cell.Y);
                 if (cell is Wall)
                 {
+                    Console.BackgroundColor = ConsoleColor.White;
                     //Console.Write("U+2B1C",UTF32Encoding.Equals(U+2B1C));
                     Console.OutputEncoding = System.Text.Encoding.UTF8;
                     Console.WriteLine("#");
+                    Console.BackgroundColor = ConsoleColor.Black;
                 }
                 if (cell is Ground)
                 {
@@ -33,6 +35,12 @@ namespace MazeConsole
                 if (cell is CellWithHero)
                 {
                     Console.Write("@");
+                }
+                if (cell is Lava)
+                {
+                    Console.BackgroundColor = ConsoleColor.DarkRed;
+                    Console.Write(" ");
+                    Console.BackgroundColor = ConsoleColor.Black;
                 }
             }
 
