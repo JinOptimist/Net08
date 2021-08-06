@@ -47,7 +47,7 @@ namespace WebMazeMvc
                 });
 
             registerRepositories(services);
-            
+
             registerMapper(services);
 
             services.AddScoped<UserService>(container =>
@@ -84,6 +84,20 @@ namespace WebMazeMvc
             var provider = new MapperConfigurationExpression();
 
             provider.CreateMap<News, ShortNewsViewModel>();
+
+            provider.CreateMap<News, AddNewsViewModel>()
+                .ForMember(
+                    nameof(AddNewsViewModel.Topic),
+                    config => config.MapFrom(news => news.Forum.Topic))
+                .ForMember(
+                    nameof(AddNewsViewModel.CommentsFromForum),
+                    config => config.MapFrom(news => news.Forum.Comments));
+
+            provider.CreateMap<User, UserForRemoveViewModel>();
+
+            provider.CreateMap<Comment, CommentViewModel>(); 
+
+            provider.CreateMap<RegistrationViewModel, User>();
 
             var mapperConfiguration = new MapperConfiguration(provider);
             var mapper = new Mapper(mapperConfiguration);

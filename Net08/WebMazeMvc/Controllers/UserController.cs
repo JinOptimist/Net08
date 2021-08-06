@@ -78,12 +78,7 @@ namespace WebMazeMvc.Controllers
         [HttpPost]
         public IActionResult Registration(RegistrationViewModel viewModel)
         {
-
-            var user = new User()
-            {
-                Login = viewModel.Login,
-                Password = viewModel.Password
-            };
+            var user = _mapper.Map<User>(viewModel);
 
             _userRepository.Save(user);
 
@@ -94,18 +89,7 @@ namespace WebMazeMvc.Controllers
         {
             var allUsers = _userRepository.GetAll();
 
-            var viewModels = allUsers
-                .Select(dbUser => new UserForRemoveViewModel()
-                {
-                    Id = dbUser.Id,
-                    Login = dbUser.Login,
-                    MyNews = dbUser.NewsCreatedByMe
-                        .Select(x => new ShortNewsViewModel
-                        {
-                            Id = x.Id,
-                            Title = x.Title
-                        }).ToList()
-                }).ToList();
+            var viewModels = _mapper.Map<List<UserForRemoveViewModel>>(allUsers);
 
             return View(viewModels);
         }
