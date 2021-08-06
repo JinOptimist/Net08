@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -14,28 +15,26 @@ namespace WebMazeMvc.Controllers
     {
         private ForumRepository _forumRepository;
         private UserService _userService;
+        private IMapper _mapper;
 
-        public ForumController(ForumRepository forumRepository, UserService userService)
+        public ForumController(ForumRepository forumRepository, 
+            UserService userService, IMapper mapper)
         {
             _forumRepository = forumRepository;
             _userService = userService;
+            _mapper = mapper;
         }
 
         public IActionResult All()
         {
             var user = _userService.GetCurrent();
-
             var allForums = _forumRepository.GetAll();
+            var viewModels = _mapper.Map<List<MainForumViewModel>>(allForums);
 
-            var viewModels = allForums
-                .Select(x => new MainForumViewModel()
-                {
-                    Id = x.Id,
-                    Topic = x.Topic,
-                    DateCreated = x.DateCreated,
-                    NameCreater = x.Creater.Login,
-                    CanEdit = x.Creater == user
-                }).ToList();
+            foreach (var viewModel in viewModels)
+            {
+                viewModel.CanEdit = user != null && viewModel.UserId == user.Id;
+            }
 
             return View(viewModels);
         }
@@ -44,19 +43,14 @@ namespace WebMazeMvc.Controllers
         public IActionResult My()
         {
             var user = _userService.GetCurrent();
-
             var allForums = _forumRepository.GetAll()
                 .Where(x => x.Creater == user);
+            var viewModels = _mapper.Map<List<MainForumViewModel>>(allForums);
 
-            var viewModels = allForums
-                .Select(x => new MainForumViewModel()
-                {
-                    Id = x.Id,
-                    Topic = x.Topic,
-                    DateCreated = x.DateCreated,
-                    NameCreater = x.Creater.Login,
-                    CanEdit = true
-                }).ToList();
+            foreach (var viewModel in viewModels)
+            {
+                viewModel.CanEdit = true;
+            }
 
             return View(viewModels);
         }

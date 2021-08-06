@@ -10,6 +10,8 @@ namespace WebMazeMvc.Models
     {
         public long Id { get; set; }
 
+        public long UserId { get; set; }
+
         public string Topic { get; set; }
 
         public DateTime DateCreated { get; set; }
