@@ -1,0 +1,9 @@
+﻿@model AddForumViewModel
+<form action="/Forum/Add" method="post">
+    <div>
+         @Html.TextBoxFor(x => x.Topic)
+    </div>
+    <div>
+        <input type="submit" value="Send" />
+    </div>
+</form>

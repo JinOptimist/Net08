@@ -22,6 +22,13 @@ namespace WebMazeMvc.Services
 
         public User GetCurrent()
         {
+            if (!_httpContextAccessor
+                .HttpContext
+                .User
+                .Identity
+                .IsAuthenticated)
+                return null;
+
             var idStr = _httpContextAccessor
                 .HttpContext
                 .User

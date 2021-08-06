@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace WebMazeMvc.Models
 {
-    public class ForumViewModel
+    public class AddForumViewModel
     {
         public string Topic { get; set; }
     }
