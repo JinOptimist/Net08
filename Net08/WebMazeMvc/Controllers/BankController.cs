@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -18,16 +19,16 @@ namespace WebMazeMvc.Controllers
 
         private BankRepository _BankRepository;
 
-        
+        private IMapper _mapper;
 
-        
 
-        public BankController(BankRepository bankRepository)
+
+        public BankController(BankRepository bankRepository, IMapper mapper)
         {
             _BankRepository = bankRepository;
-           
+            _mapper = mapper;
         }
-        
+
         [HttpGet]
         [Authorize]
         public IActionResult BanksAdding()
@@ -39,11 +40,7 @@ namespace WebMazeMvc.Controllers
         [Authorize]
         public IActionResult BanksAdding(BanksAddingViewModel viewModel)
         {
-            var bank = new Bank()
-            {
-                Name = viewModel.Name,
-                Country = viewModel.Country
-            };
+            var bank = _mapper.Map<Bank>(viewModel); 
 
             _BankRepository.Save(bank);
 
@@ -55,13 +52,8 @@ namespace WebMazeMvc.Controllers
         public IActionResult AllBanks()
         {
             var allBanks = _BankRepository.GetAll();
-
-            var viewModels = allBanks
-                .Select(x => new AllBanksForRemoveViewModel()
-                {
-                    Id = x.Id,
-                    Name = x.Name
-                }).ToList();
+            
+            var viewModels = _mapper.Map<List<AllBanksForRemoveViewModel>>(allBanks); 
 
             return View(viewModels);
         }
