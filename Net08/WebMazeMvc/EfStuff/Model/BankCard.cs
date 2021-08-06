@@ -5,14 +5,14 @@ using System.Threading.Tasks;
 
 namespace WebMazeMvc.EfStuff.Model
 {
-    public class BankCard
-    {
-        public int Id { get; set; }
-
-        public int CardNumber { get; set; }
+    public class BankCard : BaseModel
+    {        
+        public string CardNumber { get; set; }
         
-        public byte ValidityMonth { get; set; }
+        public string ValidityMonth { get; set; }
 
-        public byte ValidityYear { get; set; }
+        public string ValidityYear { get; set; }
+        
+        public virtual User Owner { get; set; }
     }
 }

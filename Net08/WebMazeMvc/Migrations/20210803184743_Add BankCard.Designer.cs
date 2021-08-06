@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebMazeMvc.EfStuff;
 
 namespace WebMazeMvc.Migrations
 {
     [DbContext(typeof(MazeDbContext))]
-    partial class MazeDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210803184743_Add BankCard")]
+    partial class AddBankCard
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -26,17 +28,17 @@ namespace WebMazeMvc.Migrations
                         .HasColumnType("bigint")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("CardNumber")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("CardNumber")
+                        .HasColumnType("int");
 
                     b.Property<long?>("OwnerId")
                         .HasColumnType("bigint");
 
-                    b.Property<string>("ValidityMonth")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("ValidityMonth")
+                        .HasColumnType("int");
 
-                    b.Property<string>("ValidityYear")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("ValidityYear")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -107,7 +109,7 @@ namespace WebMazeMvc.Migrations
             modelBuilder.Entity("WebMazeMvc.EfStuff.Model.BankCard", b =>
                 {
                     b.HasOne("WebMazeMvc.EfStuff.Model.User", "Owner")
-                        .WithMany("BankCard")
+                        .WithMany()
                         .HasForeignKey("OwnerId");
 
                     b.Navigation("Owner");
@@ -124,8 +126,6 @@ namespace WebMazeMvc.Migrations
 
             modelBuilder.Entity("WebMazeMvc.EfStuff.Model.User", b =>
                 {
-                    b.Navigation("BankCard");
-
                     b.Navigation("NewsCreatedByMe");
                 });
 #pragma warning restore 612, 618

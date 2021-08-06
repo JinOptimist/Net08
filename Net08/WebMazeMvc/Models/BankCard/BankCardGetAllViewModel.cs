@@ -8,12 +8,12 @@ namespace WebMazeMvc.Models
 {
     public class BankCardGetAllViewModel
     {
-        public int Id { get; set; }
+        public long Id { get; set; }
 
-        public int CardNumber { get; set; }
+        public string CardNumber { get; set; }
 
-        public byte ValidityMonth { get; set; }
+        public string ValidityMonth { get; set; }
 
-        public byte ValidityYear { get; set; }
+        public string ValidityYear { get; set; }
     }
 }

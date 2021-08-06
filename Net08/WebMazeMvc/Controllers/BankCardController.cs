@@ -5,51 +5,45 @@ using System.Linq;
 using System.Threading.Tasks;
 using WebMazeMvc.EfStuff;
 using WebMazeMvc.EfStuff.Model;
+using WebMazeMvc.EfStuff.Repositories;
 using WebMazeMvc.Models;
 
 namespace WebMazeMvc.Controllers
 {
     public class BankCardController : Controller
     {
-        private readonly MazeDbContext _mazeDbContext;
+        private readonly BankCardRepository _bankCardRepository;
 
-        public BankCardController(MazeDbContext mazeDbContext)
+        public BankCardController(BankCardRepository bankCardRepository)
         {
-            _mazeDbContext = mazeDbContext;  
+            _bankCardRepository = bankCardRepository;
         }
-        
+
         [HttpGet]
-        public IActionResult BankCardGetOne(int id)
+        public IActionResult BankCardGetOne(long id)
         {
-            var card = _mazeDbContext
-                .BankCards
-                .Where(x => x.Id == id)
-                .SingleOrDefault();
-            
-            BankCardGetOneViewModel viewModel;
+            var card = _bankCardRepository.Get(id);
 
-            if (card != null)
-            {
-                viewModel = new BankCardGetOneViewModel()
-                {
-                    Id = card.Id,
-                    CardNumber = card.CardNumber,
-                    ValidityMonth = card.ValidityMonth,
-                    ValidityYear = card.ValidityYear
-                };
-
-                return View(viewModel);
-            }
-            else
+            if (card == null)
             {
                 return RedirectToAction("Index", "Home");
-            }           
+            }
+
+            var viewModel = new BankCardGetOneViewModel()
+            {
+                Id = card.Id,
+                CardNumber = card.CardNumber,
+                ValidityMonth = card.ValidityMonth,
+                ValidityYear = card.ValidityYear
+            };
+
+            return View(viewModel);
         }
 
         [HttpGet]
         public IActionResult BankCardGetAll()
         {
-            var allCards = _mazeDbContext.BankCards.ToList();
+            var allCards = _bankCardRepository.GetAll();
 
             var viewModels = allCards
                 .Select(x => new BankCardGetAllViewModel()
@@ -74,7 +68,7 @@ namespace WebMazeMvc.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return View("BankCardAdd", viewModel);
+                return View(viewModel);
             }
 
             var newCard = new BankCard()
@@ -84,8 +78,7 @@ namespace WebMazeMvc.Controllers
                 ValidityYear = viewModel.ValidityYear
             };
 
-            _mazeDbContext.Add(newCard);
-            _mazeDbContext.SaveChanges();
+            _bankCardRepository.Save(newCard);
 
             return RedirectToAction("Index", "Home");
         }
@@ -97,19 +90,31 @@ namespace WebMazeMvc.Controllers
         }
 
         [HttpPost]
-        public IActionResult BankCardRemove(int id)
+        public IActionResult BankCardRemove(long id)
         {
-            var card = _mazeDbContext
-                .BankCards
-                .SingleOrDefault(x => x.Id == id);
+            var card = _bankCardRepository.Get(id);
 
             if (card != null)
             {
-                _mazeDbContext.BankCards.Remove(card);
-                _mazeDbContext.SaveChanges();
+                _bankCardRepository.Remove(card);
             }
 
             return RedirectToAction("BankCardGetAll", "BankCard");
-        }        
+        }
+
+        public IActionResult CheckCardNumber(string cardNumber)
+        {
+            var a = _bankCardRepository.GetAll();          
+
+            foreach (var item in a)
+            {
+                if (item.CardNumber == cardNumber)
+                {
+                    return Json(false);
+                }
+            }
+              
+            return Json(false);
+        }
     }
 }

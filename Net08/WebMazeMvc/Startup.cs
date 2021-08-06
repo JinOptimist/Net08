@@ -36,8 +36,9 @@ namespace WebMazeMvc
             services.AddScoped<GenreRepository>(container =>
                new GenreRepository(container.GetService<MazeDbContext>())
                );
-
-
+            services.AddScoped<BankCardRepository>(container =>
+                new BankCardRepository(container.GetService<MazeDbContext>())
+                );
             services.AddScoped<NewsRepository>(container =>
                 new NewsRepository(container.GetService<MazeDbContext>())
                 );

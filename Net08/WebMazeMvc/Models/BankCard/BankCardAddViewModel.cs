@@ -9,18 +9,20 @@ using WebMazeMvc.Models.CustomValidationAttribute;
 
 namespace WebMazeMvc.Models
 {
+    [BankCardExpiration]
     public class BankCardAddViewModel
     {
         [BankCardNumber]        
         [DisplayName("Номер карты")]
-        public int CardNumber { get; set; }
+        [Remote("CheckCardNumber", "BankCard", ErrorMessage = "Карта с таким номером уже существует")]
+        public string CardNumber { get; set; }
 
-        [Range(1, 12, ErrorMessage = "Некорректное значение для месяца действия")]
+        //[BankCardValidityMonth]
         [DisplayName("Месяц действия")]
-        public byte ValidityMonth { get; set; }
+        public string ValidityMonth { get; set; }
 
-        [BankCardValidityYear]
+        //[BankCardValidityYear]
         [DisplayName("Год действия")]
-        public byte ValidityYear { get; set; }
+        public string ValidityYear { get; set; }
     }
 }

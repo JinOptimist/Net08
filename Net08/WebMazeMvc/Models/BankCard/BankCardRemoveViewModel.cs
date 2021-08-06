@@ -8,6 +8,6 @@ namespace WebMazeMvc.Models
 {
     public class BankCardRemoveViewModel
     {
-        public int Id { get; set; }
+        public long Id { get; set; }
     }
 }

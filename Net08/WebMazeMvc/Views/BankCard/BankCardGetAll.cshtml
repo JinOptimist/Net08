@@ -1,10 +1,22 @@
 ﻿@model List<BankCardGetAllViewModel>
- 
+
 <div>
-    @foreach (var card in Model)
-    {
-        <div> Id card: @card.Id </div>
-        <div> Number of card: @card.CardNumber </div>
-        <div> Validity: @card.ValidityMonth / @card.ValidityYear </div>        
-    }
+    <table border="1" align="center" cellspacing="0" cellpadding="10">
+        <caption>Информация по банковским картам</caption>
+        <tr>
+            <th>Id card</th>
+            <th>Number of card</th>
+            <th>Validity Month</th>
+            <th>Validity Year</th>
+        </tr>
+        @foreach (var card in Model)
+        {
+            <tr>
+                <th>@card.Id</th>
+                <th>@card.CardNumber</th>
+                <th>@card.ValidityMonth</th>
+                <th>@card.ValidityYear</th>
+            </tr>
+        }
+    </table>
 </div>

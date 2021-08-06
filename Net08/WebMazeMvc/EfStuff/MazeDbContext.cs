@@ -24,6 +24,10 @@ namespace WebMazeMvc.EfStuff
                 .HasMany(x => x.NewsCreatedByMe)
                 .WithOne(x => x.Creaater);
 
+            modelBuilder.Entity<User>()
+                .HasMany(x => x.BankCard)
+                .WithOne(x => x.Owner);
+
             base.OnModelCreating(modelBuilder);
         }
 
