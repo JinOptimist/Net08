@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,25 +15,21 @@ namespace WebMazeMvc.Controllers
     {
         private NewsRepository _newsRepository;
         private UserRepository _userRepository;
+        private IMapper _mapper;
 
-        public NewsController(NewsRepository newsRepository, 
-            UserRepository userRepository)
+        public NewsController(NewsRepository newsRepository,
+            UserRepository userRepository, IMapper mapper)
         {
             _newsRepository = newsRepository;
             _userRepository = userRepository;
+            _mapper = mapper;
         }
 
         [HttpGet]
         public IActionResult All()
         {
             var allNews = _newsRepository.GetAll();
-
-            var viewModels = allNews
-                .Select(x => new AddNewsViewModel()
-                {
-                    Title = x.Title,
-                    Source = x.Source
-                }).ToList();
+            var viewModels = _mapper.Map<List<AddNewsViewModel>>(allNews);
             return View(viewModels);
         }
 
@@ -51,7 +48,7 @@ namespace WebMazeMvc.Controllers
             {
                 Title = viewModel.Title,
                 Source = viewModel.Source,
-                Creaater = user
+                Creater = user
             };
 
             _newsRepository.Save(news);

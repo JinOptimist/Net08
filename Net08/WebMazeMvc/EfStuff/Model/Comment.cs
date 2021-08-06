@@ -5,16 +5,13 @@ using System.Threading.Tasks;
 
 namespace WebMazeMvc.EfStuff.Model
 {
-    public class News : BaseModel
+    public class Comment : BaseModel
     {
-        public long NewsId { get; set; }
-        public string Title { get; set; }
+        public string Message { get; set; }
 
-        public string Source { get; set; }
+        public DateTime DateCreated { get; set; }
 
         public virtual User Creater { get; set; }
-
-        public virtual List<Comment> Comments { get; set; }
 
         public virtual Forum Forum { get; set; }
     }

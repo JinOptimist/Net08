@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace WebMazeMvc.EfStuff.Model
+namespace WebMazeMvc.Models
 {
-    public class Genre: BaseModel
+    public class ForumViewModel
     {
-        public string GenreGame{ get; set; }
+        public string Topic { get; set; }
+        
     }
 }
