@@ -1,4 +1,4 @@
-﻿@model List<AddNewsViewModel>
+﻿@model List<AllNewsViewModel>
 
 
 <div>
@@ -11,16 +11,6 @@
             @news.Source
         </div>
         <div>
-            @news.Topic
-        </div>
-        foreach (var comment in news.CommentsFromForum)
-        {
-            <div class="news">
-                @comment.Message
-            </div>
-        }
-        <div>
             -----------------------------------------------------------
         </div>
     }
-</div>
