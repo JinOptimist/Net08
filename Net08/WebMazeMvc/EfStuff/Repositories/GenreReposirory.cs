@@ -1,4 +1,4 @@
-﻿ using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -6,11 +6,13 @@ using WebMazeMvc.EfStuff.Model;
 
 namespace WebMazeMvc.EfStuff.Repositories
 {
-    public class NewsRepository : BaseRepository<News>
+    public class GenreRepository : BaseRepository<Genre>
     {
-        public NewsRepository(MazeDbContext dbContext) 
+        public GenreRepository(MazeDbContext dbContext) 
             : base(dbContext)
         {
+
         }
+
     }
 }

@@ -7,5 +7,11 @@
         <div>
             @user.Login <a href="/User/Remove?id=@user.Id">Удалить</a>
         </div>
+        @foreach (var news in user.NewsCreatedByMe)
+        {
+            <div class="news">
+                @news.Title <a href="/News/EasyRemove?id=@news.Id">remove</a>
+            </div>
+        }
     }
 </div>

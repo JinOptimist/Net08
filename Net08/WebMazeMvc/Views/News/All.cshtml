@@ -5,7 +5,22 @@
     @foreach (var news in Model)
     {
         <div>
-            @news.Title 
+            @news.Title
+        </div>
+        <div>
+            @news.Source
+        </div>
+        <div>
+            @news.Topic
+        </div>
+        foreach (var comment in news.CommentsFromForum)
+        {
+            <div class="news">
+                @comment.Message
+            </div>
+        }
+        <div>
+            -----------------------------------------------------------
         </div>
     }
 </div>

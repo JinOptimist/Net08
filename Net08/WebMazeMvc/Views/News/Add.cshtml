@@ -1,11 +1,15 @@
 ﻿@model AddNewsViewModel
-<form action="/User/Registration" method="post">
+<form action="/News/Add" method="post">
     <div>
-        @Html.TextBoxFor(x => x.Title)Title
+        @Html.TextBoxFor(x => x.Title) Title
     </div>
 
     <div>
-        @Html.TextBoxFor(x => x.Source)Source
+        @Html.TextBoxFor(x => x.Source) Source
+    </div>
+
+    <div>
+        @Html.TextBoxFor(x => x.CreaterId) CreaterId
     </div>
 
     <div>
