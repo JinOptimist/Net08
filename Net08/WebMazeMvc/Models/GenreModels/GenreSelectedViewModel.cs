@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace WebMazeMvc.Models
 {
-    public class GenreSelected
+    public class GenreSelectedViewModel
     {
         public long Id { get; set; }
         public bool IsSelected { get; set; }

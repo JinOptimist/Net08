@@ -50,6 +50,10 @@ namespace WebMazeMvc.EfStuff
                 .HasMany(x => x.Games)
                 .WithMany(x => x.Genres);
 
+            modelBuilder.Entity<Genre>()
+                .HasMany(x => x.Users)
+                .WithMany(x => x.Genres);
+
             base.OnModelCreating(modelBuilder);
         }
 

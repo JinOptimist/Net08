@@ -9,5 +9,6 @@ namespace WebMazeMvc.EfStuff.Model
     {
         public string GenreName { get; set; }
         public virtual List<Game> Games { get; set; }
+        public virtual List<User> Users { get; set; }
     }
 }

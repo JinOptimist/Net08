@@ -65,22 +65,31 @@ img {
 .field-value {
     flex: 1;
 }
-.menu-Action-Genre p{
-    width: 150px;
-    border: solid;
-    display:flex;
+
+.menu-action-genre {
+    width: 200px;
+    display: flex;
+    flex-direction: column;
 }
+
+.menu-action-genre a{
+    padding-left: 25px;
+    font-size: initial;
+}
+
 .remove-Box-Genre {
     display: flex;
 }
+
 .remove-Name-Genre {
     width: 200px;
 }
-.link-Remove-Genre{
-    flex:1;
+
+.link-Remove-Genre {
+    flex: 1;
 }
 
-.news{
+.news {
     padding-left: 20px;
     border-left: 1px red solid;
 }
@@ -107,26 +116,30 @@ img {
     text-align: center;
 }
 
-    .oneGame img {
-        max-width: 50px;
-        max-height: 50px;
-    }
-    
+.oneGame img {
+    max-width: 50px;
+    max-height: 50px;
+}
+
 .linkgame {
     font-size: 12px;
 }
+
 .show-genre li {
     padding-left: 20px;
     font-weight: 200;
     flex-direction: column;
 }
-.show-genre span{
+
+.show-genre span {
     font-weight: 600;
-    color:darkblue;
-}
-.show-genre{
-    font-weight:600;
+    color: darkblue;
 }
 
-
-    
+.show-genre {
+    font-weight: 600;
+}
+.user-all-genres p{
+   padding: 30px;
+   font-size: initial;
+}

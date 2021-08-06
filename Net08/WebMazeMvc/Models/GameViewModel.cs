@@ -11,6 +11,6 @@ namespace WebMazeMvc.Models
         public string NameGame { get; set; }
         public string Link { get; set; }
         public string Url { get; set; }
-        public List<GenreSelected> Genre { get; set; }
+        public List<GenreSelectedViewModel> Genre { get; set; }
     }
 }

@@ -9,17 +9,20 @@ using WebMazeMvc.EfStuff.Model;
 using System.Globalization;
 using Microsoft.AspNetCore.Http;
 using WebMazeMvc.EfStuff.Repositories;
+using WebMazeMvc.Services;
 
 namespace WebMazeMvc.Controllers
 {
     public class GenreController : Controller
     {
-
         private GenreRepository _genreRepository;
+        private UserService _userService;
 
-        public GenreController(GenreRepository genreRepository)
+        public GenreController(GenreRepository genreRepository,
+            UserService userService)
         {
             _genreRepository = genreRepository;
+            _userService = userService;
         }
 
         [HttpGet]
@@ -31,7 +34,6 @@ namespace WebMazeMvc.Controllers
         [HttpPost]
         public IActionResult AddGenre(GenreViewModel genre)
         {
-            
             var newgenre = new Genre
             {
                 GenreName = genre.NameGenre
@@ -42,9 +44,7 @@ namespace WebMazeMvc.Controllers
         }
         public IActionResult RemoveGenre()
         {
-            var allGenre = _genreRepository.GetAll();
-
-            var viewModels = allGenre
+            var viewModels = _genreRepository.GetAll()
                .Select(x => new GenreViewModel()
                {
                    Id = x.Id,
@@ -53,7 +53,7 @@ namespace WebMazeMvc.Controllers
 
             return View(viewModels);
         }
-       
+
         public IActionResult DeleteGenre(int id)
         {
             var genreToRemove = _genreRepository.Get(id);
@@ -71,10 +71,8 @@ namespace WebMazeMvc.Controllers
         }
         public IActionResult All()
         {
-            var allGenre = _genreRepository.GetAll();
-
-            var viewModels = allGenre
-               .Select(x => new AllGenreGameViewModel 
+            var viewModels = _genreRepository.GetAll()
+               .Select(x => new AllGenreGameViewModel
                {
                    NameGenre = x.GenreName,
                    Id = x.Id,
@@ -87,6 +85,22 @@ namespace WebMazeMvc.Controllers
                }).ToList();
 
             return View(viewModels);
-        }     
+        }
+        [HttpGet]
+        public IActionResult ChooseGenres()
+        {
+            var genres = _genreRepository.GetAll();
+
+            var userGenresId = _userService.GetCurrent().Genres.Select(x => x.Id).ToList();
+
+            var viewmodel = _genreRepository.GetAll().Select(x => new GenreSelectedViewModel
+            {
+                GenreName = x.GenreName,
+                Id = x.Id,
+                IsSelected = userGenresId.Contains(x.Id)
+            }).ToList();
+
+            return View(viewmodel);
+        }
     }
 }

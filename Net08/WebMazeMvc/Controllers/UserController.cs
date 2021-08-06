@@ -17,12 +17,15 @@ namespace WebMazeMvc.Controllers
     {
         private UserRepository _userRepository;
         private UserService _userService;
+        private GenreRepository _genreRepository;
 
-        public UserController(UserRepository userRepository, 
-            UserService userService)
+        public UserController(UserRepository userRepository,
+            UserService userService,
+            GenreRepository genreRepository)
         {
             _userRepository = userRepository;
             _userService = userService;
+            _genreRepository = genreRepository;
         }
 
         [HttpGet]
@@ -127,6 +130,51 @@ namespace WebMazeMvc.Controllers
             _userRepository.Remove(user);
 
             return RedirectToAction("All");
+        }
+        [HttpPost]
+        public IActionResult FavoriteGenres(List<GenreSelectedViewModel> genreSelected)
+        {
+            var user = _userService.GetCurrent();
+            var ids = genreSelected.
+                Where(x => x.IsSelected).
+                Select(x => x.Id).
+                ToList();
+
+            user.Genres.RemoveRange(0, user.Genres.Count());
+
+            user.Genres = _genreRepository.
+                GetAll().
+                Where(x => ids.Contains(x.Id)).
+                ToList();
+
+            _userRepository.Save(user);
+
+            var viewModel = new UserGenresViewModel
+            {
+                UserName = user.Login,
+                Genres = user.Genres.Select(x => new GenreViewModel
+                {
+                    NameGenre = x.GenreName,
+                    Id = x.Id
+                }).ToList()
+            };
+            return View(viewModel);
+        }
+        [HttpGet]
+        public IActionResult FavoriteGenres()
+        {
+            var user = _userService.GetCurrent();
+
+            var viewModel = new UserGenresViewModel
+            {
+                UserName = user.Login,
+                Genres = user.Genres.Select(x => new GenreViewModel
+                {
+                    NameGenre = x.GenreName,
+                    Id = x.Id
+                }).ToList()
+            };
+            return View(viewModel);
         }
     }
 }

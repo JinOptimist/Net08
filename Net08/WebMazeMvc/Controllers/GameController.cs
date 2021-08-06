@@ -22,10 +22,9 @@ namespace WebMazeMvc.Controllers
             _genreRepository = genreRepository;
         }
 
- 
         public IActionResult AllGames()
         {
-           var games =  _gamesRepository.GetAll();
+            var games = _gamesRepository.GetAll();
             var viewModel = games.Select(x => new GameViewModel
             {
                 NameGame = x.GameName,
@@ -42,9 +41,9 @@ namespace WebMazeMvc.Controllers
         {
             var genre = _genreRepository.GetAll();
 
-            GameViewModel gameViewModel = new GameViewModel();
+            var gameViewModel = new GameViewModel();
 
-            gameViewModel.Genre = genre.Select(vb => new GenreSelected
+            gameViewModel.Genre = genre.Select(vb => new GenreSelectedViewModel
             {
                 GenreName = vb.GenreName,
                 IsSelected = false,
@@ -57,23 +56,22 @@ namespace WebMazeMvc.Controllers
         [HttpPost]
         public IActionResult AddGame(GameViewModel newgame)
         {
-            var result = new List<Genre>();
+            var ids = newgame.Genre.
+                Where(x => x.IsSelected).
+                Select(x => x.Id).
+                ToList();
 
-            var inputGenre = newgame.Genre.Where(x => x.IsSelected == true).ToList();
+            var genres = _genreRepository.
+                GetAll().
+                Where(x => ids.Contains(x.Id)).
+                ToList();
 
-            var genres = _genreRepository.GetAll();
-
-            for (int i = 0; i < inputGenre.Count(); i++)
-            {
-                var genre = genres.First(x => x.Id == inputGenre[i].Id);
-                result.Add(genre);
-            }
             var addgame = new Game()
             {
                 GameName = newgame.NameGame,
                 Link = newgame.Link,
                 Url = newgame.Url,
-                Genres = result
+                Genres = genres
             };
             _gamesRepository.Save(addgame);
 
