@@ -176,7 +176,7 @@ namespace WebMazeMvc.Migrations
                         .HasColumnType("bigint");
 
                     b.Property<long>("NewsId")
-                        .HasColumnType("bigint")
+                        .HasColumnType("bigint");
 
                     b.Property<string>("Source")
                         .HasColumnType("nvarchar(max)");

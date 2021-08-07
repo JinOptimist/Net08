@@ -23,7 +23,8 @@ namespace WebMazeMvc.Controllers
 
         public UserController(UserRepository userRepository,
             UserService userService,
-            GenreRepository genreRepository)
+            GenreRepository genreRepository,
+            IMapper mapper)
         {
             _userRepository = userRepository;
             _userService = userService;
