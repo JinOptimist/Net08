@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authentication;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -18,6 +19,7 @@ namespace WebMazeMvc.Controllers
         private UserRepository _userRepository;
         private UserService _userService;
         private GenreRepository _genreRepository;
+        private IMapper _mapper;
 
         public UserController(UserRepository userRepository,
             UserService userService,
@@ -26,6 +28,7 @@ namespace WebMazeMvc.Controllers
             _userRepository = userRepository;
             _userService = userService;
             _genreRepository = genreRepository;
+            _mapper = mapper;
         }
 
         [HttpGet]
@@ -77,12 +80,7 @@ namespace WebMazeMvc.Controllers
         [HttpPost]
         public IActionResult Registration(RegistrationViewModel viewModel)
         {
-
-            var user = new User()
-            {
-                Login = viewModel.Login,
-                Password = viewModel.Password
-            };
+            var user = _mapper.Map<User>(viewModel);
 
             _userRepository.Save(user);
 
@@ -93,18 +91,7 @@ namespace WebMazeMvc.Controllers
         {
             var allUsers = _userRepository.GetAll();
 
-            var viewModels = allUsers
-                .Select(dbUser => new UserForRemoveViewModel()
-                {
-                    Id = dbUser.Id,
-                    Login = dbUser.Login,
-                    MyNews = dbUser.NewsCreatedByMe
-                        .Select(x => new ShortNewsViewModel
-                        {
-                            Id = x.Id,
-                            Title = x.Title
-                        }).ToList()
-                }).ToList();
+            var viewModels = _mapper.Map<List<UserForRemoveViewModel>>(allUsers);
 
             return View(viewModels);
         }
@@ -113,12 +100,7 @@ namespace WebMazeMvc.Controllers
         {
             var user = _userService.GetCurrent();
 
-            var viewModels = user.NewsCreatedByMe
-                .Select(x => new ShortNewsViewModel
-                {
-                    Id = x.Id,
-                    Title = x.Title
-                }).ToList();
+            var viewModels = _mapper.Map<List<ShortNewsViewModel>>(user.NewsCreatedByMe);
 
             return View(viewModels);
         }
