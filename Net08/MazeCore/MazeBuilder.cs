@@ -13,8 +13,8 @@ namespace MazeCore
         private Random _random = new Random();
         private Action<IMaze> _drawStepByStep;
 
-        public IMaze Build(int width = 10, 
-            int height = 5, 
+        public IMaze Build(int width = 10,
+            int height = 5,
             Action<IMaze> drawStepByStep = null)
         {
             _drawStepByStep = drawStepByStep;
@@ -34,6 +34,8 @@ namespace MazeCore
             BuildItemCell();
 
             BuildGuards(1, 5, 3, 8);
+
+            BuildLava(33);
 
             return _maze;
         }
@@ -69,7 +71,7 @@ namespace MazeCore
             };
 
             _maze.Hero.X = randomCell.X;
-            _maze.Hero.Y = randomCell.Y; 
+            _maze.Hero.Y = randomCell.Y;
 
             while (wallsToDestroy.Any())
             {
@@ -161,7 +163,47 @@ namespace MazeCore
                 var oldwall = _maze.ReplaceCell(ground);
             }
         }
-        
+
+        private void BuildLava(int a)
+        {
+
+            var wallsToDestroy = new List<BaseCell>()
+            {
+                GetRandom(_maze.Cells)
+            };
+
+            var procentLavi = a;
+            var wallsToDestroyLava = _maze.Cells.OfType<Wall>().ToList();
+
+            if (procentLavi > 100)
+            {
+                procentLavi = 100;
+            }
+            else if (procentLavi < 0)
+            {
+                procentLavi = 0;
+            }
+
+
+            for (int indexndex = 0; indexndex < wallsToDestroyLava.Count * procentLavi / 100; indexndex++)
+            {
+
+                if (_drawStepByStep != null)
+                {
+                    _drawStepByStep.Invoke(_maze);
+                    Thread.Sleep(100);
+                }
+
+                var wallToDestroy = GetRandom(_maze.Cells.OfType<Wall>().ToList());
+                var lava = new Lava(wallToDestroy.X, wallToDestroy.Y, _maze);
+                var oldWall = _maze.ReplaceCell(lava);
+                wallsToDestroy.Remove(oldWall);
+
+                var nearestWalls = GetNears<Wall>(lava);
+                wallsToDestroy.AddRange(nearestWalls);
+            }
+        }
+
         private void BuildWall()
         {
             for (int y = 0; y < _maze.Height; y++)
@@ -205,6 +247,6 @@ namespace MazeCore
             var index = _random.Next(cells.Count);
             return cells[index];
         }
-       
+
     }
 }
