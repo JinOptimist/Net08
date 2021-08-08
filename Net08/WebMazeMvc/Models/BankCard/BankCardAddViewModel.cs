@@ -9,7 +9,7 @@ using WebMazeMvc.Models.CustomValidationAttribute;
 
 namespace WebMazeMvc.Models
 {
-    [BankCardExpiration]
+    //[BankCardExpiration]
     public class BankCardAddViewModel
     {
         [BankCardNumber]        
@@ -18,9 +18,9 @@ namespace WebMazeMvc.Models
         public string CardNumber { get; set; }
 
         [DisplayName("Месяц действия")]
-        public string ValidityMonth { get; set; }
+        public int ValidityMonth { get; set; }
 
         [DisplayName("Год действия")]
-        public string ValidityYear { get; set; }
+        public int ValidityYear { get; set; }
     }
 }

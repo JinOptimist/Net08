@@ -24,13 +24,13 @@ namespace WebMazeMvc.Models.CustomValidationAttribute
 
             if (month == null || year == null)
             {
-                return false;
+                throw new Exception("Данный атрибут применим только для полей даты.");
             } 
 
             return CheckCardExpiration(month.ToString(), year.ToString());
         }
 
-        public static bool CheckCardExpiration(string expirationMonth, string expirationYear)
+        public bool CheckCardExpiration(string expirationMonth, string expirationYear)
         {
             const int CardExpiryYearMax = 5;
 
@@ -40,7 +40,7 @@ namespace WebMazeMvc.Models.CustomValidationAttribute
             if (!monthCheck.IsMatch(expirationMonth) || !yearCheck.IsMatch(expirationYear))
             {
                 return false;
-            }
+            }            
 
             var month = int.Parse(expirationMonth);
             var year = int.Parse(expirationYear);

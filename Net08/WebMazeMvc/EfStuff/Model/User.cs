@@ -19,6 +19,6 @@ namespace WebMazeMvc.EfStuff.Model
 
         public virtual List<Comment> CommentsCreatedByMe { get; set; }
 
-        public virtual List<BankCard> BankCard { get; set; }
+        public virtual List<BankCard> BankCards { get; set; }
     }
 }

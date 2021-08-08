@@ -6,14 +6,14 @@ using System.Threading.Tasks;
 
 namespace WebMazeMvc.Models
 {
-    public class BankCardGetOneViewModel
+    public class BankCardGetViewModel
     {
         public long Id { get; set; }
 
         public string CardNumber { get; set; }
 
-        public string ValidityMonth { get; set; }
+        public int ValidityMonth { get; set; }
 
-        public string ValidityYear { get; set; }
+        public int ValidityYear { get; set; }
     }
 }

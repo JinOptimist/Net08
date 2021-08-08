@@ -9,9 +9,9 @@ namespace WebMazeMvc.EfStuff.Model
     {        
         public string CardNumber { get; set; }
         
-        public string ValidityMonth { get; set; }
+        public int ValidityMonth { get; set; }
 
-        public string ValidityYear { get; set; }
+        public int ValidityYear { get; set; }
         
         public virtual User Owner { get; set; }
     }

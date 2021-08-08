@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,14 +14,16 @@ namespace WebMazeMvc.Controllers
     public class BankCardController : Controller
     {
         private readonly BankCardRepository _bankCardRepository;
+        private readonly IMapper _mapper;
 
-        public BankCardController(BankCardRepository bankCardRepository)
+        public BankCardController(BankCardRepository bankCardRepository, IMapper mapper)
         {
             _bankCardRepository = bankCardRepository;
+            _mapper = mapper;
         }
 
         [HttpGet]
-        public IActionResult BankCardGetOne(long id)
+        public IActionResult BankCardGet(long id)
         {
             var card = _bankCardRepository.Get(id);
 
@@ -29,13 +32,15 @@ namespace WebMazeMvc.Controllers
                 return RedirectToAction("Index", "Home");
             }
 
-            var viewModel = new BankCardGetOneViewModel()
-            {
-                Id = card.Id,
-                CardNumber = card.CardNumber,
-                ValidityMonth = card.ValidityMonth,
-                ValidityYear = card.ValidityYear
-            };
+            var viewModel = _mapper.Map<List<BankCardGetViewModel>>(card);
+
+            //var viewModel = new BankCardGetViewModel()
+            //{
+            //    Id = card.Id,
+            //    CardNumber = card.CardNumber,
+            //    ValidityMonth = card.ValidityMonth,
+            //    ValidityYear = card.ValidityYear
+            //};
 
             return View(viewModel);
         }

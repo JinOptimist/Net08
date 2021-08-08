@@ -102,6 +102,8 @@ namespace WebMazeMvc
 
             provider.CreateMap<RegistrationViewModel, User>();
 
+            provider.CreateMap<BankCard, BankCardGetViewModel>();
+
             var mapperConfiguration = new MapperConfiguration(provider);
             var mapper = new Mapper(mapperConfiguration);
 

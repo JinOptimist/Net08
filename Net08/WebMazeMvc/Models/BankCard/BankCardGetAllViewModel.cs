@@ -12,8 +12,8 @@ namespace WebMazeMvc.Models
 
         public string CardNumber { get; set; }
 
-        public string ValidityMonth { get; set; }
+        public int ValidityMonth { get; set; }
 
-        public string ValidityYear { get; set; }
+        public int ValidityYear { get; set; }
     }
 }

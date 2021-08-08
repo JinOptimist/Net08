@@ -47,7 +47,7 @@ namespace WebMazeMvc.EfStuff
                 .WithMany(x => x.Comments);
 
             modelBuilder.Entity<User>()
-                .HasMany(x => x.BankCard)
+                .HasMany(x => x.BankCards)
                 .WithOne(x => x.Owner);
 
             base.OnModelCreating(modelBuilder);
