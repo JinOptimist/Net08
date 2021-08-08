@@ -1,19 +1,19 @@
 ﻿@model List<MainCommentViewModel>
 
 @section Head{
-    <link rel="stylesheet" href="~/css/forum.css?v=6">
+    <link rel="stylesheet" href="~/css/forum.css?v=8">
 }
 
 <div>
-    <nav>
-    <ul class="hmenu">
+    <div class="hmenu">
+    <ul>
         <li class="active"><a href="/Comment/All" title="Обновить список всех комментариев">Все комментарии</a></li>
         @if (User.Identity.IsAuthenticated)
         {
             <li><a href="/Comment/My" title="Перейти к списку моих комментариев">Мои комментарии</a></li>
         }
     </ul>
-    </nav>
+    </div>
     <div>
     <div class="divTable">
     <div class="divTableBody">
