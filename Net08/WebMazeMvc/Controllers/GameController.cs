@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,12 +15,15 @@ namespace WebMazeMvc.Controllers
     {
         private GamesRepository _gamesRepository;
         private GenreRepository _genreRepository;
+        private IMapper _mapper;
 
         public GameController(GamesRepository gamesRepository,
-            GenreRepository genreRepository)
+            GenreRepository genreRepository,
+            IMapper mapper)
         {
             _gamesRepository = gamesRepository;
             _genreRepository = genreRepository;
+            _mapper = mapper;
         }
 
         public IActionResult AllGames()
@@ -39,32 +43,23 @@ namespace WebMazeMvc.Controllers
         [HttpGet]
         public IActionResult AddGame()
         {
-            var genre = _genreRepository.GetAll();
+            var viewModel = _mapper.Map<GameViewModel>(_gamesRepository.GetAll()); //djghjcs
 
-            var gameViewModel = new GameViewModel();
-
-            gameViewModel.Genre = genre.Select(vb => new GenreSelectedViewModel
-            {
-                GenreName = vb.GenreName,
-                IsSelected = false,
-                Id = vb.Id
-
-            }).ToList();
-            return View(gameViewModel);
+            return View(viewModel);
         }
 
         [HttpPost]
         public IActionResult AddGame(GameViewModel newgame)
         {
-            var ids = newgame.Genre.
-                Where(x => x.IsSelected).
-                Select(x => x.Id).
-                ToList();
+            var ids = newgame.Genres
+                .Where(x => x.IsSelected)
+                .Select(x => x.Id)
+                .ToList();
 
-            var genres = _genreRepository.
-                GetAll().
-                Where(x => ids.Contains(x.Id)).
-                ToList();
+            var genres = _genreRepository
+                .GetAll()
+                .Where(x => ids.Contains(x.Id))
+                .ToList();
 
             var addgame = new Game()
             {

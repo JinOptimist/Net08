@@ -1,8 +1,8 @@
 ﻿@model GenreViewModel
 <form action="/Genre/AddGenre" method="post">
     <div>
-        @Html.TextBoxFor(x => x.NameGenre)
-        @Html.ValidationMessageFor(x=>x.NameGenre)
+        @Html.TextBoxFor(x => x.GenreName)
+        @Html.ValidationMessageFor(x=>x.GenreName)
     </div>
     <div>
         <input type ="submit" name="Create" />

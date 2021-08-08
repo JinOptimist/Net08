@@ -9,7 +9,8 @@ namespace WebMazeMvc.Models
     public class GenreViewModel
     {
         public long Id { get; set; }
+
         [Required (ErrorMessage ="Введите название жанра") ]
-        public string NameGenre { get; set; }
+        public string GenreName { get; set; }
     }
 }

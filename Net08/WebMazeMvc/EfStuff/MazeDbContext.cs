@@ -52,7 +52,7 @@ namespace WebMazeMvc.EfStuff
 
             modelBuilder.Entity<Genre>()
                 .HasMany(x => x.Users)
-                .WithMany(x => x.Genres);
+                .WithMany(x => x.FavoriteGenres);
 
             base.OnModelCreating(modelBuilder);
         }

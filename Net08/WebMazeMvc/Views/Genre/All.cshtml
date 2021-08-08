@@ -4,12 +4,12 @@
 {
     <details class="cover-show-genre-and-games">
 
-         <summary class="show-genre"> <span>@genre.NameGenre</span>  количество игр - @genre.genreGameViewModel.Count()</summary>
+         <summary class="show-genre"> <span>@genre.GenreName</span>  количество игр - @genre.GenreGameViewModel.Count()</summary>
          <ol>
-             @foreach (var game in genre.genreGameViewModel)
+             @foreach (var game in genre.GenreGameViewModel)
              {
                  <li>
-                    @game.NameGame
+                    @game.GameName
                   </li>
               }
         </ol>   

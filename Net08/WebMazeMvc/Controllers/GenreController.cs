@@ -10,6 +10,7 @@ using System.Globalization;
 using Microsoft.AspNetCore.Http;
 using WebMazeMvc.EfStuff.Repositories;
 using WebMazeMvc.Services;
+using AutoMapper;
 
 namespace WebMazeMvc.Controllers
 {
@@ -17,12 +18,14 @@ namespace WebMazeMvc.Controllers
     {
         private GenreRepository _genreRepository;
         private UserService _userService;
+        private IMapper _mapper;
 
         public GenreController(GenreRepository genreRepository,
-            UserService userService)
+            UserService userService, IMapper mapper)
         {
             _genreRepository = genreRepository;
             _userService = userService;
+            _mapper = mapper;
         }
 
         [HttpGet]
@@ -33,41 +36,37 @@ namespace WebMazeMvc.Controllers
         }
         [HttpPost]
         public IActionResult AddGenre(GenreViewModel genre)
-        {
-            var newgenre = new Genre
-            {
-                GenreName = genre.NameGenre
-            };
-
+        { 
             if (!ModelState.IsValid)
             {
                 return View(genre);
             }
 
+            var newgenre = _mapper.Map<Genre>(genre);
+
             _genreRepository.Save(newgenre);
+
             return RedirectToAction("GenreAction");
         }
+        [HttpGet]
         public IActionResult RemoveGenre()
         {
-            var viewModels = _genreRepository.GetAll()
-               .Select(x => new GenreViewModel()
-               {
-                   Id = x.Id,
-                   NameGenre = x.GenreName
-               }).ToList();
+            var viewModels = _mapper.Map<List<GenreViewModel>>(_genreRepository.GetAll());
 
             return View(viewModels);
         }
-
-        public IActionResult DeleteGenre(int id)
+        [HttpPost]
+        public IActionResult RemoveGenre(int id)
         {
             var genreToRemove = _genreRepository.Get(id);
+
             if (genreToRemove == null)
             {
                 return View();
             }
 
             _genreRepository.Remove(genreToRemove);
+
             return RedirectToAction("GenreAction");
         }
         public IActionResult GenreAction()
@@ -76,36 +75,25 @@ namespace WebMazeMvc.Controllers
         }
         public IActionResult All()
         {
-            var viewModels = _genreRepository.GetAll()
-               .Select(x => new AllGenreGameViewModel
-               {
-                   NameGenre = x.GenreName,
-                   Id = x.Id,
-                   genreGameViewModel = x.Games
-                   .Select(q => new GenreGameViewModel
-                   {
-                       NameGame = q.GameName,
-                       Id = q.Id
-                   }).ToList()
-               }).ToList();
+            var viewModel = _mapper.Map<List<AllGenreGameViewModel>>(_genreRepository.GetAll());
 
-            return View(viewModels);
+            return View(viewModel);
         }
         [HttpGet]
         public IActionResult ChooseGenres()
         {
             var genres = _genreRepository.GetAll();
 
-            var userGenresId = _userService.GetCurrent().Genres.Select(x => x.Id).ToList();
+            var userGenresId = _userService.GetCurrent().FavoriteGenres.Select(x => x.Id).ToList();
 
-            var viewmodel = _genreRepository.GetAll().Select(x => new GenreSelectedViewModel
+            var viewmModel = _genreRepository.GetAll().Select(x => new GenreSelectedViewModel
             {
                 GenreName = x.GenreName,
                 Id = x.Id,
                 IsSelected = userGenresId.Contains(x.Id)
             }).ToList();
 
-            return View(viewmodel);
+            return View(viewmModel);
         }
     }
 }

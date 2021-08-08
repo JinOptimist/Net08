@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using WebMazeMvc.EfStuff.Model;
 
 namespace WebMazeMvc.Models
 {
-    public class GenreGameViewModel
+    public class GameGenreViewModel
     {
-        public long Id { get; set; }
         public string GameName { get; set; }
+        public List<GenreSelectedViewModel> GameGenres { get; set; }
     }
 }

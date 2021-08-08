@@ -8,7 +8,7 @@ namespace WebMazeMvc.Models
     public class AllGenreGameViewModel
     {
         public long Id { get; set; }
-        public string NameGenre { get; set; }
-        public List<GenreGameViewModel> genreGameViewModel { get; set; }
+        public string GenreName { get; set; }
+        public List<GenreGameViewModel> GenreGameViewModel { get; set; }
     }
 }

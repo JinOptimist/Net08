@@ -2,13 +2,13 @@
 
 <div class="cover-user-genres">
     <div class=" user-name-genres">
-        @Model.UserName ваши любимые жанры
+        @Model.Login ваши любимые жанры
     </div>
     <div class="user-all-genres">
-        @foreach (var genre in Model.Genres)
+        @foreach (var genre in Model.FavoriteGenres)
         {
             <p>
-                @genre.NameGenre
+                @genre.GenreName
             </p>
         }
     </div>

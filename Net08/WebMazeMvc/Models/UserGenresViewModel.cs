@@ -7,7 +7,7 @@ namespace WebMazeMvc.Models
 {
     public class UserGenresViewModel
     {
-        public string UserName { get; set; }
-        public List<GenreViewModel> Genres  { get; set; }
+        public string Login { get; set; }
+        public List<GenreViewModel> FavoriteGenres { get; set; }
     }
 }
