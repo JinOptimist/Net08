@@ -1,19 +1,24 @@
 ﻿@model List<MainForumViewModel>
 
 @section Head{
-    <link rel="stylesheet" href="~/css/forum.css?v=6">
+    <link rel="stylesheet" href="~/css/forum.css?v=9">
 }
 
 <div>
-    <nav>
-    <ul class="top-menu">
+    <div class="hmenu">
+    <ul>
         <li><a href="/Forum/All" title="Перейти ко всем форумам">Все форумы</a></li>
         <li class="active"><a href="/Forum/My" title="Обновить список моих форумов">Мои форумы</a></li>
-        <button class="menu"><a href="/Forum/Add" title="Добавить новый форум">Добавить</a></button>
+        <li>
+            <i  title="Список операций">...</i>
+            <ul>
+                <li><a href="/Forum/Add" title="Добавить новый форум">Добавить</a></li>
+                <li><a href="#">Сгенерировать</a></li>
+            </ul>
+        </li>
     </ul>
-    </nav>
-    <div>
- <div class="divTable">
+    </div>
+    <div class="divTable">
     <div class="divTableBody">
     <div class="divTableRow">
     <div class="divTableCell">
@@ -50,12 +55,13 @@
         <div class="divTableCell">
         @if (@forum.CanEdit)
         {
-            <a href="/Forum/Delete?id=@forum.Id" title="Удалить текущий форум">Удалить</a>
+            <form action="/Forum/Remove?id=@forum.Id" method="post">
+            <input type="submit" title="Удалить текущий форум" value="Удалить">
+            </form>
         }
         </div>
         </div>
     }
-    </div>
     </div>
     </div>
 </div>

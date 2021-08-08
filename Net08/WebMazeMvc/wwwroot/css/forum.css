@@ -1,32 +1,64 @@
-﻿nav a {
-    text-decoration: none;
-}
-
-nav ul {
+﻿.hmenu ul {
     margin: 0;
     padding: 0;
+    display: flex;
+    list-style: none;
+    text-align: center;
+    background-color: #30A8E6;
+    position: relative;
 }
 
-nav li {
-    list-style-position: inside;
-    font: 14px 'Oswald', sans-serif;
-    padding: 10px;
+.hmenu ul ul {
+    position: absolute;
 }
 
-.top-menu li {
-    display: inline-block;
-    padding: 10px 30px;
+.hmenu li {
+    float: none;
+    position: relative;
+    width: 135.8px;
+    height: 100%;
+}
+
+.hmenu li.active a {
+    background-image: linear-gradient(white, white);
+    background-size: 100% 2px;
+}
+
+.hmenu li ul {
+    display: none;
+    height: auto;
     margin: 0;
+    border: 1px solid;
+    background-color: #1C85BB;
 }
 
-.top-menu li.active {
-    background: #29c5e6;
+.hmenu li:hover ul {
+    display: block;
 }
 
-.top-menu button.menu {
-    float: right;
-    margin-left: 10px;
-    margin-top: 14px;
+.hmenu a, i {
+    color: white;
+    text-decoration: none;
+    background: no-repeat 0 100%;
+    background-image: linear-gradient(#dce1e6, #dce1e6);
+    background-size: 0% 2px;
+    background-position: center bottom;
+    display: block;
+    padding: 15px 20px;
+    position: relative;
+    transition: background-size .3s ease;
+}
+
+.hmenu ul li:hover {
+    background-color: #1C85BB;
+}
+
+.hmenu ul ul li:hover {
+    background-color: #30A8E6;
+}
+
+.hmenu a:hover, a:focus {
+    background-size: 100% 2px;
 }
 
 .divTable {
@@ -63,4 +95,17 @@ nav li {
 
 .divTableBody {
     display: table-row-group;
+}
+
+.button {
+    background-color: #FF4500;
+    border: none;
+    color: white;
+    padding: 20px 34px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 20px;
+    margin: 4px 2px;
+    cursor: pointer;
 }

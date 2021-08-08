@@ -43,7 +43,9 @@
         <div class="divTableCell">
         @if (@comment.CanEdit)
         {
-            <a href="/Comment/Delete?id=@comment.Id" title="Удалить текущий комментарий">Удалить</a>
+            <form action="/Comment/Remove?id=@comment.Id" method="post">
+            <input type="submit" title="Удалить текущий комментарий" value="Удалить">
+            </form>
         }
         </div>
         </div>

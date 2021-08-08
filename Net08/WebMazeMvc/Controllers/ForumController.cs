@@ -110,5 +110,21 @@ namespace WebMazeMvc.Controllers
 
             return RedirectToAction("All");
         }
+
+        [HttpGet]
+        public IActionResult Remove()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Remove(long id)
+        {
+            var forum = _forumRepository.Get(id);
+
+            _forumRepository.Remove(forum);
+
+            return RedirectToAction("All");
+        }
     }
 }

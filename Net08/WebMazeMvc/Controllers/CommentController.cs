@@ -77,5 +77,21 @@ namespace WebMazeMvc.Controllers
 
             return View(viewModels);
         }
+
+        [HttpGet]
+        public IActionResult Remove()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Remove(long id)
+        {
+            var comment = _commentRepository.Get(id);
+
+            _commentRepository.Remove(comment);
+
+            return RedirectToAction("All");
+        }
     }
 }

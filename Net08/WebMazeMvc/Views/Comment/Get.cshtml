@@ -1,15 +1,15 @@
 ﻿@model List<MainCommentViewModel>
 
 @section Head{
-    <link rel="stylesheet" href="~/css/forum.css?v=6">
+    <link rel="stylesheet" href="~/css/forum.css?v=9">
 }
 
 <div>
-    <nav>
-    <ul class="top-menu">
-        <li class="active">Назад</li>
+    <div class="hmenu">
+    <ul>
+        <li class="active"><a href="#" title="Вернуться к предыдущему шагу">&laquo; Назад</a></li>
     </ul>
-    </nav>
+    </div>
     <div>
     <div class="divTable">
     <div class="divTableBody">
@@ -42,7 +42,9 @@
         <div class="divTableCell">
         @if (@comment.CanEdit)
         {
-            <a href="/Comment/Delete?id=@comment.Id" title="Удалить текущий комментарий">Удалить</a>
+            <form action="/Comment/Remove?id=@comment.Id" method="post">
+            <input type="submit" title="Удалить текущий комментарий" value="Удалить">
+            </form>
         }
         </div>
         </div>

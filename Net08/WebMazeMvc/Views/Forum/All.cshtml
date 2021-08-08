@@ -1,24 +1,33 @@
 ﻿@model List<MainForumViewModel>
 
 @section Head{
-    <link rel="stylesheet" href="~/css/forum.css?v=6">
+    <link rel="stylesheet" href="~/css/forum.css?v=9">
 }
 
 <div>
-    <nav>
-    <ul class="top-menu">
+    <div class="hmenu">
+    <ul>
         <li class="active"><a href="/Forum/All" title="Обновить список всех форумов">Все форумы</a></li>
         @if (User.Identity.IsAuthenticated)
         {
             <li><a href="/Forum/My" title="Перейти к списку моих форумов">Мои форумы</a></li>
-            <button class="menu"><a href="/Forum/Add" title="Добавить новый форум">Добавить</a></button>
+            <li>
+            <i  title="Список операций">...</i>
+            <ul>
+                <li><a href="/Forum/Add" title="Добавить новый форум">Добавить</a></li>
+                <li><a href="#">Сгенерировать</a></li>
+            </ul>
+            </li>
         }
     </ul>
-    </nav>
+    </div>
     <div>
     <div class="divTable">
     <div class="divTableBody">
     <div class="divTableRow">
+    <div class="divTableCell">
+        Идентификатор
+    </div>
     <div class="divTableCell">
         Топик
     </div>
@@ -39,6 +48,9 @@
     {
         <div class="divTableRow">
         <div class="divTableCell">
+            @forum.Id
+        </div>
+        <div class="divTableCell">
             @forum.Topic
         </div>
         <div class="divTableCell">
@@ -53,7 +65,9 @@
         <div class="divTableCell">
         @if (@forum.CanEdit)
         {
-            <a href="/Forum/Delete?id=@forum.Id" title="Удалить текущий форум">Удалить</a>
+            <form action="/Forum/Remove?id=@forum.Id" method="post">
+            <input type="submit" title="Удалить текущий форум" value="Удалить">
+            </form>
         }
         </div>
         </div>
