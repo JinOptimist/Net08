@@ -126,5 +126,47 @@ namespace WebMazeMvc.Controllers
 
             return RedirectToAction("All");
         }
+
+        [Authorize]
+        public IActionResult Generate(int count)
+        {
+            var user = _userService.GetCurrent();
+
+            for (var i = 0; i < count; i++)
+            {
+                var news = new News()
+                {
+                    Title = $"Title News {i + 1}",
+                    Creater = user
+                };
+
+                _newsRepository.Save(news);
+
+                var forum = new Forum()
+                {
+                    Topic = $"Topic Forum {i + 1}",
+                    NewsId = news.Id,
+                    DateCreated = DateTime.UtcNow,
+                    Creater = user
+                };
+
+                _forumRepository.Save(forum);
+
+                for (var j = 0; j < 10; j++)
+                {
+                    var comment = new Comment()
+                    {
+                        Message = $"Message for Comment {j + 1}",
+                        Forum = forum,
+                        DateCreated = DateTime.UtcNow,
+                        Creater = user
+                    };
+
+                    _commentRepository.Save(comment);
+                }
+            }
+
+            return RedirectToAction("All");
+        }
     }
 }
