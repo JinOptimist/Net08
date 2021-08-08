@@ -1,38 +1,64 @@
 ﻿@model List<MainForumViewModel>
 
 @section Head{
-    <link rel="stylesheet" href="~/css/forum.css?v=5">
+    <link rel="stylesheet" href="~/css/forum.css?v=6">
 }
 
 <div>
     <nav>
     <ul class="top-menu">
-        <li class="active"><a href="/Forum/All">Все форумы</a></li>
+        <li class="active"><a href="/Forum/All" title="Обновить список всех форумов">Все форумы</a></li>
         @if (User.Identity.IsAuthenticated)
         {
-            <li><a href="/Forum/My">Мои форумы</a></li>
-            <button class="menu"><a href="/Forum/Add">Добавить</a></button>
+            <li><a href="/Forum/My" title="Перейти к списку моих форумов">Мои форумы</a></li>
+            <button class="menu"><a href="/Forum/Add" title="Добавить новый форум">Добавить</a></button>
         }
-        </ul>
+    </ul>
     </nav>
     <div>
+    <div class="divTable">
+    <div class="divTableBody">
+    <div class="divTableRow">
+    <div class="divTableCell">
+        Топик
+    </div>
+    <div class="divTableCell">
+        Дата создания
+    </div>
+    <div class="divTableCell">
+        Автор
+    </div>
+    <div class="divTableCell">
+        Комментарии
+    </div>
+    <div class="divTableCell">
+        Операции
+    </div>
+    </div>
     @foreach (var forum in Model)
     {
-        <div>
+        <div class="divTableRow">
+        <div class="divTableCell">
             @forum.Topic
         </div>
-        <div>
+        <div class="divTableCell">
             @forum.DateCreated
         </div>
-        <div>
+        <div class="divTableCell">
             @forum.NameCreater
         </div>
+        <div class="divTableCell">
+            <a href="/Comment/Get?ForumId=@forum.Id" title="Перейти к списку комментариев текущего форума">@forum.CountComments</a>
+        </div>
+        <div class="divTableCell">
         @if (@forum.CanEdit)
         {
-            <div>
-                <a href="/Forum/Delete?id=@forum.Id">Delete</a>
-            </div>
+            <a href="/Forum/Delete?id=@forum.Id" title="Удалить текущий форум">Удалить</a>
         }
+        </div>
+        </div>
     }
+    </div>
+    </div>
     </div>
 </div>

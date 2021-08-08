@@ -1,0 +1,53 @@
+﻿@model List<MainCommentViewModel>
+
+@section Head{
+    <link rel="stylesheet" href="~/css/forum.css?v=6">
+}
+
+<div>
+    <nav>
+    <ul class="top-menu">
+        <li class="active">Назад</li>
+    </ul>
+    </nav>
+    <div>
+    <div class="divTable">
+    <div class="divTableBody">
+    <div class="divTableRow">
+    <div class="divTableCell">
+        Сообщение
+    </div>
+    <div class="divTableCell">
+        Дата создания
+    </div>
+    <div class="divTableCell">
+        Автор
+    </div>
+    <div class="divTableCell">
+        Операции
+    </div>
+    </div>
+    @foreach (var comment in Model)
+    {
+        <div class="divTableRow">
+        <div class="divTableCell">
+            @comment.Message
+        </div>
+        <div class="divTableCell">
+            @comment.DateCreated
+        </div>
+        <div class="divTableCell">
+            @comment.NameCreater
+        </div>
+        <div class="divTableCell">
+        @if (@comment.CanEdit)
+        {
+            <a href="/Comment/Delete?id=@comment.Id" title="Удалить текущий комментарий">Удалить</a>
+        }
+        </div>
+        </div>
+    }
+    </div>
+    </div>
+    </div>
+</div>

@@ -1,9 +1,12 @@
 ﻿@model AddForumViewModel
 <form action="/Forum/Add" method="post">
     <div>
-         @Html.TextBoxFor(x => x.Topic)
+        @Html.TextBoxFor(x => x.Topic)
     </div>
     <div>
-        <input type="submit" value="Send" />
+        @Html.DropDownListFor(x => x.NewsId, Model.AllNewsOptions)
+    </div>
+    <div>
+        <input type="submit" value="Добавить" />
     </div>
 </form>

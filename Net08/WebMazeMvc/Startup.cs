@@ -76,6 +76,9 @@ namespace WebMazeMvc
             services.AddScoped<ForumRepository>(container =>
                 new ForumRepository(container.GetService<MazeDbContext>())
                 );
+            services.AddScoped<CommentRepository>(container =>
+                new CommentRepository(container.GetService<MazeDbContext>())
+                );
             services.AddScoped<BankRepository>(container =>
                 new BankRepository(container.GetService<MazeDbContext>())
                 );
@@ -103,6 +106,14 @@ namespace WebMazeMvc
                 .ForMember(
                     nameof(MainForumViewModel.UserId),
                     config => config.MapFrom(forum => forum.Creater.Id));
+
+            provider.CreateMap<Comment, MainCommentViewModel>()
+                .ForMember(
+                    nameof(MainCommentViewModel.NameCreater),
+                    config => config.MapFrom(comment => comment.Creater.Login))
+                .ForMember(
+                    nameof(MainCommentViewModel.UserId),
+                    config => config.MapFrom(comment => comment.Creater.Id));
 
             provider.CreateMap<User, UserForRemoveViewModel>();
 
