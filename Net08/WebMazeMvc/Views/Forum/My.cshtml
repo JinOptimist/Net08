@@ -56,7 +56,7 @@
         @if (@forum.CanEdit)
         {
             <form action="/Forum/Remove?id=@forum.Id" method="post">
-            <input type="submit" title="Удалить текущий форум" value="Удалить">
+            <input type="submit" title="Удалить текущий форум" value="Удалить" onclick="return confirm('Вы действительно хотите удалить выбранный форум?')">
             </form>
         }
         </div>

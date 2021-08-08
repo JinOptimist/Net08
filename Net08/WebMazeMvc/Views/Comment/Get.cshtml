@@ -43,7 +43,7 @@
         @if (@comment.CanEdit)
         {
             <form action="/Comment/Remove?id=@comment.Id" method="post">
-            <input type="submit" title="Удалить текущий комментарий" value="Удалить">
+            <input type="submit" title="Удалить текущий комментарий" value="Удалить" onclick="return confirm('Вы действительно хотите удалить выбранный комментарий?')">
             </form>
         }
         </div>
