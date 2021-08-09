@@ -104,25 +104,12 @@ namespace WebMazeMvc
 
             provider.CreateMap<Genre, GenreViewModel>();
 
-            provider.CreateMap<Genre, AllGenreGameViewModel>()
-                .ForMember(
-                nameof(AllGenreGameViewModel.GenreGameViewModel),
-                config => config.MapFrom(genre => genre.Games));
-
             provider.CreateMap<User, UserGenresViewModel>();
 
-            provider.CreateMap<Genre, GameViewModel>() //dvdsdfsd
-              .ForMember(
-                 nameof(GameViewModel.Genres),
-           config => config.MapFrom(game => game.GenreName));
-             
-          
-
-
-            //provider.CreateMap<Genre, GenreSelectedViewModel>()
-            //    .ForMember(
-            //    nameof(GenreSelectedViewModel.IsSelected),
-            //    config=> config.MapFrom(genre=>  userGenresId.Contains(genre.Id)))
+            provider.CreateMap<Genre, GameViewModel>()
+                 .ForMember(
+                    nameof(GameViewModel.Genres),
+                    config => config.MapFrom(news => news));
 
             var mapperConfiguration = new MapperConfiguration(provider);
             var mapper = new Mapper(mapperConfiguration);

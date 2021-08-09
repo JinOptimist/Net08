@@ -75,7 +75,18 @@ namespace WebMazeMvc.Controllers
         }
         public IActionResult All()
         {
-            var viewModel = _mapper.Map<List<AllGenreGameViewModel>>(_genreRepository.GetAll());
+            var viewModel = _genreRepository.GetAll()
+            .Select(x => new AllGenreGameViewModel
+            {
+                GenreName = x.GenreName,
+                Id = x.Id,
+                GenreGameViewModel = x.Games
+                .Select(q => new GenreGameViewModel
+                {
+                    GameName = q.GameName,
+                    Id = q.Id
+                }).ToList()
+            }).ToList();
 
             return View(viewModel);
         }

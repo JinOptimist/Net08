@@ -71,7 +71,10 @@ img {
     display: flex;
     flex-direction: column;
 }
-
+.menu-action-genre a{
+   margin:4px;
+   border-color: aquamarine;
+}
 .menu-action-genre a{
     padding-left: 25px;
     font-size: initial;

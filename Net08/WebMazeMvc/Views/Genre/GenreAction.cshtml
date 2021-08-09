@@ -1,12 +1,21 @@
 ﻿
 <div class=" menu-action-genre">
-
-    <a href="/Genre/AddGenre">Add new Genre</a>
-    <a href="/Genre/RemoveGenre">Remove Genre</a>
-    <a href="/Genre/All">Show All</a>
+    <nav>
+        <a href="/Genre/AddGenre">Add new Genre</a>
+    </nav>
+    <nav>
+        <a href="/Genre/RemoveGenre">Remove Genre</a>
+    </nav>
+    <nav>
+        <a href="/Genre/All">Show All</a>
+    </nav>
+    
     @if (User.Identity.IsAuthenticated)
     {
-<a href="/Genre/ChooseGenres">Select favorite genres</a>}
+        <nav>
+            <a href="/Genre/ChooseGenres">Select favorite genres</a>
+        </nav>
+    }
 
 </div>
 
