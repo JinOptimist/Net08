@@ -104,9 +104,7 @@ namespace WebMazeMvc
 
             provider.CreateMap<RegistrationViewModel, User>();
 
-            provider.CreateMap<BankCard, BankCardGetViewModel>();
-
-            provider.CreateMap<BankCard, BankCardGetViewModel>();
+            provider.CreateMap<BankCard, BankCardGetViewModel>();                      
 
             provider.CreateMap<BankCardAddViewModel, BankCard>();
 
