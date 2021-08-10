@@ -78,5 +78,11 @@ namespace WebMazeMvc.Controllers
             Girls.Remove(girl);
             return RedirectToAction("Gallery");
         }
+   
+        public IActionResult IsUniq(string name)
+        {
+            var isUniq = !Girls.Any(x => x.Name == name);
+            return Json(isUniq);
+        }
     }
 }
