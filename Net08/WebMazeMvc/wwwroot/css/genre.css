@@ -1,0 +1,56 @@
+﻿
+.show-genre span {
+    font-weight: 600;
+    color: darkblue;
+}
+
+.show-genre {
+    font-weight: 600;
+}
+
+.user-all-genres p {
+    padding: 30px;
+    font-size: initial;
+}
+
+.menu-action-genre {
+    width: 200px;
+    display: flex;
+    flex-direction: column;
+}
+
+ .menu-action-genre a {
+        margin: 4px;
+        border-color: aquamarine;
+ }
+
+ .menu-action-genre a {
+        padding-left: 25px;
+        font-size: initial;
+ }
+
+.remove-box-genre {
+    display: flex;
+}
+
+.remove-name-genre {
+    width: 200px;
+}
+
+.link-remove-genre {
+    flex: 1;
+}
+.genre-action-menu li {
+    border: 1px solid;
+    width: 150px;
+    padding: 5px;
+    list-style: none;
+    text-align: center;
+    margin-bottom: -1px;
+  
+}
+.genre-action-menu a{
+    color: -webkit-link;
+    cursor: pointer;
+    text-decoration:none;
+}

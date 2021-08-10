@@ -48,15 +48,15 @@ namespace WebMazeMvc.Controllers
 
             return RedirectToAction("GenreAction");
         }
-        [HttpGet]
-        public IActionResult RemoveGenre()
-        {
-            var viewModels = _mapper.Map<List<GenreViewModel>>(_genreRepository.GetAll());
+        //[HttpGet]
+        //public IActionResult RemoveGenre()
+        //{
+        //    var viewModels = _mapper.Map<List<GenreViewModel>>(_genreRepository.GetAll());
 
-            return View(viewModels);
-        }
-        [HttpPost]
-        public IActionResult RemoveGenre(int id)
+        //    return View(viewModels);
+        //}
+        [HttpGet]
+        public IActionResult RemoveGenre(long id)
         {
             var genreToRemove = _genreRepository.Get(id);
 

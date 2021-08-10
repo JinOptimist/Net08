@@ -2,16 +2,18 @@
 
 @foreach (var genre in Model)
 {
-    <details class="cover-show-genre-and-games">
+<details class="cover-show-genre-and-games">
 
-         <summary class="show-genre"> <span>@genre.GenreName</span>  количество игр - @genre.GenreGameViewModel.Count()</summary>
-         <ol>
-             @foreach (var game in genre.GenreGameViewModel)
-             {
-                 <li>
-                    @game.GameName
-                  </li>
-              }
-        </ol>   
-    </details>
+    <summary class="show-genre"> <span>@genre.GenreName</span>  количество игр - @genre.GenreGameViewModel.Count()  
+    <a href="/Genre/RemoveGenre?id=@genre.Id">  Delete </a>
+    </summary>
+   
+    <ol>
+        @foreach (var game in genre.GenreGameViewModel)
+        {
+<li>
+    @game.GameName
+</li>}
+    </ol>
+</details>
 }

@@ -45,18 +45,15 @@ namespace WebMazeMvc.Controllers
         {
             var genre = _genreRepository.GetAll();
 
-            var viewModel = _mapper.Map<GameViewModel>(genre);
+            var viewModel = new GameViewModel();
 
-            //var viewModel = new GameViewModel();
+            viewModel.Genres = genre.Select(vb => new GenreSelectedViewModel
+            {
+                GenreName = vb.GenreName,
+                IsSelected = false,
+                Id = vb.Id
 
-            //viewModel.Genres = genre.Select(vb => new GenreSelectedViewModel
-            //{
-            //    GenreName = vb.GenreName,
-            //    IsSelected = false,
-            //    Id = vb.Id
-
-            //}).ToList();
-            //var viewModel = _mapper.Map<GameViewModel>(_gamesRepository.GetAll()); 
+            }).ToList();
 
             return View(viewModel);
         }

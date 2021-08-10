@@ -66,32 +66,6 @@ img {
     flex: 1;
 }
 
-.menu-action-genre {
-    width: 200px;
-    display: flex;
-    flex-direction: column;
-}
-.menu-action-genre a{
-   margin:4px;
-   border-color: aquamarine;
-}
-.menu-action-genre a{
-    padding-left: 25px;
-    font-size: initial;
-}
-
-.remove-box-genre {
-    display: flex;
-}
-
-.remove-name-genre {
-    width: 200px;
-}
-
-.link-remove-genre {
-    flex: 1;
-}
-
 .news {
     padding-left: 20px;
     border-left: 1px red solid;
@@ -128,21 +102,4 @@ img {
     font-size: 12px;
 }
 
-.show-genre li {
-    padding-left: 20px;
-    font-weight: 200;
-    flex-direction: column;
-}
 
-.show-genre span {
-    font-weight: 600;
-    color: darkblue;
-}
-
-.show-genre {
-    font-weight: 600;
-}
-.user-all-genres p{
-   padding: 30px;
-   font-size: initial;
-}

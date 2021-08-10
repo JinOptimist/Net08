@@ -102,9 +102,7 @@ namespace WebMazeMvc
 
             provider.CreateMap<RegistrationViewModel, User>();
 
-            provider.CreateMap<Genre, GenreViewModel>();
-
-            provider.CreateMap<User, UserGenresViewModel>();
+            provider.CreateMap<GenreViewModel, Genre>();
 
             provider.CreateMap<Genre, GameViewModel>()
                  .ForMember(

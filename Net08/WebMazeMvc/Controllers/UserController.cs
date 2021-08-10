@@ -132,16 +132,26 @@ namespace WebMazeMvc.Controllers
 
             _userRepository.Save(user);
 
-            var viewModel = _mapper.Map<UserGenresViewModel>(user); // Вопрос
+            //var viewModel = _mapper.Map<UserGenresViewModel>(user);// Вопрос
 
-            return View(viewModel);
+            return View();
         }
         [HttpGet]
         public IActionResult FavoriteGenres()
         {
             var user = _userService.GetCurrent();
 
-            var viewModel = _mapper.Map<UserGenresViewModel>(user);
+            var viewModel = new UserGenresViewModel
+            {
+                Login = user.Login,
+                FavoriteGenres = user.FavoriteGenres.Select(x => new GenreViewModel
+                {
+                    GenreName = x.GenreName,
+                    Id = x.Id
+                }).ToList()
+            };
+
+            //var viewModel = _mapper.Map<UserGenresViewModel>(user);// Вопрос
 
             return View(viewModel);
         }
