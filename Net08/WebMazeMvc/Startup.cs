@@ -101,6 +101,7 @@ namespace WebMazeMvc
 
             provider.CreateMap<BanksAddingViewModel, Bank>();
             provider.CreateMap<Bank, AllBanksForRemoveViewModel>();
+            provider.CreateMap<Bank, ClientOfBankViewModel>();
 
             var mapperConfiguration = new MapperConfiguration(provider);
             var mapper = new Mapper(mapperConfiguration);

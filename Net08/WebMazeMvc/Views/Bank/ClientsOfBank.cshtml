@@ -1,0 +1,15 @@
+﻿@model List<AllBanksForRemoveViewModel>
+
+
+<div>
+    <div>
+        <a href="/Bank/BanksAdding">Добавить банк</a>
+    </div>
+
+    @foreach (var bank in Model)
+    {
+        <div>
+            @bank.Name <a href="/Bank/Remove?id=@bank.Id">Удалить</a>
+        </div>
+     }
+</div>

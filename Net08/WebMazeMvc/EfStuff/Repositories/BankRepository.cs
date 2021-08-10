@@ -14,5 +14,9 @@ namespace WebMazeMvc.EfStuff.Repositories
 
         }
 
+        public List<User> AllUsersOfBank(long id)
+        {
+            return default;
+        }
     }
 }

@@ -41,13 +41,10 @@ namespace WebMazeMvc.Controllers
         public IActionResult BanksAdding(BanksAddingViewModel viewModel)
         {
             var bank = _mapper.Map<Bank>(viewModel); 
-
             _BankRepository.Save(bank);
-
-          
-
             return RedirectToAction("AllBanks");
         }
+
         [Authorize]
         public IActionResult AllBanks()
         {
@@ -57,6 +54,17 @@ namespace WebMazeMvc.Controllers
 
             return View(viewModels);
         }
+        [Authorize]
+        public IActionResult AllClientsOfBank(long id)
+        {
+            
+            var allUsers = new List<User>();
+
+
+            var viewModels = _mapper.Map<List<ClientOfBankViewModel>>(bank);
+            return View(viewModels);
+        }
+
         [Authorize]
         public IActionResult Remove(long id)
         {
