@@ -76,6 +76,9 @@ namespace WebMazeMvc
             services.AddScoped<BankRepository>(container =>
                 new BankRepository(container.GetService<MazeDbContext>())
                 );
+            services.AddScoped<MazeRepository>(container =>
+                new MazeRepository(container.GetService<MazeDbContext>())
+                );
         }
 
         private void registerMapper(IServiceCollection services)

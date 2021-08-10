@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using WebMazeMvc.Models;
+using WebMazeMvc.EfStuff.Model;
 
 namespace WebMazeMvc.Controllers
 {
@@ -26,6 +27,12 @@ namespace WebMazeMvc.Controllers
 
             var mazeBuilder = new MazeBuilder();
             var maze = mazeBuilder.Build(mazeViewModel.Width, mazeViewModel.Height);
+            var mazeModle = new MazeModel()
+            {
+                Width = maze.Width,
+                Height = maze.Height,
+                Cells = maze.Cells,
+            };
 
             var mazeDrawViewModel = new MazeDrawViewModel()
             {

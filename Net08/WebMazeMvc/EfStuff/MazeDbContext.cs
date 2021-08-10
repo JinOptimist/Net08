@@ -14,8 +14,8 @@ namespace WebMazeMvc.EfStuff
         public DbSet<News> News { get; set; }
         public DbSet<Forum> Forums { get; set; }
         public DbSet<Comment> Comments { get; set; }
-
         public DbSet<Bank> Banks { get; set; }
+        public DbSet<MazeModel> MazeModels { get; set; }
 
         public MazeDbContext(DbContextOptions options) : base(options)
         {
