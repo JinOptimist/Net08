@@ -9,12 +9,11 @@ using WebMazeMvc.Models.CustomValidationAttribute;
 
 namespace WebMazeMvc.Models
 {
-    //[BankCardExpiration]
+    [BankCardExpiration]
     public class BankCardAddViewModel
     {
         [BankCardNumber]        
-        [DisplayName("Номер карты")]
-        [Remote("CheckCardNumber", "BankCard", ErrorMessage = "Карта с таким номером уже существует")]
+        [DisplayName("Номер карты")]        
         public string CardNumber { get; set; }
 
         [DisplayName("Месяц действия")]

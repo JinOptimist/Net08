@@ -21,43 +21,27 @@ namespace WebMazeMvc.Controllers
             _bankCardRepository = bankCardRepository;
             _mapper = mapper;
         }
-
+        
         [HttpGet]
         public IActionResult BankCardGet(long id)
         {
             var card = _bankCardRepository.Get(id);
 
-            if (card == null)
+            if (card is null)
             {
-                return RedirectToAction("Index", "Home");
+                throw new ArgumentNullException(nameof(card), $"Карты с id={id} нет в базе данных");
             }
 
-            var viewModel = _mapper.Map<List<BankCardGetViewModel>>(card);
-
-            //var viewModel = new BankCardGetViewModel()
-            //{
-            //    Id = card.Id,
-            //    CardNumber = card.CardNumber,
-            //    ValidityMonth = card.ValidityMonth,
-            //    ValidityYear = card.ValidityYear
-            //};
+            var viewModel = _mapper.Map<BankCardGetViewModel>(card);
 
             return View(viewModel);
         }
 
         [HttpGet]
-        public IActionResult BankCardGetAll()
+        public IActionResult BankCardAll()
         {
             var allCards = _bankCardRepository.GetAll();
-
-            var viewModels = allCards
-                .Select(x => new BankCardGetAllViewModel()
-                {
-                    Id = x.Id,
-                    CardNumber = x.CardNumber,
-                    ValidityMonth = x.ValidityMonth,
-                    ValidityYear = x.ValidityYear
-                }).ToList();
+            var viewModels = _mapper.Map<List<BankCardGetViewModel>>(allCards);
 
             return View(viewModels);
         }
@@ -76,13 +60,7 @@ namespace WebMazeMvc.Controllers
                 return View(viewModel);
             }
 
-            var newCard = new BankCard()
-            {
-                CardNumber = viewModel.CardNumber,
-                ValidityMonth = viewModel.ValidityMonth,
-                ValidityYear = viewModel.ValidityYear
-            };
-
+            var newCard = _mapper.Map<BankCard>(viewModel);
             _bankCardRepository.Save(newCard);
 
             return RedirectToAction("Index", "Home");
@@ -99,12 +77,14 @@ namespace WebMazeMvc.Controllers
         {
             var card = _bankCardRepository.Get(id);
 
-            if (card != null)
+            if (card is null)
             {
-                _bankCardRepository.Remove(card);
+                throw new ArgumentNullException(nameof(card), $"Карты с id={id} нет в базе данных");
             }
 
-            return RedirectToAction("BankCardGetAll", "BankCard");
+            _bankCardRepository.Remove(card);
+
+            return RedirectToAction("BankCardAll");
         }
     }
 }

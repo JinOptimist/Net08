@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 namespace WebMazeMvc.Models.CustomValidationAttribute
 {    
     public class BankCardNumberAttribute : ValidationAttribute
-    {        
+    {
         public override string FormatErrorMessage(string name)
         {
             return string.IsNullOrEmpty(ErrorMessage)
-                ? $"Значение {name} не корректно"
+                ? $"Значение {name} некорректно"
                 : ErrorMessage;
         }
 
@@ -20,49 +20,50 @@ namespace WebMazeMvc.Models.CustomValidationAttribute
         {
             if (!(value is string))
             {
-                return false;
+                throw new Exception("Неверный формат данных");
             }
 
             return CheckCardNumberByLuhnAlgorithm(value.ToString())
                 && CheckCardType(value.ToString());
         }
 
-        public bool CheckCardNumberByLuhnAlgorithm(string cardNumber)
+        private bool CheckCardNumberByLuhnAlgorithm(string cardNumber)
         {
-            try
+            foreach (char c in cardNumber)
             {
-                int cardLength = cardNumber.Length;
-                int chekSum = 0;
-                int oneDigit;
-
-                for (int i = cardLength - 2; i >= 0; i -= 2)
+                if (!Char.IsDigit(c))
                 {
-                    oneDigit = int.Parse(cardNumber[i].ToString()) * 2;
-                    if (oneDigit > 9)
-                    {
-                        chekSum += oneDigit / 10;
-                        chekSum += oneDigit % 10;
-                    }
-                    else
-                    {
-                        chekSum += oneDigit;
-                    }
+                    return false;
                 }
-
-                int originalSum = 0;
-                for (int i = cardLength - 1; i >= 0; i -= 2)
-                {
-                    originalSum += int.Parse(cardNumber[i].ToString());
-                }
-                return ((originalSum + chekSum) % 10) == 0;
             }
-            catch
+
+            int oneDigit, 
+                chekSum = 0, 
+                originalSum = 0;
+            
+            for (int i = cardNumber.Length - 2; i >= 0; i -= 2)
+            {                
+                oneDigit = int.Parse(cardNumber[i].ToString()) * 2;
+                if (oneDigit > 9)
+                {
+                    chekSum += oneDigit / 10;
+                    chekSum += oneDigit % 10;
+                }
+                else
+                {
+                    chekSum += oneDigit;
+                }
+            }
+
+            for (int i = cardNumber.Length - 1; i >= 0; i -= 2)
             {
-                return false;
+                originalSum += int.Parse(cardNumber[i].ToString());
             }
+            
+            return ((originalSum + chekSum) % 10) == 0;            
         }
 
-        public bool CheckCardType(string cardNumber)
+        private bool CheckCardType(string cardNumber)
         {
             // AmericanExpress; first digits 34 or 37; length 15
             if (Regex.IsMatch(cardNumber, "^(34|37)"))

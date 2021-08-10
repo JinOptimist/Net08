@@ -1,7 +1,17 @@
 ﻿@model BankCardGetViewModel
 
-<div>
-    <div> Id card: @Model.Id </div>
-    <div> Number of card: @Model.CardNumber </div>
-    <div> Validity: @Model.ValidityMonth / @Model.ValidityYear </div>
-</div>
+<table border="1" align="center" cellspacing="0" cellpadding="10">
+    <caption>Информация по банковской карте</caption>
+    <tr>
+        <th>Id card</th>
+        <th>Number of card</th>
+        <th>Validity Month</th>
+        <th>Validity Year</th>
+    </tr>
+    <tr>
+        <th>@Model.Id</th>
+        <th>@Model.CardNumber</th>
+        <th>@Model.ValidityMonth</th>
+        <th>@Model.ValidityYear</th>
+    </tr>
+</table>
