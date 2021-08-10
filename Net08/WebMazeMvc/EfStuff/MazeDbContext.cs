@@ -49,7 +49,6 @@ namespace WebMazeMvc.EfStuff
         }
 
         public DbSet<Game> Games { get; set; }
-        public MazeDbContext (DbContextOptions options) : base(options)
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseLazyLoadingProxies();
