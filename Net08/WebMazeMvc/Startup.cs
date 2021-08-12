@@ -106,11 +106,10 @@ namespace WebMazeMvc
 
             provider.CreateMap<GenreViewModel, Genre>();
 
-            provider.CreateMap<Genre, GameViewModel>()
-                 .ForMember(
-                    nameof(GameViewModel.Genres),
-                    config => config.MapFrom(news => news));
+            provider.CreateMap<Genre, GenreSelectedViewModel>();
 
+            provider.CreateMap<User, GenreViewModel>();
+            
             var mapperConfiguration = new MapperConfiguration(provider);
             var mapper = new Mapper(mapperConfiguration);
 

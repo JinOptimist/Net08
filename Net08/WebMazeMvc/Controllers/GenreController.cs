@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Http;
 using WebMazeMvc.EfStuff.Repositories;
 using WebMazeMvc.Services;
 using AutoMapper;
+using WebMazeMvc.Controllers.AuthAttribute;
 
 namespace WebMazeMvc.Controllers
 {
@@ -31,12 +32,11 @@ namespace WebMazeMvc.Controllers
         [HttpGet]
         public IActionResult AddGenre()
         {
-
             return View();
         }
         [HttpPost]
         public IActionResult AddGenre(GenreViewModel genre)
-        { 
+        {
             if (!ModelState.IsValid)
             {
                 return View(genre);
@@ -48,13 +48,6 @@ namespace WebMazeMvc.Controllers
 
             return RedirectToAction("GenreAction");
         }
-        //[HttpGet]
-        //public IActionResult RemoveGenre()
-        //{
-        //    var viewModels = _mapper.Map<List<GenreViewModel>>(_genreRepository.GetAll());
-
-        //    return View(viewModels);
-        //}
         [HttpGet]
         public IActionResult RemoveGenre(long id)
         {

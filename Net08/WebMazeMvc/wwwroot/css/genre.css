@@ -54,3 +54,12 @@
     cursor: pointer;
     text-decoration:none;
 }
+.cover-show-genre-and-games {
+    margin: 25px;
+}
+.form-add-genre{
+    margin:25px;
+}
+.form-add-genre-input{
+    margin-top: 25px;
+}

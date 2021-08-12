@@ -58,14 +58,12 @@ namespace WebMazeMvc.Controllers
         }
 
         [HttpGet]
-        [OnlyGirl]
         public IActionResult Add()
         {
             return View();
         }
 
         [HttpPost]
-        [OnlyGirl]
         public IActionResult Add(CatViewModel cat)
         {
             Girls.Add(cat);
@@ -78,7 +76,7 @@ namespace WebMazeMvc.Controllers
             Girls.Remove(girl);
             return RedirectToAction("Gallery");
         }
-   
+
         public IActionResult IsUniq(string name)
         {
             var isUniq = !Girls.Any(x => x.Name == name);

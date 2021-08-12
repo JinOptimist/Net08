@@ -118,23 +118,19 @@ namespace WebMazeMvc.Controllers
         public IActionResult FavoriteGenres(List<GenreSelectedViewModel> genreSelected)
         {
             var user = _userService.GetCurrent();
+
             var ids = genreSelected
                 .Where(x => x.IsSelected)
-                . Select(x => x.Id)
+                .Select(x => x.Id)
                 .ToList();
 
             user.FavoriteGenres.RemoveRange(0, user.FavoriteGenres.Count());
 
-            user.FavoriteGenres = _genreRepository
-                .GetAll()
-                .Where(x => ids.Contains(x.Id))
-                .ToList();
+            user.FavoriteGenres = _genreRepository.FindGenresById(ids);
 
             _userRepository.Save(user);
 
-            //var viewModel = _mapper.Map<UserGenresViewModel>(user);// Вопрос
-
-            return View();
+            return RedirectToAction("FavoriteGenres");
         }
         [HttpGet]
         public IActionResult FavoriteGenres()
@@ -150,8 +146,6 @@ namespace WebMazeMvc.Controllers
                     Id = x.Id
                 }).ToList()
             };
-
-            //var viewModel = _mapper.Map<UserGenresViewModel>(user);// Вопрос
 
             return View(viewModel);
         }

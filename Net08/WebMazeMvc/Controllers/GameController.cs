@@ -34,8 +34,7 @@ namespace WebMazeMvc.Controllers
                 NameGame = x.GameName,
                 Link = x.Link,
                 Url = x.Url
-            }
-                ).ToList();
+            }).ToList();
 
             return View(viewModel);
         }
@@ -47,13 +46,7 @@ namespace WebMazeMvc.Controllers
 
             var viewModel = new GameViewModel();
 
-            viewModel.Genres = genre.Select(vb => new GenreSelectedViewModel
-            {
-                GenreName = vb.GenreName,
-                IsSelected = false,
-                Id = vb.Id
-
-            }).ToList();
+            viewModel.Genres = _mapper.Map<List<GenreSelectedViewModel>>(genre);
 
             return View(viewModel);
         }
@@ -66,10 +59,7 @@ namespace WebMazeMvc.Controllers
                 .Select(x => x.Id)
                 .ToList();
 
-            var genres = _genreRepository
-                .GetAll()
-                .Where(x => ids.Contains(x.Id))
-                .ToList();
+            var genres = _genreRepository.FindGenresById(ids);
 
             var addgame = new Game()
             {
