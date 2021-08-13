@@ -22,14 +22,14 @@ namespace WebMazeMvc.Localize {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class Index {
+    public class Forum {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal Index() {
+        internal Forum() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace WebMazeMvc.Localize {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("WebMazeMvc.Localize.Index", typeof(Index).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("WebMazeMvc.Localize.Forum", typeof(Forum).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,38 +61,56 @@ namespace WebMazeMvc.Localize {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Add Cat.
+        ///   Looks up a localized string similar to Comments.
         /// </summary>
-        public static string LeftMenu_AddCat {
+        public static string Forum_Comments {
             get {
-                return ResourceManager.GetString("LeftMenu_AddCat", resourceCulture);
+                return ResourceManager.GetString("Forum_Comments", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Exit.
+        ///   Looks up a localized string similar to Date Created.
         /// </summary>
-        public static string LeftMenu_Exit {
+        public static string Forum_DateCreated {
             get {
-                return ResourceManager.GetString("LeftMenu_Exit", resourceCulture);
+                return ResourceManager.GetString("Forum_DateCreated", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Gallery.
+        ///   Looks up a localized string similar to Identificator.
         /// </summary>
-        public static string LeftMenu_Gallery {
+        public static string Forum_Id {
             get {
-                return ResourceManager.GetString("LeftMenu_Gallery", resourceCulture);
+                return ResourceManager.GetString("Forum_Id", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Home.
+        ///   Looks up a localized string similar to Name Creater.
         /// </summary>
-        public static string LeftMenu_Home {
+        public static string Forum_NameCreater {
             get {
-                return ResourceManager.GetString("LeftMenu_Home", resourceCulture);
+                return ResourceManager.GetString("Forum_NameCreater", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Operations.
+        /// </summary>
+        public static string Forum_Operations {
+            get {
+                return ResourceManager.GetString("Forum_Operations", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Topic.
+        /// </summary>
+        public static string Forum_Topic {
+            get {
+                return ResourceManager.GetString("Forum_Topic", resourceCulture);
             }
         }
     }
