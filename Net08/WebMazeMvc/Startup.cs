@@ -91,12 +91,14 @@ namespace WebMazeMvc
 
             provider.CreateMap<News, ShortNewsViewModel>();
 
-            provider.CreateMap<News, AddNewsViewModel>()
+            provider.CreateMap<News, AllNewsViewModel>();
+
+            provider.CreateMap<News, AllIformationViewModle>()
                 .ForMember(
-                    nameof(AddNewsViewModel.Topic),
+                    nameof(AllIformationViewModle.Topic),
                     config => config.MapFrom(news => news.Forum.Topic))
                 .ForMember(
-                    nameof(AddNewsViewModel.CommentsFromForum),
+                    nameof(AllIformationViewModle.CommentsFromForum),
                     config => config.MapFrom(news => news.Forum.Comments));
 
             provider.CreateMap<Forum, MainForumViewModel>()
