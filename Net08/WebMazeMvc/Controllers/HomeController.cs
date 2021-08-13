@@ -1,8 +1,10 @@
 ﻿using MazeCore;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Linq;
 using WebMazeMvc.EfStuff;
 using WebMazeMvc.EfStuff.Repositories;
+using WebMazeMvc.Models;
 
 namespace WebMazeMvc.Controllers
 {
@@ -14,11 +16,26 @@ namespace WebMazeMvc.Controllers
         {
             _userRepository = userRepository;
         }
-        
+
         public IActionResult Index()
         {
-            var allUsers = _userRepository.GetAll();
-            return View(allUsers.Count());
+            var viewModel = new HomeViewModel();
+            viewModel.AllUsersOptions =
+                _userRepository.GetAll()
+                .Select(x => new SelectListItem()
+                {
+                    Text = x.Login,
+                    Value = x.Id.ToString()
+                })
+                .ToList();
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        public IActionResult Index(long coolUserId)
+        {
+
+            return View();
         }
 
         public IActionResult Privacy()
