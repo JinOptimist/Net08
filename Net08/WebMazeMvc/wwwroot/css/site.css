@@ -32,7 +32,6 @@ img {
     max-height: 100px;
 }
 
-
 .gallery {
     display: flex;
     flex-wrap: wrap;

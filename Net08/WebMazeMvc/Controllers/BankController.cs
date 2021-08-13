@@ -57,12 +57,24 @@ namespace WebMazeMvc.Controllers
         [Authorize]
         public IActionResult AllClientsOfBank(long id)
         {
-            
-            var allUsers = new List<User>();
+
+            var allUsers = _BankRepository.GetAllClients(id);
 
 
-            var viewModels = _mapper.Map<List<ClientOfBankViewModel>>(bank);
+             var viewModels = _mapper.Map<List<ClientOfBankViewModel>>(allUsers);
+
             return View(viewModels);
+        }
+
+        [Authorize]
+        public IActionResult NewClient(long id)
+        {
+
+            //var User= _BankRepository.GetAllClients(id);
+
+
+            //var viewModels = _mapper.Map<List<ClientOfBankViewModel>>(allUsers);
+            return default;// View(viewModels);
         }
 
         [Authorize]

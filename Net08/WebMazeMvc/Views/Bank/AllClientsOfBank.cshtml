@@ -1,0 +1,14 @@
+﻿@model List<ClientOfBankViewModel>
+    <div>
+        <a href="/Bank/AllBanks">Вернуться к банкам</a>
+    </div>
+
+<div>
+    
+    @foreach (var user in Model)
+    {
+    <div>
+        @user.Id     @user.Login
+    </div>
+     }
+</div>

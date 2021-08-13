@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using WebMazeMvc.Controllers.AuthAttribute;
 using WebMazeMvc.Models;
@@ -81,6 +82,7 @@ namespace WebMazeMvc.Controllers
    
         public IActionResult IsUniq(string name)
         {
+            Thread.Sleep(1000);
             var isUniq = !Girls.Any(x => x.Name == name);
             return Json(isUniq);
         }

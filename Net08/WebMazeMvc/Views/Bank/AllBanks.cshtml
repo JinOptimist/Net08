@@ -9,7 +9,7 @@
     @foreach (var bank in Model)
     {
         <div>
-            @bank.Name <a href="/Bank/Remove?id=@bank.Id">Удалить</a>
+            @bank.Name <a href="/Bank/Remove?id=@bank.Id">Удалить</a>  <a href="/Bank/AllClientsOfBank">Список клиентов</a>
         </div>
     }
 </div>

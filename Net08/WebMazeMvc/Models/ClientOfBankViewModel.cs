@@ -9,5 +9,6 @@ namespace WebMazeMvc.Models
     {
         public long Id { get; set; }
         public string Login { get; set; }
+
     }
 }

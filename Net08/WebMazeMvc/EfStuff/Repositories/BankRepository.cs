@@ -14,9 +14,11 @@ namespace WebMazeMvc.EfStuff.Repositories
 
         }
 
-        public List<User> AllUsersOfBank(long id)
+        public List<User> GetAllClients(long id)
         {
-            return default;
+            
+            var AllUsers = _dbSet.Where( x => x.Id == id ).SelectMany(y => y.Clients).ToList();
+            return AllUsers;
         }
     }
 }
