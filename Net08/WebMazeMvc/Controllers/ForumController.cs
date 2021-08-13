@@ -37,16 +37,12 @@ namespace WebMazeMvc.Controllers
         public IActionResult All()
         {
             var user = _userService.GetCurrent();
-            var allForums = _forumRepository.GetAll();
-            var viewModels = _mapper.Map<List<MainForumViewModel>>(allForums);
+            var forums = _forumRepository.GetAll();
+            var viewModels = _mapper.Map<List<MainForumViewModel>>(forums);
 
             foreach (var viewModel in viewModels)
             {
-                viewModel.CountComments = _commentRepository.GetAll()
-                    .Where(x => x.Forum.Id == viewModel.Id)
-                    .ToList()
-                    .Count;
-                viewModel.CanEdit = user != null && viewModel.UserId == user.Id;
+                viewModel.CanEdit = viewModel.UserId == user?.Id;
             }
 
             return View(viewModels);
@@ -56,16 +52,11 @@ namespace WebMazeMvc.Controllers
         public IActionResult My()
         {
             var user = _userService.GetCurrent();
-            var allForums = _forumRepository.GetAll()
-                .Where(x => x.Creater == user);
-            var viewModels = _mapper.Map<List<MainForumViewModel>>(allForums);
+            var forums = _forumRepository.GetByUserId(user.Id);
+            var viewModels = _mapper.Map<List<MainForumViewModel>>(forums);
 
             foreach (var viewModel in viewModels)
             {
-                viewModel.CountComments = _commentRepository.GetAll()
-                    .Where(x => x.Forum?.Id == viewModel.Id)
-                    .ToList()
-                    .Count;
                 viewModel.CanEdit = true;
             }
 
@@ -76,10 +67,8 @@ namespace WebMazeMvc.Controllers
         [HttpGet]
         public IActionResult Add()
         {
+            var allNews = _newsRepository.GetWithoutForum();
             var viewModel = new AddForumViewModel();
-
-            var allNews = _newsRepository.GetAll()
-                .Where(x => x.Forum == null);
 
             viewModel.AllNewsOptions =
                 allNews
@@ -140,30 +129,29 @@ namespace WebMazeMvc.Controllers
                     Creater = user
                 };
 
-                _newsRepository.Save(news);
-
-                var forum = new Forum()
+                news.Forum = new Forum()
                 {
                     Topic = $"Topic Forum {i + 1}",
                     NewsId = news.Id,
                     DateCreated = DateTime.UtcNow,
-                    Creater = user
+                    Creater = user,
+                    Comments = new List<Comment>()  
                 };
-
-                _forumRepository.Save(forum);
 
                 for (var j = 0; j < 10; j++)
                 {
                     var comment = new Comment()
                     {
                         Message = $"Message for Comment {j + 1}",
-                        Forum = forum,
+                        Forum = news.Forum,
                         DateCreated = DateTime.UtcNow,
                         Creater = user
                     };
 
-                    _commentRepository.Save(comment);
+                    news.Comments.Add(comment);
                 }
+
+                _newsRepository.Save(news);
             }
 
             return RedirectToAction("All");

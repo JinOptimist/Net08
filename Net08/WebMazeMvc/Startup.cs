@@ -107,7 +107,10 @@ namespace WebMazeMvc
                     config => config.MapFrom(forum => forum.Creater.Login))
                 .ForMember(
                     nameof(MainForumViewModel.UserId),
-                    config => config.MapFrom(forum => forum.Creater.Id));
+                    config => config.MapFrom(forum => forum.Creater.Id))
+                .ForMember(
+                    nameof(MainForumViewModel.CountComments),
+                    config => config.MapFrom(forum => forum.Comments.Count));
 
             provider.CreateMap<Comment, MainCommentViewModel>()
                 .ForMember(

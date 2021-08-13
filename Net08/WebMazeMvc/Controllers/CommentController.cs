@@ -36,12 +36,12 @@ namespace WebMazeMvc.Controllers
         public IActionResult All()
         {
             var user = _userService.GetCurrent();
-            var allComments = _commentRepository.GetAll();
-            var viewModels = _mapper.Map<List<MainCommentViewModel>>(allComments);
+            var comments = _commentRepository.GetAll();
+            var viewModels = _mapper.Map<List<MainCommentViewModel>>(comments);
 
             foreach (var viewModel in viewModels)
             {
-                viewModel.CanEdit = user != null && viewModel.UserId == user.Id;
+                viewModel.CanEdit = viewModel.UserId == user?.Id;
             }
 
             return View(viewModels);
@@ -51,9 +51,8 @@ namespace WebMazeMvc.Controllers
         public IActionResult My()
         {
             var user = _userService.GetCurrent();
-            var allComments = _commentRepository.GetAll()
-                .Where(x => x.Creater == user);
-            var viewModels = _mapper.Map<List<MainCommentViewModel>>(allComments);
+            var comments = _commentRepository.GetByUserId(user.Id);
+            var viewModels = _mapper.Map<List<MainCommentViewModel>>(comments);
 
             foreach (var viewModel in viewModels)
             {
@@ -63,16 +62,15 @@ namespace WebMazeMvc.Controllers
             return View(viewModels);
         }
 
-        public IActionResult Get(long ForumId)
+        public IActionResult Get(long forumId)
         {
             var user = _userService.GetCurrent();
-            var allComments = _commentRepository.GetAll()
-                .Where(x => x.Forum.Id == ForumId);
-            var viewModels = _mapper.Map<List<MainCommentViewModel>>(allComments);
+            var comments = _commentRepository.GetByForumId(forumId);
+            var viewModels = _mapper.Map<List<MainCommentViewModel>>(comments);
 
             foreach (var viewModel in viewModels)
             {
-                viewModel.CanEdit = user != null && viewModel.UserId == user.Id;
+                viewModel.CanEdit = viewModel.UserId == user?.Id;
             }
 
             return View(viewModels);

@@ -12,5 +12,12 @@ namespace WebMazeMvc.EfStuff.Repositories
             : base(dbContext)
         {
         }
+
+        public List<News> GetWithoutForum()
+        {
+            return _dbSet
+                .Where(x => x.Forum == null)
+                .ToList();
+        }
     }
 }
