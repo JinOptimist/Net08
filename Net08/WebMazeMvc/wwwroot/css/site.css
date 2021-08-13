@@ -155,3 +155,9 @@ img {
     margin-right: 40px;
 }
 
+}
+
+.icon {
+    max-width: 20px;
+    max-height: 20px;
+}

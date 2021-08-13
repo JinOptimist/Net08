@@ -1,8 +1,14 @@
 ﻿@model CatViewModel
 
-<form action="/Cat/Add" method="post">
+@section Head{
+    <script src="~/js/catAdd.js"></script>
+}
+
+<form action="/Cat/Add" method="post" id="someForm">
     <div>
         Name: <input name="name" />
+        <img class="icon ok" src="~/image/ok.png" />
+        <img class="icon cancel" src="~/image/cancel.png" />
     </div>
     <div>
         Second: <input name="second" type="number" />
@@ -14,3 +20,4 @@
         <input type="submit" value="Send" />
     </div>
 </form>
+

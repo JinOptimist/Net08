@@ -3,8 +3,11 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
+using WebMazeMvc.Controllers.AuthAttribute;
 using WebMazeMvc.Models;
+using WebMazeMvc.Services;
 
 namespace WebMazeMvc.Controllers
 {
@@ -28,6 +31,13 @@ namespace WebMazeMvc.Controllers
             }
         };
 
+        private UserService _userService;
+
+        public CatController(UserService userService)
+        {
+            _userService = userService;
+        }
+
         public IActionResult Index()
         {
             var second = DateTime.Now.Second;
@@ -49,12 +59,14 @@ namespace WebMazeMvc.Controllers
         }
 
         [HttpGet]
+        [OnlyGirl]
         public IActionResult Add()
         {
             return View();
         }
 
         [HttpPost]
+        [OnlyGirl]
         public IActionResult Add(CatViewModel cat)
         {
             Girls.Add(cat);
@@ -66,6 +78,13 @@ namespace WebMazeMvc.Controllers
             var girl = Girls.SingleOrDefault(x => x.Name == name);
             Girls.Remove(girl);
             return RedirectToAction("Gallery");
+        }
+   
+        public IActionResult IsUniq(string name)
+        {
+            Thread.Sleep(3000);
+            var isUniq = !Girls.Any(x => x.Name == name);
+            return Json(isUniq);
         }
     }
 }

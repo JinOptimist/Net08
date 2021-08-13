@@ -13,6 +13,10 @@ namespace WebMazeMvc.EfStuff.Model
 
         public string AvatarUrl { get; set; }
 
+        public Role Role { get; set; }
+
+        public Lang Lang { get; set; }
+
         public virtual List<News> NewsCreatedByMe { get; set; }
 
         public virtual List<Forum> ForumsCreatedByMe { get; set; }
