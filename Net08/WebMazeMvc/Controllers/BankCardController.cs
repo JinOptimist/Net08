@@ -63,7 +63,7 @@ namespace WebMazeMvc.Controllers
             var newCard = _mapper.Map<BankCard>(viewModel);
             _bankCardRepository.Save(newCard);
 
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("BankCardAll");
         }
 
         [HttpGet]
@@ -82,6 +82,15 @@ namespace WebMazeMvc.Controllers
                 throw new ArgumentNullException(nameof(card), $"Карты с id={id} нет в базе данных");
             }
 
+            _bankCardRepository.Remove(card);
+
+            return RedirectToAction("BankCardAll");
+        }
+
+        [HttpGet]
+        public IActionResult BankCardDelete(long id)
+        {
+            var card = _bankCardRepository.Get(id);                       
             _bankCardRepository.Remove(card);
 
             return RedirectToAction("BankCardAll");

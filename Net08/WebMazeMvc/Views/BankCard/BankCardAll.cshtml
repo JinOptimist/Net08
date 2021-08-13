@@ -8,6 +8,7 @@
             <th>Number of card</th>
             <th>Validity Month</th>
             <th>Validity Year</th>
+            <th>Delete card</th>
         </tr>
         @foreach (var card in Model)
         {
@@ -16,6 +17,7 @@
                 <th>@card.CardNumber</th>
                 <th>@card.ValidityMonth</th>
                 <th>@card.ValidityYear</th>
+                <th><a href="/BankCard/BankCardDelete?id=@card.Id" style='text-decoration: none;'> Delete </a></th>
             </tr>
         }
     </table>
