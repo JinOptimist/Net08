@@ -131,6 +131,8 @@ namespace WebMazeMvc
             //Waht can I see?
             app.UseAuthorization();
 
+            app.UseMiddleware<LocalizeMidlleware>();
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
