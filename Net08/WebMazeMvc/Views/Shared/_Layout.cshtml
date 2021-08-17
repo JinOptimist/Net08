@@ -1,4 +1,7 @@
-﻿<html>
+﻿@using WebMazeMvc.Services
+@inject UserService userService
+
+<html>
 <head>
     <link rel="stylesheet" href="~/css/site.css?v=1">
 
@@ -20,13 +23,17 @@
             {
                 <a href="/User/Logout">@WebMazeMvc.Localize.Index.LeftMenu_Exit</a>
                 <a href="/Cat/Gallery">@WebMazeMvc.Localize.Index.LeftMenu_Gallery</a>
+
+                if (userService.IsGirl())
+                {
+                    <a href="/Cat/Add">@WebMazeMvc.Localize.Index.LeftMenu_AddCat</a>
+                }
             }
             else
             {
                 <a href="/User/Login">Login</a>
             }
 
-            <a href="/Cat/Add">@WebMazeMvc.Localize.Index.LeftMenu_AddCat</a>
             <a href="/Maze/CreateMaze">Create Maze</a>
             <a href="/User/Registration">Registration</a>
             <a href="/Genre/GenreAction">Operation Genre</a>
@@ -37,7 +44,7 @@
                 <a href="/User/MyNews">MyNews</a>
             }
             <a href="/News/Remove">RemoveNews</a>
-            <a href="/Bank/AllBanks">Banks</a>
+            <a href="/Bank/AllBanks?fun=test">Banks</a>
         </div>
         <div class="content">
             @RenderBody()

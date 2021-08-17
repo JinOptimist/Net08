@@ -32,7 +32,12 @@ namespace WebMazeMvc.Controllers
         [HttpGet]
         public IActionResult Login()
         {
-            return View();
+            var returnUrl = Request.Query["ReturnUrl"].FirstOrDefault();
+            var viewModel = new RegistrationViewModel()
+            {
+                ReturnUrl = returnUrl
+            };
+            return View(viewModel);
         }
 
         [HttpPost]
@@ -60,7 +65,12 @@ namespace WebMazeMvc.Controllers
 
             await HttpContext.SignInAsync(claimsPrincipal);
 
-            return View();
+            if (string.IsNullOrEmpty(viewModel.ReturnUrl))
+            {
+                return Redirect("/");
+            }
+
+            return Redirect(viewModel.ReturnUrl);
         }
 
         public async Task<IActionResult> Logout()
@@ -110,6 +120,18 @@ namespace WebMazeMvc.Controllers
             _userRepository.Remove(user);
 
             return RedirectToAction("All");
+        }
+    
+        public IActionResult Denied(string returnUrl)
+        {
+            var user = _userService.GetCurrent();
+            var viewModel = new DeniedViewModel()
+            {
+                DeniedUrl = returnUrl,
+                RequestTime = DateTime.Now,
+                UserName = user?.Login ?? "Guest"
+            };
+            return View(viewModel);
         }
     }
 }
