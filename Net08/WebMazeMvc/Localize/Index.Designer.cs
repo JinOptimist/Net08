@@ -95,5 +95,77 @@ namespace WebMazeMvc.Localize {
                 return ResourceManager.GetString("LeftMenu_Home", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Add news.
+        /// </summary>
+        public static string NewsPage_AddNews {
+            get {
+                return ResourceManager.GetString("NewsPage_AddNews", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на AllNews.
+        /// </summary>
+        public static string NewsPage_AllNews {
+            get {
+                return ResourceManager.GetString("NewsPage_AllNews", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Chat masseges.
+        /// </summary>
+        public static string NewsPage_ChatMasseges {
+            get {
+                return ResourceManager.GetString("NewsPage_ChatMasseges", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Creater Id.
+        /// </summary>
+        public static string NewsPage_CreaterId {
+            get {
+                return ResourceManager.GetString("NewsPage_CreaterId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Remove news.
+        /// </summary>
+        public static string NewsPage_RemoveNews {
+            get {
+                return ResourceManager.GetString("NewsPage_RemoveNews", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Source.
+        /// </summary>
+        public static string NewsPage_Source {
+            get {
+                return ResourceManager.GetString("NewsPage_Source", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Title.
+        /// </summary>
+        public static string NewsPage_Title {
+            get {
+                return ResourceManager.GetString("NewsPage_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Topic.
+        /// </summary>
+        public static string NewsPage_Topic {
+            get {
+                return ResourceManager.GetString("NewsPage_Topic", resourceCulture);
+            }
+        }
     }
 }
