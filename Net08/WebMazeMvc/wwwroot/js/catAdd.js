@@ -1,27 +1,26 @@
 ﻿$(document).ready(function () {
-    $('.icon-add-cat').hide();
+    $('.icon').hide();
 
     $('input[name=name]').keyup(function (e) {
         var self = $(this);
         var currentName = self.val();
 
         var url = '/cat/IsUniq?name=' + currentName;
-        $.get(url)
-            .done(function (respone) {
-                $('.icon-add-cat').hide();
+        var promise = $.get(url);
+        promise.done(function (respone) {
+                $('.icon').hide();
+
                 if (respone) {
-                    self.css('border-color', 'green');
-                    $('#good').show();
+                    $('.icon.ok').show();
+                    /*self.css('border-color', 'green');*/
                 } else {
-                    self.css('border-color', 'red');
-                    $('#bad').show();
+                    $('.icon.cancel').show();
+                    //self.css('border-color', 'red');
                 }
             });
 
         //$('body').show();
         //$('body').hide();
     });
-
-
 
 });

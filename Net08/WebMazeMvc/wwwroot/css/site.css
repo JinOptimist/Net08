@@ -98,6 +98,15 @@ img {
     max-height: 50px;
 }
 
+.news{
+    padding-left: 20px;
+    border-left: 1px red solid;
+}
+
+.icon {
+    max-width: 20px;
+    max-height: 20px;
+}
 .linkgame {
     font-size: 12px;
 }
