@@ -18,8 +18,11 @@
             </a>
             @if (User.Identity.IsAuthenticated)
             {
+
+                
                 <a href="/User/Logout">@WebMazeMvc.Localize.Index.LeftMenu_Exit</a>
                 <a href="/Cat/Gallery">@WebMazeMvc.Localize.Index.LeftMenu_Gallery</a>
+            <a href="/User/FavoriteGenres">My Genres</a>
             }
             else
             {
@@ -37,13 +40,14 @@
                 <a href="/User/MyNews">MyNews</a>
             }
             <a href="/News/Remove">RemoveNews</a>
+            <a href="/Game/AllGames">Games</a>
+            <a href="/Game/AddGame">Add Game</a>
             <a href="/Bank/AllBanks">Banks</a>
         </div>
         <div class="content">
             @RenderBody()
         </div>
     </div>
-
     <div class="footer">
         Подвал
     </div>

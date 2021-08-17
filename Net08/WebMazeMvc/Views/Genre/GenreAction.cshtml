@@ -1,13 +1,21 @@
-﻿
-<div class=" menu-Action-Genre">
-    <p>
-        <a href="/Genre/AddGenre">Add new Genre</a>
-    </p>
-    <p>
-        <a href="/Genre/RemoveGenre">Remove Genre</a>
-    </p>
-    <p>
-        <a href="/Genre/All">Show All</a>
-    </p>
+﻿@section Head{
+    <link rel="stylesheet" href="~/css/genre.css?v=2">
+}
+<div>
+    <nav>
+        <ul class="genre-action-menu">
+            <li class="active">
+                <a class=" active" href="/Genre/AddGenre">Add new Genre</a>
+            </li>
+            <li>
+                <a href="/Genre/All">Show All</a>
+            </li>
+            @if (User.Identity.IsAuthenticated)
+            {
+<li>
+    <a href="/Genre/ChooseGenres">Select favorite genres</a>
+</li>}
+        </ul>
+    </nav>
 </div>
 

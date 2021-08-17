@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MazeCore", "MazeCore\MazeCo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MazeCoreTest", "MazeCoreTest\MazeCoreTest.csproj", "{41FFF328-AA76-434B-81D8-DBBD74182E68}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebMazeMvc", "WebMazeMvc\WebMazeMvc.csproj", "{77D4296D-A8DA-4B11-8128-9A5980471AA1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebMazeMvc", "WebMazeMvc\WebMazeMvc.csproj", "{77D4296D-A8DA-4B11-8128-9A5980471AA1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
