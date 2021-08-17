@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebMazeMvc.EfStuff;
 
 namespace WebMazeMvc.Migrations
 {
     [DbContext(typeof(MazeDbContext))]
-    partial class MazeDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210804195641_AddRealtionUserAndGenres")]
+    partial class AddRealtionUserAndGenres
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -36,13 +38,13 @@ namespace WebMazeMvc.Migrations
 
             modelBuilder.Entity("GenreUser", b =>
                 {
-                    b.Property<long>("FavoriteGenresId")
+                    b.Property<long>("GenresId")
                         .HasColumnType("bigint");
 
                     b.Property<long>("UsersId")
                         .HasColumnType("bigint");
 
-                    b.HasKey("FavoriteGenresId", "UsersId");
+                    b.HasKey("GenresId", "UsersId");
 
                     b.HasIndex("UsersId");
 
@@ -201,17 +203,11 @@ namespace WebMazeMvc.Migrations
                     b.Property<string>("AvatarUrl")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Lang")
-                        .HasColumnType("int");
-
                     b.Property<string>("Login")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Password")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Role")
-                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -237,7 +233,7 @@ namespace WebMazeMvc.Migrations
                 {
                     b.HasOne("WebMazeMvc.EfStuff.Model.Genre", null)
                         .WithMany()
-                        .HasForeignKey("FavoriteGenresId")
+                        .HasForeignKey("GenresId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

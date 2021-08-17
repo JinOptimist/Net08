@@ -18,14 +18,17 @@ namespace WebMazeMvc.Controllers
     {
         private UserRepository _userRepository;
         private UserService _userService;
+        private GenreRepository _genreRepository;
         private IMapper _mapper;
 
         public UserController(UserRepository userRepository,
-            UserService userService, 
+            UserService userService,
+            GenreRepository genreRepository,
             IMapper mapper)
         {
             _userRepository = userRepository;
             _userService = userService;
+            _genreRepository = genreRepository;
             _mapper = mapper;
         }
 
@@ -120,6 +123,41 @@ namespace WebMazeMvc.Controllers
             _userRepository.Remove(user);
 
             return RedirectToAction("All");
+        }
+        [HttpPost]
+        public IActionResult FavoriteGenres(List<GenreSelectedViewModel> genreSelected)
+        {
+            var user = _userService.GetCurrent();
+
+            var ids = genreSelected
+                .Where(x => x.IsSelected)
+                .Select(x => x.Id)
+                .ToList();
+
+            user.FavoriteGenres.RemoveRange(0, user.FavoriteGenres.Count());
+
+            user.FavoriteGenres = _genreRepository.FindGenresById(ids);
+
+            _userRepository.Save(user);
+
+            return RedirectToAction("FavoriteGenres");
+        }
+        [HttpGet]
+        public IActionResult FavoriteGenres()
+        {
+            var user = _userService.GetCurrent();
+
+            var viewModel = new UserGenresViewModel
+            {
+                Login = user.Login,
+                FavoriteGenres = user.FavoriteGenres.Select(x => new GenreViewModel
+                {
+                    GenreName = x.GenreName,
+                    Id = x.Id
+                }).ToList()
+            };
+
+            return View(viewModel);
         }
     
         public IActionResult Denied(string returnUrl)

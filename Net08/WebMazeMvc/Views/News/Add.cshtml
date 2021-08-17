@@ -1,18 +1,18 @@
 ﻿@model AddNewsViewModel
 <form action="/News/Add" method="post">
-    <div>
-        @Html.TextBoxFor(x => x.Title) Title
-    </div>
+	<div>
+		@Html.TextBoxFor(x => x.Title) @WebMazeMvc.Localize.Index.NewsPage_Title
+	</div>
+
+	<div>
+		@Html.TextBoxFor(x => x.Source) @WebMazeMvc.Localize.Index.NewsPage_Source
+	</div>
+
+	<div>
+		@Html.TextBoxFor(x => x.CreaterId) @WebMazeMvc.Localize.Index.NewsPage_CreaterId
+	</div>
 
     <div>
-        @Html.TextBoxFor(x => x.Source) Source
-    </div>
-
-    <div>
-        @Html.TextBoxFor(x => x.CreaterId) CreaterId
-    </div>
-
-    <div>
-        <input type="submit" value="добавить новость" />
+        <input type="submit" value="@WebMazeMvc.Localize.Index.NewsPage_AddNews" />
     </div>
 </form>
