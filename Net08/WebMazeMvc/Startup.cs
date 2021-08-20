@@ -79,6 +79,9 @@ namespace WebMazeMvc
             services.AddScoped<GamesRepository>(container =>
                 new GamesRepository(container.GetService<MazeDbContext>())
                 );
+            services.AddScoped<EventRepository>(container =>
+              new EventRepository(container.GetService<MazeDbContext>())
+              );
         }
 
         private void registerMapper(IServiceCollection services)
@@ -109,7 +112,12 @@ namespace WebMazeMvc
             provider.CreateMap<Genre, GenreSelectedViewModel>();
 
             provider.CreateMap<User, GenreViewModel>();
-            
+
+            provider.CreateMap<NewEventViewModel, Event>()
+                 .ForMember(
+                    nameof(NewEventViewModel.DateTimeOfEvent),
+                    config => config.MapFrom(x=> DateTime.Today));
+
             var mapperConfiguration = new MapperConfiguration(provider);
             var mapper = new Mapper(mapperConfiguration);
 

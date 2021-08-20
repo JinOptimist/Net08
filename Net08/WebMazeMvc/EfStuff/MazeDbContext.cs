@@ -37,6 +37,10 @@ namespace WebMazeMvc.EfStuff
                 .HasMany(x => x.CommentsCreatedByMe)
                 .WithOne(x => x.Creater);
 
+            modelBuilder.Entity<User>()
+              .HasMany(x => x.Events)
+              .WithOne(x => x.User);
+
             modelBuilder.Entity<News>()
                 .HasOne(x => x.Forum)
                 .WithOne(x => x.News)

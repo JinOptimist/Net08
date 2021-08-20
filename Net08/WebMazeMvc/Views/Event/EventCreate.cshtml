@@ -1,0 +1,114 @@
+﻿@using WebMazeMvc.Models
+
+@model NewEventViewModel
+
+@section Head{
+    <script src="~/js/EventCreate.js"></script>
+}
+
+<form action="/Event/EventCreate" method="post" class="new-event-block  ">
+    <div>
+        <h1>Выберите переодичность события</h1>
+        @Html.DropDownListFor(x => x.TypeOfEvent
+        , new SelectList(Enum.GetValues(typeof(TypeOfEventEnum)))
+        , "Choose"
+        , new { @class = "event-dropbox" })
+    </div>
+
+    <div class="week-event">
+
+         <p>Выберите день недели</p>
+
+        @Html.DropDownListFor(x => x.DayOfWeek
+        , new SelectList(Enum.GetValues(typeof(DayOfWeek))))
+       </div>
+       <div class="month-event">
+
+          <p>Выберите тип события </p>
+
+           @Html.DropDownListFor(x => x.TypeOfMonth
+           , new SelectList(Enum.GetValues(typeof(TypeOfMonthEnum)))
+          , "Choose"
+          , new { @class = "dropdown-type-of-month" })
+
+          <div class="dropdown-by-day-of-month">
+
+             <p>Выберите день месяца</p>
+
+            @Html.TextBoxFor(x => x.DayOfMonth, new { type = "number", min = "1", max = "31" })
+          </div>
+          <div class="dropdown-by-weeks-and-name-of-day">
+
+             <p>Выберите номер недели????</p>
+
+              @Html.DropDownListFor(x => x.NumberOfWeekOfMonth
+              , new SelectList(Enum.GetValues(typeof(NumberOfWeekOfMonthEnum))))
+
+            <p>Выберите день недели</p>
+
+             @Html.DropDownListFor(x => x.DayOfWeekForMonthEvent
+             , new SelectList(Enum.GetValues(typeof(DayOfWeek))))
+        </div>
+    </div>
+
+    <div class="quartal-event">
+
+        <p>Выберите тип события</p>
+
+        @Html.DropDownListFor(x => x.TypeOfQuarter
+            , new SelectList(Enum.GetValues(typeof(TypeOfQuartalEnum)))
+            , "Choose"
+            , new { @class = "dropdown-type-of-quartal" })
+
+        <div class="dropdown-by-day-of-quartal">
+
+            <p>Выберите какой день в квартале</p>
+
+            @Html.TextBoxFor(x => x.DayOfQuartal, new { type = "number", min = "1", max = "92" })
+        </div>
+        <div class="by-number-of-mounth">
+
+            <p>Выберите номер месяца в квартале</p>
+
+            @Html.TextBoxFor(x => x.NumberOfMonth, new { type = "number", min = "1", max = "3" })
+
+            <p>Выберите день месяца</p>
+
+            @Html.TextBoxFor(x => x.DayOfMonthForQuartal, new { type = "number", min = "1", max = "31" })
+        </div>
+    </div>
+
+    <div class="year-event">
+
+        <p>Выберите месяц</p>
+
+        @Html.DropDownListFor(x => x.Month
+     , new SelectList(Enum.GetValues(typeof(MonthEnum))),
+     "Choose month",
+     new { @class = "dropdown-name-of-month" })
+
+        <p>Выберите день месяца</p>
+
+        <div class="number-of-days-in-month">
+            @Html.TextBoxFor(x => x.DayOfMonth, new { type = "number", min = "1", max = "31" })
+        </div>
+    </div>
+
+    <div class="custom-event">
+
+        <p>Выберите через сколько дней событие должно повторяться</p>
+
+        @Html.TextBoxFor(x => x.PeriodOfDays, new { type = "number", min = "0", max = "750" })
+    </div>
+
+    <div class="text-of-event">
+
+        <p>Введите ваше событие</p>
+
+        @Html.TextBoxFor(x => x.EventText)
+    </div>
+
+    <div class="input-event">
+        <input type="submit" value="Создать" />
+    </div>
+</form>

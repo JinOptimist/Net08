@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebMazeMvc.EfStuff;
 
 namespace WebMazeMvc.Migrations
 {
     [DbContext(typeof(MazeDbContext))]
-    partial class MazeDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210819131102_test")]
+    partial class test
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -107,47 +109,29 @@ namespace WebMazeMvc.Migrations
                         .HasColumnType("bigint")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime>("DateTimeOfEvent")
-                        .HasColumnType("datetime2");
-
                     b.Property<int>("DayOfMonth")
-                        .HasColumnType("int");
-
-                    b.Property<int>("DayOfMonthForQuartal")
                         .HasColumnType("int");
 
                     b.Property<int>("DayOfQuartal")
                         .HasColumnType("int");
 
-                    b.Property<int>("DayOfWeek")
-                        .HasColumnType("int");
-
-                    b.Property<int>("DayOfWeekForMonthEvent")
-                        .HasColumnType("int");
+                    b.Property<string>("DayOfWeek")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("EventText")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Month")
-                        .HasColumnType("int");
-
                     b.Property<int>("NumberOfMonth")
                         .HasColumnType("int");
 
-                    b.Property<int>("NumberOfWeekOfMonth")
-                        .HasColumnType("int");
-
-                    b.Property<int>("PeriodOfDays")
-                        .HasColumnType("int");
+                    b.Property<string>("NumberOfWeekOfMonth")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("TypeOfEvent")
                         .HasColumnType("int");
 
-                    b.Property<int>("TypeOfMonth")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TypeOfQuarter")
-                        .HasColumnType("int");
+                    b.Property<string>("TypeOfEventOfMonth")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<long?>("UserId")
                         .HasColumnType("bigint");

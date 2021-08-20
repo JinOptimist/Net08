@@ -3,7 +3,10 @@
     "",
     "\\Net08",
     "\\Net08\\MazeConsole",
-    "\\Net08\\MazeCore"
+    "\\Net08\\MazeCore",
+    "\\Net08\\WebMazeMvc",
+    "\\Net08\\WebMazeMvc\\Controllers"
   ],
+  "SelectedNode": "\\Net08\\WebMazeMvc\\Controllers\\EventController.cs",
   "PreviewInSolutionExplorer": false
 }

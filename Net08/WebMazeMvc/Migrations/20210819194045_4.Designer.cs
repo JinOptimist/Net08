@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebMazeMvc.EfStuff;
 
 namespace WebMazeMvc.Migrations
 {
     [DbContext(typeof(MazeDbContext))]
-    partial class MazeDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210819194045_4")]
+    partial class _4
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -113,17 +115,11 @@ namespace WebMazeMvc.Migrations
                     b.Property<int>("DayOfMonth")
                         .HasColumnType("int");
 
-                    b.Property<int>("DayOfMonthForQuartal")
-                        .HasColumnType("int");
-
                     b.Property<int>("DayOfQuartal")
                         .HasColumnType("int");
 
-                    b.Property<int>("DayOfWeek")
-                        .HasColumnType("int");
-
-                    b.Property<int>("DayOfWeekForMonthEvent")
-                        .HasColumnType("int");
+                    b.Property<string>("DayOfWeek")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("EventText")
                         .HasColumnType("nvarchar(max)");
