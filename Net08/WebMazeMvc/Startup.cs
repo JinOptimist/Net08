@@ -76,6 +76,9 @@ namespace WebMazeMvc
             services.AddScoped<BankRepository>(container =>
                 new BankRepository(container.GetService<MazeDbContext>())
                 );
+            services.AddScoped<GamesRepository>(container =>
+                new GamesRepository(container.GetService<MazeDbContext>())
+                );
         }
 
         private void registerMapper(IServiceCollection services)
@@ -97,10 +100,16 @@ namespace WebMazeMvc
 
             provider.CreateMap<User, UserForRemoveViewModel>();
 
-            provider.CreateMap<Comment, CommentViewModel>(); 
+            provider.CreateMap<Comment, CommentViewModel>();
 
             provider.CreateMap<RegistrationViewModel, User>();
 
+            provider.CreateMap<GenreViewModel, Genre>();
+
+            provider.CreateMap<Genre, GenreSelectedViewModel>();
+
+            provider.CreateMap<User, GenreViewModel>();
+            
             provider.CreateMap<BanksAddingViewModel, Bank>();
             provider.CreateMap<Bank, AllBanksForRemoveViewModel>();
             provider.CreateMap<Bank, ClientOfBankViewModel>();

@@ -19,6 +19,36 @@ namespace WebMazeMvc.Migrations
                 .HasAnnotation("ProductVersion", "5.0.8")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("GameGenre", b =>
+                {
+                    b.Property<long>("GamesId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("GenresId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("GamesId", "GenresId");
+
+                    b.HasIndex("GenresId");
+
+                    b.ToTable("GameGenre");
+                });
+
+            modelBuilder.Entity("GenreUser", b =>
+                {
+                    b.Property<long>("FavoriteGenresId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("UsersId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("FavoriteGenresId", "UsersId");
+
+                    b.HasIndex("UsersId");
+
+                    b.ToTable("GenreUser");
+                });
+
             modelBuilder.Entity("WebMazeMvc.EfStuff.Model.Bank", b =>
                 {
                     b.Property<long>("Id")
@@ -99,6 +129,27 @@ namespace WebMazeMvc.Migrations
                     b.ToTable("Forums");
                 });
 
+            modelBuilder.Entity("WebMazeMvc.EfStuff.Model.Game", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("GameName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Link")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Url")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Games");
+                });
+
             modelBuilder.Entity("WebMazeMvc.EfStuff.Model.Genre", b =>
                 {
                     b.Property<long>("Id")
@@ -106,7 +157,7 @@ namespace WebMazeMvc.Migrations
                         .HasColumnType("bigint")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("GenreGame")
+                    b.Property<string>("GenreName")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -165,6 +216,36 @@ namespace WebMazeMvc.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("GameGenre", b =>
+                {
+                    b.HasOne("WebMazeMvc.EfStuff.Model.Game", null)
+                        .WithMany()
+                        .HasForeignKey("GamesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("WebMazeMvc.EfStuff.Model.Genre", null)
+                        .WithMany()
+                        .HasForeignKey("GenresId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("GenreUser", b =>
+                {
+                    b.HasOne("WebMazeMvc.EfStuff.Model.Genre", null)
+                        .WithMany()
+                        .HasForeignKey("FavoriteGenresId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("WebMazeMvc.EfStuff.Model.User", null)
+                        .WithMany()
+                        .HasForeignKey("UsersId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("WebMazeMvc.EfStuff.Model.Comment", b =>

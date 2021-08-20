@@ -37,5 +37,7 @@ namespace WebMazeMvc.Services
             var id = int.Parse(idStr);
             return _userRepository.Get(id);
         }
+
+        public bool IsGirl() => GetCurrent()?.Login != "Nina";
     }
 }

@@ -129,4 +129,28 @@
   <data name="LeftMenu_Home" xml:space="preserve">
     <value>Home</value>
   </data>
+  <data name="NewsPage_AddNews" xml:space="preserve">
+    <value>Add news</value>
+  </data>
+  <data name="NewsPage_AllNews" xml:space="preserve">
+    <value>AllNews</value>
+  </data>
+  <data name="NewsPage_ChatMasseges" xml:space="preserve">
+    <value>Chat masseges</value>
+  </data>
+  <data name="NewsPage_CreaterId" xml:space="preserve">
+    <value>Creater Id</value>
+  </data>
+  <data name="NewsPage_RemoveNews" xml:space="preserve">
+    <value>Remove news</value>
+  </data>
+  <data name="NewsPage_Source" xml:space="preserve">
+    <value>Source</value>
+  </data>
+  <data name="NewsPage_Title" xml:space="preserve">
+    <value>Title</value>
+  </data>
+  <data name="NewsPage_Topic" xml:space="preserve">
+    <value>Topic</value>
+  </data>
 </root>
