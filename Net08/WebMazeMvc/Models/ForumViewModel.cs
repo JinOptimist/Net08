@@ -8,6 +8,5 @@ namespace WebMazeMvc.Models
     public class ForumViewModel
     {
         public string Topic { get; set; }
-        
     }
 }

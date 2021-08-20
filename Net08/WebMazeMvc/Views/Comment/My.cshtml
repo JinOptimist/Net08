@@ -1,0 +1,56 @@
+﻿@model List<MainCommentViewModel>
+
+@section Head{
+    <link rel="stylesheet" href="~/css/forum.css?v=6">
+}
+
+<div>
+    <div class="hmenu">
+    <ul>
+        <li><a href="/Comment/All" title="Перейти ко всем комментариям">Все комментарии</a></li>
+        <li class="active"><a href="/Comment/My" title="Обновить список моих комментариев">Мои комментарии</a></li>
+    </ul>
+    </div>
+    <div>
+    <div class="divTable">
+    <div class="divTableBody">
+    <div class="divTableRow">
+    <div class="divTableCell">
+        Сообщение
+    </div>
+    <div class="divTableCell">
+        Дата создания
+    </div>
+    <div class="divTableCell">
+        Автор
+    </div>
+    <div class="divTableCell">
+        Операции
+    </div>
+    </div>
+    @foreach (var comment in Model)
+    {
+        <div class="divTableRow">
+        <div class="divTableCell">
+            @comment.Message
+        </div>
+        <div class="divTableCell">
+            @comment.DateCreated
+        </div>
+        <div class="divTableCell">
+            @comment.NameCreater
+        </div>
+        <div class="divTableCell">
+        @if (@comment.CanEdit)
+        {
+            <form action="/Comment/Remove?id=@comment.Id" method="post">
+            <input type="submit" title="Удалить текущий комментарий" value="Удалить" onclick="return confirm('Вы действительно хотите удалить выбранный комментарий?')">
+            </form>
+        }
+        </div>
+        </div>
+    }
+    </div>
+    </div>
+    </div>
+</div>

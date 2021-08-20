@@ -83,11 +83,14 @@ namespace WebMazeMvc
             services.AddScoped<BankRepository>(container =>
                 new BankRepository(container.GetService<MazeDbContext>())
                 );
-            services.AddScoped<GamesRepository>(container =>
-                new GamesRepository(container.GetService<MazeDbContext>())
+            services.AddScoped<ForumRepository>(container =>
+                new ForumRepository(container.GetService<MazeDbContext>())
                 );
             services.AddScoped<CatRepository>(container =>
                 new CatRepository(container.GetService<MazeDbContext>())
+                );
+            services.AddScoped<CommentRepository>(container =>
+                new CommentRepository(container.GetService<MazeDbContext>())
                 );
         }
 
@@ -108,9 +111,24 @@ namespace WebMazeMvc
                     nameof(AllIformationViewModle.CommentsFromForum),
                     config => config.MapFrom(news => news.Forum.Comments));
 
+            provider.CreateMap<AddForumViewModel, Forum>();
+
+            provider.CreateMap<Forum, MainForumViewModel>()
+                .ForMember(
+                    nameof(MainForumViewModel.NameCreater),
+                    config => config.MapFrom(forum => forum.Creater.Login))
+                .ForMember(
+                    nameof(MainForumViewModel.CountComments),
+                    config => config.MapFrom(forum => forum.Comments.Count));
+
+            provider.CreateMap<Comment, MainCommentViewModel>()
+                .ForMember(
+                    nameof(MainCommentViewModel.NameCreater),
+                    config => config.MapFrom(comment => comment.Creater.Login));
+
             provider.CreateMap<User, UserForRemoveViewModel>();
 
-            provider.CreateMap<Comment, CommentViewModel>();
+            provider.CreateMap<Comment, CommentViewModel>(); 
 
             provider.CreateMap<RegistrationViewModel, User>();
 
@@ -119,10 +137,7 @@ namespace WebMazeMvc
             provider.CreateMap<Genre, GenreSelectedViewModel>();
 
             provider.CreateMap<User, GenreViewModel>();
-
-            provider.CreateMap<CatViewModel, Cat>();
-            provider.CreateMap<Cat, CatViewModel>();
-
+            
             var mapperConfiguration = new MapperConfiguration(provider);
             var mapper = new Mapper(mapperConfiguration);
 
