@@ -79,6 +79,9 @@ namespace WebMazeMvc
             services.AddScoped<ForumRepository>(container =>
                 new ForumRepository(container.GetService<MazeDbContext>())
                 );
+            services.AddScoped<CommentRepository>(container =>
+                new CommentRepository(container.GetService<MazeDbContext>())
+                );
         }
 
         private void registerMapper(IServiceCollection services)
