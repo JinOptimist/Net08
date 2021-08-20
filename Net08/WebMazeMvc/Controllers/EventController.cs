@@ -20,12 +20,13 @@ namespace WebMazeMvc.Controllers
 
         public EventController(UserService userService,
             IMapper mapper,
-            EventRepository eventRepository)
+            EventRepository eventRepository,
+            EventService eventService)
         {
             _userService = userService;
             _mapper = mapper;
             _eventRepository = eventRepository;
-            _eventService = new EventService();
+            _eventService = eventService;
         }
         public IActionResult EventCreate()
         {

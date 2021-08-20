@@ -56,6 +56,9 @@ namespace WebMazeMvc
                     container.GetService<IHttpContextAccessor>()
                 )
             );
+            services.AddScoped<EventService>(container =>
+               new EventService()
+           );
 
             services.AddControllersWithViews();
 
