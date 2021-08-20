@@ -17,6 +17,7 @@ namespace WebMazeMvc.EfStuff
         public DbSet<Comment> Comments { get; set; }
 
         public DbSet<Bank> Banks { get; set; }
+        public DbSet<Cat> Cats { get; set; }
 
         public MazeDbContext(DbContextOptions options) : base(options)
         {
@@ -52,6 +53,10 @@ namespace WebMazeMvc.EfStuff
             modelBuilder.Entity<Genre>()
                 .HasMany(x => x.Users)
                 .WithMany(x => x.FavoriteGenres);
+
+            modelBuilder.Entity<Cat>()
+                .HasOne(x => x.Creater)
+                .WithMany(x => x.CatsCretatedByMe);
 
             base.OnModelCreating(modelBuilder);
         }

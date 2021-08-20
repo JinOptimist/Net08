@@ -57,6 +57,13 @@ namespace WebMazeMvc
                 )
             );
 
+            services.AddScoped<FileService>(container =>
+                new FileService(
+                    container.GetService<IWebHostEnvironment>()
+                )
+            );
+            
+
             services.AddControllersWithViews();
 
             services.AddHttpContextAccessor();
@@ -78,6 +85,9 @@ namespace WebMazeMvc
                 );
             services.AddScoped<ForumRepository>(container =>
                 new ForumRepository(container.GetService<MazeDbContext>())
+                );
+            services.AddScoped<CatRepository>(container =>
+                new CatRepository(container.GetService<MazeDbContext>())
                 );
             services.AddScoped<CommentRepository>(container =>
                 new CommentRepository(container.GetService<MazeDbContext>())
@@ -122,6 +132,12 @@ namespace WebMazeMvc
 
             provider.CreateMap<RegistrationViewModel, User>();
 
+            provider.CreateMap<GenreViewModel, Genre>();
+
+            provider.CreateMap<Genre, GenreSelectedViewModel>();
+
+            provider.CreateMap<User, GenreViewModel>();
+            
             var mapperConfiguration = new MapperConfiguration(provider);
             var mapper = new Mapper(mapperConfiguration);
 

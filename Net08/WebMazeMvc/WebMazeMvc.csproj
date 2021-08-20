@@ -46,4 +46,8 @@
     </EmbeddedResource>
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\image\cats\" />
+  </ItemGroup>
+
 </Project>
