@@ -24,6 +24,8 @@ namespace WebMazeMvc.EfStuff.Model
         public virtual List<Comment> CommentsCreatedByMe { get; set; }
         public virtual List<Genre> FavoriteGenres { get; set; }
 
+        public virtual List<Cat> CatsCretatedByMe { get;  set; }
+
         public virtual List<Bank> MyBanks { get; set; }
     }
 }
