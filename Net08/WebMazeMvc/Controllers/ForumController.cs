@@ -85,11 +85,9 @@ namespace WebMazeMvc.Controllers
         [HttpPost]
         public IActionResult Add(AddForumViewModel viewModel)
         {
-            var user = _userService.GetCurrent();
-
             var forum = _mapper.Map<AddForumViewModel, Forum>(viewModel);
             forum.DateCreated = DateTime.UtcNow;
-            forum.Creater = user;
+            forum.Creater = _userService.GetCurrent();
 
             _forumRepository.Save(forum);
 
