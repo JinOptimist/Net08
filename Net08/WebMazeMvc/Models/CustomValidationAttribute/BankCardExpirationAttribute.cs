@@ -9,6 +9,8 @@ namespace WebMazeMvc.Models.CustomValidationAttribute
 {    
     public class BankCardExpirationAttribute : ValidationAttribute
     {
+        const int CardExpiryYearMax = 5;
+
         public override string FormatErrorMessage(string name)
         {
             return string.IsNullOrEmpty(ErrorMessage)
@@ -31,8 +33,6 @@ namespace WebMazeMvc.Models.CustomValidationAttribute
 
         private bool CheckCardExpiration(int month, int year)
         {
-            const int CardExpiryYearMax = 5;
-
             var monthCheck = new Regex(@"^(0?[1-9]|1[0-2])$");
             var yearCheck = new Regex(@"^20[0-9]{2}$");
 
@@ -45,7 +45,7 @@ namespace WebMazeMvc.Models.CustomValidationAttribute
             var daysInMonthExpiry = DateTime.DaysInMonth(year, month);
             var cardExpiry = new DateTime(year, month, daysInMonthExpiry, 23, 59, 59);
 
-            return (cardExpiry > DateTime.Now && cardExpiry < DateTime.Now.AddYears(CardExpiryYearMax));
+            return cardExpiry > DateTime.Now && cardExpiry < DateTime.Now.AddYears(CardExpiryYearMax);
         }
     }
 }

@@ -15,19 +15,21 @@ namespace WebMazeMvc.Controllers
     {
         private readonly BankCardRepository _bankCardRepository;
         private readonly IMapper _mapper;
+        private UserRepository _userRepository;
 
-        public BankCardController(BankCardRepository bankCardRepository, IMapper mapper)
+        public BankCardController(BankCardRepository bankCardRepository, IMapper mapper, UserRepository userRepository)
         {
             _bankCardRepository = bankCardRepository;
             _mapper = mapper;
+            _userRepository = userRepository;
         }
         
         [HttpGet]
         public IActionResult BankCardGet(long id)
         {
             var card = _bankCardRepository.Get(id);
-
-            if (card is null)
+                      
+            if (card == null)
             {
                 throw new ArgumentNullException(nameof(card), $"Карты с id={id} нет в базе данных");
             }
@@ -61,6 +63,7 @@ namespace WebMazeMvc.Controllers
             }
 
             var newCard = _mapper.Map<BankCard>(viewModel);
+            newCard.Owner = _userRepository.Get(viewModel.OwnerId);
             _bankCardRepository.Save(newCard);
 
             return RedirectToAction("BankCardAll");
@@ -77,7 +80,7 @@ namespace WebMazeMvc.Controllers
         {
             var card = _bankCardRepository.Get(id);
 
-            if (card is null)
+            if (card == null)
             {
                 throw new ArgumentNullException(nameof(card), $"Карты с id={id} нет в базе данных");
             }

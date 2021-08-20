@@ -16,7 +16,7 @@ namespace WebMazeMvc.Migrations
                     CardNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ValidityMonth = table.Column<int>(type: "int", nullable: false),
                     ValidityYear = table.Column<int>(type: "int", nullable: false),
-                    OwnerId = table.Column<long>(type: "bigint", nullable: true)
+                    OwnerId = table.Column<long>(type: "bigint", nullable: false)
                 },
                 constraints: table =>
                 {

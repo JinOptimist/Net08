@@ -21,5 +21,8 @@ namespace WebMazeMvc.Models
 
         [DisplayName("Год действия")]
         public int ValidityYear { get; set; }
+
+        [DisplayName("Id владельца")]
+        public long OwnerId { get; set; }
     }
 }
