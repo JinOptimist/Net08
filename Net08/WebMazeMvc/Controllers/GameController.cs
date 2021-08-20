@@ -31,7 +31,8 @@ namespace WebMazeMvc.Controllers
             var games = _gamesRepository.GetAll();
             var viewModel = games.Select(x => new GameViewModel
             {
-                NameGame = x.GameName,
+                Id = x.Id,
+                GameName = x.GameName,
                 Link = x.Link,
                 Url = x.Url
             }).ToList();
@@ -63,7 +64,7 @@ namespace WebMazeMvc.Controllers
 
             var addgame = new Game()
             {
-                GameName = newgame.NameGame,
+                GameName = newgame.GameName,
                 Link = newgame.Link,
                 Url = newgame.Url,
                 Genres = genres

@@ -19,7 +19,6 @@ namespace WebMazeMvc.Migrations
                 .HasAnnotation("ProductVersion", "5.0.8")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-<<<<<<<<< Temporary merge branch 1
             modelBuilder.Entity("WebMazeMvc.EfStuff.Model.Game", b =>
                 {
                     b.Property<long>("Id")
