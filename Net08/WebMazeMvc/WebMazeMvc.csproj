@@ -24,6 +24,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Localize\Bank.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Bank.resx</DependentUpon>
+    </Compile>
     <Compile Update="Localize\Index.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -32,12 +37,19 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Update="Localize\Bank.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Bank.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Localize\Bank.Ru.resx">
+      <Generator></Generator>
+    </EmbeddedResource>
     <EmbeddedResource Update="Localize\Index.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Index.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Update="Localize\Index.Ru.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
+      <Generator></Generator>
     </EmbeddedResource>
   </ItemGroup>
 

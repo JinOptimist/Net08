@@ -1,7 +1,7 @@
 ﻿@model BanksAddingViewModel 
 <form action="/Bank/BanksAdding" method="post">
     <div>
-        <a href="/Bank/AllBanks">Вернуться к банкам</a>
+        <a href="/Bank/AllBanks">@WebMazeMvc.Localize.Bank.BanksAdding_BackToBanks</a>
     </div>
 
     <div>
@@ -13,6 +13,6 @@
     </div>
 
     <div>
-        <input type="submit" value="добавить банк" />
+        <input type="submit" value="@WebMazeMvc.Localize.Bank.BanksAdding_AddBankButton"/>
     </div>
 </form>

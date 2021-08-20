@@ -3,13 +3,13 @@
  
 <div>
     <div>
-         <a href="/Bank/BanksAdding">Добавить банк</a>
+        <a href="/Bank/BanksAdding">@WebMazeMvc.Localize.Bank.AllBanks_addBank</a>
     </div>
 
     @foreach (var bank in Model)
     {
         <div>
-            @bank.Name <a href="/Bank/Remove?id=@bank.Id">Удалить</a>  <a href="/Bank/AllClientsOfBank">Список клиентов</a>
+            @bank.Name <a href="/Bank/Remove?id=@bank.Id">@WebMazeMvc.Localize.Bank.AllBanks_delete</a>  <a href="/Bank/AllClientsOfBank?id=@bank.Id">@WebMazeMvc.Localize.Bank.AllBanks_listOfClients</a>
         </div>
     }
 </div>
