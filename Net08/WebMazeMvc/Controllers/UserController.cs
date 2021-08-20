@@ -159,7 +159,7 @@ namespace WebMazeMvc.Controllers
 
             return View(viewModel);
         }
-    
+
         public IActionResult Denied(string returnUrl)
         {
             var user = _userService.GetCurrent();
