@@ -1,29 +1,27 @@
 ﻿$(document).ready(function () {
-    $('.img').hide();
+    $('.icon').hide();
+
     $('input[name=name]').keyup(function (e) {
         var self = $(this);
         var currentName = self.val();
         $('.img').hide()
         $('.img.loading').show()
         var url = '/cat/IsUniq?name=' + currentName;
-        $.get(url)
-            .done(function (respone) {
-               
+        var promise = $.get(url);
+        promise.done(function (respone) {
+                $('.icon').hide();
+
                 if (respone) {
-                    $('.img').hide()
-                    $('.img.check').show();
-                    //self.css('background', 'green');
+                    $('.icon.ok').show();
+                    /*self.css('border-color', 'green');*/
                 } else {
-                    $('.img').hide()
-                    $('.img.cancel').show();
-                   // self.css('background', 'red');
+                    $('.icon.cancel').show();
+                    //self.css('border-color', 'red');
                 }
             });
 
         //$('body').show();
         //$('body').hide();
     });
-
-
 
 });

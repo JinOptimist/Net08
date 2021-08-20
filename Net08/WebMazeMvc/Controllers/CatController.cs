@@ -82,7 +82,7 @@ namespace WebMazeMvc.Controllers
    
         public IActionResult IsUniq(string name)
         {
-            Thread.Sleep(1000);
+            Thread.Sleep(3000);
             var isUniq = !Girls.Any(x => x.Name == name);
             return Json(isUniq);
         }
