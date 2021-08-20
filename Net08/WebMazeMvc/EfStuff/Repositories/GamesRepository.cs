@@ -12,6 +12,6 @@ namespace WebMazeMvc.EfStuff.Repositories
         public GamesRepository(MazeDbContext dbContext)
             : base(dbContext)
         {
-        }
+        }       
     }
 }

@@ -26,10 +26,18 @@ namespace WebMazeMvc.Services
                 .HttpContext
                 .User
                 .Claims
-                .Single(x => x.Type == "Id")
-                .Value;
+                .SingleOrDefault(x => x.Type == "Id")
+                ?.Value;
+
+            if (string.IsNullOrEmpty(idStr))
+            {
+                return null;
+            }
+
             var id = int.Parse(idStr);
             return _userRepository.Get(id);
         }
+
+        public bool IsGirl() => GetCurrent()?.Login != "Nina";
     }
 }

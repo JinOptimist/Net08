@@ -1,3 +1,5 @@
+using AutoMapper;
+using AutoMapper.Configuration;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -11,8 +13,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using WebMazeMvc.EfStuff;
+using WebMazeMvc.EfStuff.Model;
 using WebMazeMvc.EfStuff.Repositories;
+using WebMazeMvc.Models;
 using WebMazeMvc.Services;
+using IConfiguration = Microsoft.Extensions.Configuration.IConfiguration;
 
 namespace WebMazeMvc
 {
@@ -41,19 +46,9 @@ namespace WebMazeMvc
                     config.Cookie.Name = "Smile";
                 });
 
-            services.AddScoped<UserRepository>(container =>
-                new UserRepository(container.GetService<MazeDbContext>())
-                );
-            services.AddScoped<GenreRepository>(container =>
-               new GenreRepository(container.GetService<MazeDbContext>())
-               );
-            services.AddScoped<NewsRepository>(container =>
-                new NewsRepository(container.GetService<MazeDbContext>())
-                );
+            registerRepositories(services);
 
-            services.AddScoped<GamesRepository>(container =>
-                new GamesRepository(container.GetService<MazeDbContext>())
-                );
+            registerMapper(services);
 
             services.AddScoped<UserService>(container =>
                 new UserService(
@@ -65,6 +60,60 @@ namespace WebMazeMvc
             services.AddControllersWithViews();
 
             services.AddHttpContextAccessor();
+        }
+
+        private void registerRepositories(IServiceCollection services)
+        {
+            services.AddScoped<UserRepository>(container =>
+                new UserRepository(container.GetService<MazeDbContext>())
+                );
+            services.AddScoped<GenreRepository>(container =>
+               new GenreRepository(container.GetService<MazeDbContext>())
+               );
+            services.AddScoped<NewsRepository>(container =>
+                new NewsRepository(container.GetService<MazeDbContext>())
+                );
+            services.AddScoped<BankRepository>(container =>
+                new BankRepository(container.GetService<MazeDbContext>())
+                );
+            services.AddScoped<GamesRepository>(container =>
+                new GamesRepository(container.GetService<MazeDbContext>())
+                );
+        }
+
+        private void registerMapper(IServiceCollection services)
+        {
+
+            var provider = new MapperConfigurationExpression();
+
+            provider.CreateMap<News, ShortNewsViewModel>();
+
+            provider.CreateMap<News, AllNewsViewModel>();
+
+            provider.CreateMap<News, AllIformationViewModle>()
+                .ForMember(
+                    nameof(AllIformationViewModle.Topic),
+                    config => config.MapFrom(news => news.Forum.Topic))
+                .ForMember(
+                    nameof(AllIformationViewModle.CommentsFromForum),
+                    config => config.MapFrom(news => news.Forum.Comments));
+
+            provider.CreateMap<User, UserForRemoveViewModel>();
+
+            provider.CreateMap<Comment, CommentViewModel>();
+
+            provider.CreateMap<RegistrationViewModel, User>();
+
+            provider.CreateMap<GenreViewModel, Genre>();
+
+            provider.CreateMap<Genre, GenreSelectedViewModel>();
+
+            provider.CreateMap<User, GenreViewModel>();
+            
+            var mapperConfiguration = new MapperConfiguration(provider);
+            var mapper = new Mapper(mapperConfiguration);
+
+            services.AddScoped<IMapper>(x => mapper);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -90,6 +139,8 @@ namespace WebMazeMvc
 
             //Waht can I see?
             app.UseAuthorization();
+
+            app.UseMiddleware<LocalizeMidlleware>();
 
             app.UseEndpoints(endpoints =>
             {

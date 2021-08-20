@@ -1,10 +1,16 @@
 ﻿@model GenreViewModel
-<form action="/Genre/AddGenre" method="post">
+
+@section Head {
+<link rel="stylesheet" href="~/css/genre.css"/>
+}
+
+<form class=" form-add-genre" action="/Genre/AddGenre" method="post">
     <div>
-        @Html.TextBoxFor(x=>x.NameGenre)
+        @Html.TextBoxFor(x => x.GenreName)
+        @Html.ValidationMessageFor(x => x.GenreName)
     </div>
-    <div>
-        <input type ="submit" name="Create" />
+    <div class="form-add-genre-input">
+        <input type="submit" name="Create" />
     </div>
 </form>
 

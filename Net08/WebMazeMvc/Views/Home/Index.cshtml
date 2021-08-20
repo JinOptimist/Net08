@@ -1,5 +1,10 @@
-﻿@model int 
+﻿@model HomeViewModel
 
 <div>
-    На нашей сайте, целых @Model пользователей 
+    На нашей сайте, целых @Model пользователей
+
+    <form method="post">
+        @Html.DropDownListFor(x => x.CoolUserId, Model.AllUsersOptions)
+        <input type="submit" value="s"/>
+    </form>
 </div>

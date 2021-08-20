@@ -5,9 +5,10 @@ using System.Threading.Tasks;
 
 namespace WebMazeMvc.Models
 {
-    public class GenreViewModel
+    public class AllBanksForRemoveViewModel
     {
         public long Id { get; set; }
-        public string NameGenre { get; set; }
+
+        public string Name { get; set; }
     }
 }

@@ -1,7 +1,11 @@
-﻿<html>
+﻿@using WebMazeMvc.Services
+@inject UserService userService
+
+<html>
 <head>
     <link rel="stylesheet" href="~/css/site.css?v=1">
 
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
     @RenderSection("Head", false)
 </head>
 <body>
@@ -12,37 +16,45 @@
 
     <div class="center-block">
         <div class="menu">
-            <a href="/Home/Index">Home</a>
+            <a href="/Home/Index">
+                @WebMazeMvc.Localize.Index.LeftMenu_Home
+            </a>
             @if (User.Identity.IsAuthenticated)
             {
-                <a href="/User/Logout">Exit</a>
-                <a href="/Cat/Gallery">Gallery</a>
+
+                
+                <a href="/User/Logout">@WebMazeMvc.Localize.Index.LeftMenu_Exit</a>
+                <a href="/Cat/Gallery">@WebMazeMvc.Localize.Index.LeftMenu_Gallery</a>
+
+                if (userService.IsGirl())
+                {
+                    <a href="/Cat/Add">@WebMazeMvc.Localize.Index.LeftMenu_AddCat</a>
+                }
+                <a href="/User/FavoriteGenres">My Genres</a>
             }
             else
             {
                 <a href="/User/Login">Login</a>
             }
 
-
-            <a href="/Cat/Add">Add cat</a>
             <a href="/Maze/CreateMaze">Create Maze</a>
             <a href="/User/Registration">Registration</a>
             <a href="/Genre/GenreAction">Operation Genre</a>
-            <a href="/News/All">AllNews</a>
-            <a href="/News/Add">AddNews</a>
-            <a href="/Game/AllGames">Games</a>
-            <a href="/Game/AddGame">Add Game</a>
+			<a href="/News/All">@WebMazeMvc.Localize.Index.NewsPage_AllNews</a>
+			<a href="/News/Add">@WebMazeMvc.Localize.Index.NewsPage_AddNews</a>
             @if (User.Identity.IsAuthenticated)
             {
                 <a href="/User/MyNews">MyNews</a>
             }
             <a href="/News/Remove">RemoveNews</a>
+            <a href="/Game/AllGames">Games</a>
+            <a href="/Game/AddGame">Add Game</a>
+            <a href="/Bank/AllBanks">Banks</a>
         </div>
         <div class="content">
             @RenderBody()
         </div>
     </div>
-
     <div class="footer">
         Подвал
     </div>

@@ -19,6 +19,7 @@ namespace WebMazeMvc.Migrations
                 .HasAnnotation("ProductVersion", "5.0.8")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+<<<<<<<<< Temporary merge branch 1
             modelBuilder.Entity("WebMazeMvc.EfStuff.Model.Game", b =>
                 {
                     b.Property<long>("Id")
@@ -52,6 +53,21 @@ namespace WebMazeMvc.Migrations
 
                     b.HasKey("Id");
 
+                    b.ToTable("Games");
+                });
+
+            modelBuilder.Entity("WebMazeMvc.EfStuff.Model.Genre", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("GenreName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
                     b.ToTable("Genres");
                 });
 
@@ -62,7 +78,10 @@ namespace WebMazeMvc.Migrations
                         .HasColumnType("bigint")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<long?>("CreaaterId")
+                    b.Property<long?>("CreaterId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("NewsId")
                         .HasColumnType("bigint");
 
                     b.Property<string>("Source")
@@ -73,7 +92,7 @@ namespace WebMazeMvc.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CreaaterId");
+                    b.HasIndex("CreaterId");
 
                     b.ToTable("News");
                 });
@@ -88,28 +107,116 @@ namespace WebMazeMvc.Migrations
                     b.Property<string>("AvatarUrl")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("Lang")
+                        .HasColumnType("int");
+
                     b.Property<string>("Login")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Password")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("Role")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.ToTable("Users");
                 });
 
+            modelBuilder.Entity("GameGenre", b =>
+                {
+                    b.HasOne("WebMazeMvc.EfStuff.Model.Game", null)
+                        .WithMany()
+                        .HasForeignKey("GamesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("WebMazeMvc.EfStuff.Model.Genre", null)
+                        .WithMany()
+                        .HasForeignKey("GenresId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("GenreUser", b =>
+                {
+                    b.HasOne("WebMazeMvc.EfStuff.Model.Genre", null)
+                        .WithMany()
+                        .HasForeignKey("FavoriteGenresId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("WebMazeMvc.EfStuff.Model.User", null)
+                        .WithMany()
+                        .HasForeignKey("UsersId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("WebMazeMvc.EfStuff.Model.Comment", b =>
+                {
+                    b.HasOne("WebMazeMvc.EfStuff.Model.User", "Creater")
+                        .WithMany("CommentsCreatedByMe")
+                        .HasForeignKey("CreaterId");
+
+                    b.HasOne("WebMazeMvc.EfStuff.Model.Forum", "Forum")
+                        .WithMany("Comments")
+                        .HasForeignKey("ForumId");
+
+                    b.HasOne("WebMazeMvc.EfStuff.Model.News", null)
+                        .WithMany("Comments")
+                        .HasForeignKey("NewsId");
+
+                    b.Navigation("Creater");
+
+                    b.Navigation("Forum");
+                });
+
+            modelBuilder.Entity("WebMazeMvc.EfStuff.Model.Forum", b =>
+                {
+                    b.HasOne("WebMazeMvc.EfStuff.Model.User", "Creater")
+                        .WithMany("ForumsCreatedByMe")
+                        .HasForeignKey("CreaterId");
+
+                    b.HasOne("WebMazeMvc.EfStuff.Model.News", "News")
+                        .WithOne("Forum")
+                        .HasForeignKey("WebMazeMvc.EfStuff.Model.Forum", "NewsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Creater");
+
+                    b.Navigation("News");
+                });
+
             modelBuilder.Entity("WebMazeMvc.EfStuff.Model.News", b =>
                 {
-                    b.HasOne("WebMazeMvc.EfStuff.Model.User", "Creaater")
+                    b.HasOne("WebMazeMvc.EfStuff.Model.User", "Creater")
                         .WithMany("NewsCreatedByMe")
-                        .HasForeignKey("CreaaterId");
+                        .HasForeignKey("CreaterId");
 
-                    b.Navigation("Creaater");
+                    b.Navigation("Creater");
+                });
+
+            modelBuilder.Entity("WebMazeMvc.EfStuff.Model.Forum", b =>
+                {
+                    b.Navigation("Comments");
+                });
+
+            modelBuilder.Entity("WebMazeMvc.EfStuff.Model.News", b =>
+                {
+                    b.Navigation("Comments");
+
+                    b.Navigation("Forum");
                 });
 
             modelBuilder.Entity("WebMazeMvc.EfStuff.Model.User", b =>
                 {
+                    b.Navigation("CommentsCreatedByMe");
+
+                    b.Navigation("ForumsCreatedByMe");
+
                     b.Navigation("NewsCreatedByMe");
                 });
 #pragma warning restore 612, 618

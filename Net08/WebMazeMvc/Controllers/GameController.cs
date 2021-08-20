@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,44 +14,62 @@ namespace WebMazeMvc.Controllers
     public class GameController : Controller
     {
         private GamesRepository _gamesRepository;
+        private GenreRepository _genreRepository;
+        private IMapper _mapper;
 
-        public GameController(GamesRepository gamesRepository)
+        public GameController(GamesRepository gamesRepository,
+            GenreRepository genreRepository,
+            IMapper mapper)
         {
             _gamesRepository = gamesRepository;
+            _genreRepository = genreRepository;
+            _mapper = mapper;
         }
 
         public IActionResult AllGames()
         {
-            var allgame = _gamesRepository.GetAll();
-
-            var viewModels = allgame.Select(x => new GameViewModel()
+            var games = _gamesRepository.GetAll();
+            var viewModel = games.Select(x => new GameViewModel
             {
-                Id = x.Id,
-                GameName = x.GameName,
+                NameGame = x.GameName,
                 Link = x.Link,
                 Url = x.Url
             }).ToList();
 
-            return View(viewModels);
+            return View(viewModel);
         }
 
         [HttpGet]
         public IActionResult AddGame()
         {
-            return View();
+            var genre = _genreRepository.GetAll();
+
+            var viewModel = new GameViewModel();
+
+            viewModel.Genres = _mapper.Map<List<GenreSelectedViewModel>>(genre);
+
+            return View(viewModel);
         }
 
         [HttpPost]
         public IActionResult AddGame(GameViewModel newgame)
         {
-            var game = new Game
+            var ids = newgame.Genres
+                .Where(x => x.IsSelected)
+                .Select(x => x.Id)
+                .ToList();
+
+            var genres = _genreRepository.FindGenresById(ids);
+
+            var addgame = new Game()
             {
-                GameName = newgame.GameName,
+                GameName = newgame.NameGame,
+                Link = newgame.Link,
                 Url = newgame.Url,
-                Link = newgame.Link
+                Genres = genres
             };
 
-            _gamesRepository.Save(game);
+            _gamesRepository.Save(addgame);
 
             return RedirectToAction("AllGames");
         }
