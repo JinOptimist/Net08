@@ -17,7 +17,7 @@ namespace WebMazeMvc.Controllers.AuthAttribute
                 context.HttpContext.RequestServices.GetService(typeof(UserService))
                 as UserService;
 
-            if (userService.GetCurrent().Login != "Nina")
+            if (userService.IsGirl())
             {
                 context.Result = new ForbidResult();
             }
