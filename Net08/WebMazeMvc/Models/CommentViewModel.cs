@@ -9,5 +9,8 @@ namespace WebMazeMvc.Models
     {
         public long Id { get; set; }
         public string Message { get; set; }
+        public long CreaterId { get; set; }
+
+        public List<CommentViewModel> CommentsCreatedByMe { get; set; }
     }
 }

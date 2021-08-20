@@ -1,0 +1,16 @@
+﻿@using WebMazeMvc.Services
+@model List<CommentViewModel>
+
+
+<div>
+    @foreach (var comment in Model)
+    {
+    <div>
+        @comment.Message 
+        if (@comment.CreaterId == )
+        {
+        <a href="/User/Remove?id=@comment.Id">Удалить</a>
+        }
+    </div>
+    }
+</div>

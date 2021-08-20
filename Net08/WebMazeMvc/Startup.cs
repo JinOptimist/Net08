@@ -102,6 +102,8 @@ namespace WebMazeMvc
 
             provider.CreateMap<Comment, CommentViewModel>();
 
+            provider.CreateMap<CommentViewModel, Comment>();
+
             provider.CreateMap<RegistrationViewModel, User>();
 
             provider.CreateMap<GenreViewModel, Genre>();
@@ -109,7 +111,7 @@ namespace WebMazeMvc
             provider.CreateMap<Genre, GenreSelectedViewModel>();
 
             provider.CreateMap<User, GenreViewModel>();
-            
+
             var mapperConfiguration = new MapperConfiguration(provider);
             var mapper = new Mapper(mapperConfiguration);
 
