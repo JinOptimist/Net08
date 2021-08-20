@@ -61,6 +61,15 @@ namespace WebMazeMvc.Localize {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на AllComments.
+        /// </summary>
+        public static string CommentsPage_AllComments {
+            get {
+                return ResourceManager.GetString("CommentsPage_AllComments", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Add Cat.
         /// </summary>
         public static string LeftMenu_AddCat {

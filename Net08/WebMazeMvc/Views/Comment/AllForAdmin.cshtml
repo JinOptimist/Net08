@@ -5,13 +5,7 @@
     @foreach (var comment in Model)
     {
         <div>
-            @comment.Message <a href="/User/Remove?id=@comment.Id">Удалить</a>
+            @comment.Message<a href="/Comment/Remove?id=@comment.Id">Удалить</a>
         </div>
-        @foreach (var news in user.NewsCreatedByMe)
-        {
-            <div class="news">
-                @news.Title <a href="/News/EasyRemove?id=@news.Id">remove</a>
-            </div>
-        }
     }
 </div>

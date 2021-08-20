@@ -5,10 +5,11 @@ using System.Threading.Tasks;
 
 namespace WebMazeMvc.Models
 {
-    public class CommentViewModel
+    public class AllCommentsViewModel
     {
         public long Id { get; set; }
         public string Message { get; set; }
         public long CreaterId { get; set; }
+        public long UserId { get; set; }
     }
 }

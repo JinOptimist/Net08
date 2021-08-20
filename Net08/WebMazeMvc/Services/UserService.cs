@@ -39,5 +39,7 @@ namespace WebMazeMvc.Services
         }
 
         public bool IsGirl() => GetCurrent()?.Login != "Nina";
+
+        public bool IsAdmin() => GetCurrent()?.Login != "Admin";
     }
 }

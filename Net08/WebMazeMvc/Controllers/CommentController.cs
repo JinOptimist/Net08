@@ -9,6 +9,7 @@ using WebMazeMvc.Controllers.AuthAttribute;
 using WebMazeMvc.EfStuff.Model;
 using WebMazeMvc.EfStuff.Repositories;
 using WebMazeMvc.Models;
+using WebMazeMvc.Services;
 
 namespace WebMazeMvc.Controllers
 {
@@ -16,7 +17,7 @@ namespace WebMazeMvc.Controllers
     {
         private CommentRepository _commentRepository;
         private UserRepository _userRepository;
-        private IMapper _mapper;
+        private UserService _userService;
 
         [HttpGet]
         public IActionResult Add()
@@ -29,7 +30,11 @@ namespace WebMazeMvc.Controllers
         {
             var user = _userRepository.Get(viewModel.CreaterId);
 
-            var comment = _mapper.Map<Comment>(viewModel);
+            var comment = new Comment()
+            {
+                Message = viewModel.Message,
+                Creater = user
+            };
            
             _commentRepository.Save(comment);
 
@@ -44,21 +49,23 @@ namespace WebMazeMvc.Controllers
 
             return RedirectToAction("All");
         }
-
+        [Authorize]
         public IActionResult All(long id)
         {
-            var allCommentOnForum = _commentRepository.GetAll().Where(x => x.Forum.Id == id);
-
-            var viewModels = _mapper.Map<List<CommentViewModel>>(allCommentOnForum);
-
-            return View(viewModels);
-        }
-
-        public IActionResult MyComments()
-        {
             var user = _userService.GetCurrent();
-
-            var viewModels = _mapper.Map<List<ShortNewsViewModel>>(user.NewsCreatedByMe);
+            var allCommentOnForum = _commentRepository.GetAll().Where(x => x.Forum.Id == id).ToList();
+            var viewModels = new List<AllCommentsViewModel>();
+            foreach (var comment in allCommentOnForum)
+            {
+                var viewModel = new AllCommentsViewModel()
+                {
+                    Message = comment.Message,
+                    CreaterId = comment.Creater.Id,
+                    UserId = user.Id
+                };
+                viewModels.Add(viewModel);
+            }
+            
 
             return View(viewModels);
         }
