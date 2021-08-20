@@ -1,4 +1,7 @@
-﻿<html>
+﻿@using WebMazeMvc.Services
+@inject UserService userService
+
+<html>
 <head>
     <link rel="stylesheet" href="~/css/site.css?v=1">
 
@@ -17,6 +20,17 @@
             <a href="/Home/Index">Home</a>
             @if (User.Identity.IsAuthenticated)
             {
+
+                
+                <a href="/User/Logout">@WebMazeMvc.Localize.Index.LeftMenu_Exit</a>
+                <a href="/Cat/Gallery">@WebMazeMvc.Localize.Index.LeftMenu_Gallery</a>
+
+                if (userService.IsGirl())
+                {
+                    <a href="/Cat/Add">@WebMazeMvc.Localize.Index.LeftMenu_AddCat</a>
+                }
+                <a href="/User/FavoriteGenres">My Genres</a>
+            }
                 <a href="/User/Logout">Exit</a>
                 <a href="/Cat/Gallery">Gallery</a>
             }
@@ -30,13 +44,15 @@
             <a href="/Maze/CreateMaze">Create Maze</a>
             <a href="/User/Registration">Registration</a>
             <a href="/Genre/GenreAction">Operation Genre</a>
-            <a href="/News/All">AllNews</a>
-            <a href="/News/Add">AddNews</a>
+			<a href="/News/All">@WebMazeMvc.Localize.Index.NewsPage_AllNews</a>
+			<a href="/News/Add">@WebMazeMvc.Localize.Index.NewsPage_AddNews</a>
             @if (User.Identity.IsAuthenticated)
             {
                 <a href="/User/MyNews">MyNews</a>
             }
             <a href="/News/Remove">RemoveNews</a>
+            <a href="/Game/AllGames">Games</a>
+            <a href="/Game/AddGame">Add Game</a>
             <a href="/Bank/AllBanks">Banks</a>
             <button class="card"> BankCard </button>
             <div class="card-option hidden">
@@ -49,7 +65,6 @@
             @RenderBody()
         </div>
     </div>
-
     <div class="footer">
         Подвал
     </div>

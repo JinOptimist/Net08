@@ -2,25 +2,37 @@
 
 
 <div>
-    @foreach (var news in Model)
-    {
-        <div>
-            @news.Title
-        </div>
-        <div>
-            @news.Source
-        </div>
-        <div>
-            @news.Topic
-        </div>
-        foreach (var comment in news.CommentsFromForum)
-        {
-            <div class="news">
-                @comment.Message
-            </div>
-        }
-        <div>
-            -----------------------------------------------------------
-        </div>
-    }
+	@foreach (var news in Model)
+	{
+		<div>
+			@WebMazeMvc.Localize.Index.NewsPage_Title:
+		</div>
+		<div>
+			@news.Title
+		</div>
+		<div>
+			@WebMazeMvc.Localize.Index.NewsPage_Source:
+		</div>
+		<div>
+			@news.Source
+		</div>
+		<div>
+			@WebMazeMvc.Localize.Index.NewsPage_Topic:
+		</div>
+		<div>
+			@news.Topic
+		</div>
+		<div>
+			@WebMazeMvc.Localize.Index.NewsPage_ChatMasseges:
+		</div>
+		foreach (var comment in news.CommentsFromForum)
+		{
+			<div class="news">
+				@comment.Message
+			</div>
+		}
+		<div>
+			-----------------------------------------------------------
+		</div>
+	}
 </div>

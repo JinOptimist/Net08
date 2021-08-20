@@ -1,0 +1,24 @@
+﻿@model List<GenreSelectedViewModel>
+
+@section Head{
+    <link rel="stylesheet" href="~/css/genre.css?v=2">
+<script src ="/js/selectedIDGenre.js"> </script>
+
+}
+
+<form action="/User/FavoriteGenres" method="post">
+    <div class=" select-favorite-user-genre">
+        @for (int i = 0; i < Model.Count(); i++)
+        {
+        <div class="name-genre">
+         @Html.HiddenFor(m => Model[i].Id)
+         @Html.DisplayFor(x => Model[i].GenreName)
+        </div>
+                <div class=" select-genre">
+                    @Html.CheckBoxFor(x => Model[i].IsSelected)
+                </div>}
+    </div>
+    <div>
+        <input type="submit" name="Select" />
+    </div>
+</form>

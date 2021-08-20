@@ -4,15 +4,15 @@
     <script src="~/js/catAdd.js"></script>
 }
 
-<form action="/Cat/Add" method="post" id="someForm">
+<form action="/Cat/Add" method="post" id="someForm" enctype="multipart/form-data">
     <div>
         Name: <input name="name" />
     </div>
-    <div>
-        Second: <input name="second" type="number" />
-    </div>
-    <div>
+    @*<div>
         url: <input name="url" />
+    </div>*@
+    <div>
+        CatImage: <input type="file" name="CatFile" />
     </div>
     <div>
         <input type="submit" value="Send" />

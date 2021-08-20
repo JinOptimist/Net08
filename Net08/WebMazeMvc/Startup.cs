@@ -57,6 +57,13 @@ namespace WebMazeMvc
                 )
             );
 
+            services.AddScoped<FileService>(container =>
+                new FileService(
+                    container.GetService<IWebHostEnvironment>()
+                )
+            );
+            
+
             services.AddControllersWithViews();
 
             services.AddHttpContextAccessor();
@@ -79,6 +86,12 @@ namespace WebMazeMvc
             services.AddScoped<BankRepository>(container =>
                 new BankRepository(container.GetService<MazeDbContext>())
                 );
+            services.AddScoped<GamesRepository>(container =>
+                new GamesRepository(container.GetService<MazeDbContext>())
+                );
+            services.AddScoped<CatRepository>(container =>
+                new CatRepository(container.GetService<MazeDbContext>())
+                );
         }
 
         private void registerMapper(IServiceCollection services)
@@ -100,9 +113,18 @@ namespace WebMazeMvc
 
             provider.CreateMap<User, UserForRemoveViewModel>();
 
-            provider.CreateMap<Comment, CommentViewModel>(); 
+            provider.CreateMap<Comment, CommentViewModel>();
 
             provider.CreateMap<RegistrationViewModel, User>();
+
+            provider.CreateMap<GenreViewModel, Genre>();
+
+            provider.CreateMap<Genre, GenreSelectedViewModel>();
+
+            provider.CreateMap<User, GenreViewModel>();
+
+            provider.CreateMap<CatViewModel, Cat>();
+            provider.CreateMap<Cat, CatViewModel>();
 
             provider.CreateMap<BankCard, BankCardGetViewModel>();                      
 
@@ -137,6 +159,8 @@ namespace WebMazeMvc
 
             //Waht can I see?
             app.UseAuthorization();
+
+            app.UseMiddleware<LocalizeMidlleware>();
 
             app.UseEndpoints(endpoints =>
             {

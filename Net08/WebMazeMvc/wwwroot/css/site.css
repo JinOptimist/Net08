@@ -65,24 +65,54 @@ img {
 .field-value {
     flex: 1;
 }
-.menu-Action-Genre p{
-    width: 150px;
-    border: solid;
-    display:flex;
+
+.news {
+    padding-left: 20px;
+    border-left: 1px red solid;
 }
-.remove-Box-Genre {
+
+.allgames {
     display: flex;
+    flex-wrap: wrap;
 }
-.remove-Name-Genre {
-    width: 200px;
+
+.oneGame {
+    text-align: center;
+    border: 2px blue solid;
+    margin: 4px;
+    flex-direction: column;
 }
-.link-Remove-Genre{
-    flex:1;
+
+.namegame {
+    font-size: 20px;
+}
+
+.logogame {
+    width: 60px;
+    height: 60px;
+    text-align: center;
+}
+
+.oneGame img {
+    max-width: 50px;
+    max-height: 50px;
 }
 
 .news{
     padding-left: 20px;
     border-left: 1px red solid;
+}
+
+.icon {
+    max-width: 20px;
+    max-height: 20px;
+}
+.linkgame {
+    font-size: 12px;
+}
+.icon-add-cat{
+    height: 15px;
+    width: 15px;
 }
 
 .hidden {
