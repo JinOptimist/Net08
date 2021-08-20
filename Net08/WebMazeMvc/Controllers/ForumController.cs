@@ -87,13 +87,9 @@ namespace WebMazeMvc.Controllers
         {
             var user = _userService.GetCurrent();
 
-            var forum = new Forum()
-            {
-                Topic = viewModel.Topic,
-                NewsId = viewModel.NewsId,
-                DateCreated = DateTime.UtcNow,
-                Creater = user
-            };
+            var forum = _mapper.Map<AddForumViewModel, Forum>(viewModel);
+            forum.DateCreated = DateTime.UtcNow;
+            forum.Creater = user;
 
             _forumRepository.Save(forum);
 
