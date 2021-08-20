@@ -142,7 +142,7 @@ namespace WebMazeMvc.Controllers
                         Creater = user
                     };
 
-                    news.Comments.Add(comment);
+                    news.Forum.Comments.Add(comment);
                 }
 
                 _newsRepository.Save(news);
