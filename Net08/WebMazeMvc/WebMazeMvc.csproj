@@ -39,6 +39,7 @@
 
   <ItemGroup>
     <Folder Include="wwwroot\image\cats\" />
+    <Folder Include="wwwroot\image\news\" />
   </ItemGroup>
 
 </Project>

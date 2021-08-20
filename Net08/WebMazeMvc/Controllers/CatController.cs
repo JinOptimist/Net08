@@ -53,7 +53,7 @@ namespace WebMazeMvc.Controllers
             cat.Creater = _userService.GetCurrent();
             _catRepository.Save(cat);
 
-            var path = _fileService.GetCatPath(cat.Id);
+            var path = _fileService.GetPath(cat.Id,"cats");
             using (var fileStream = new FileStream(path, FileMode.Create))
             {
                 catViewModel.CatFile.CopyTo(fileStream);

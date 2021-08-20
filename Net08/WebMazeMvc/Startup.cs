@@ -108,6 +108,8 @@ namespace WebMazeMvc
                     nameof(AllIformationViewModle.CommentsFromForum),
                     config => config.MapFrom(news => news.Forum.Comments));
 
+            provider.CreateMap<AddNewsViewModel, News>();
+
             provider.CreateMap<User, UserForRemoveViewModel>();
 
             provider.CreateMap<Comment, CommentViewModel>();

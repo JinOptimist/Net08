@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -16,6 +17,8 @@ namespace WebMazeMvc.Models
         public long CreaterId { get; set; }
 
         public string Topic { get; set; }
+
+        public IFormFile File { get; set; }
 
         public List<CommentViewModel> CommentsFromForum { get; set; }
     }

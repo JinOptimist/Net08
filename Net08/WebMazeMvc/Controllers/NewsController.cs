@@ -2,12 +2,14 @@
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using WebMazeMvc.EfStuff;
 using WebMazeMvc.EfStuff.Model;
 using WebMazeMvc.EfStuff.Repositories;
 using WebMazeMvc.Models;
+using WebMazeMvc.Services;
 
 namespace WebMazeMvc.Controllers
 {
@@ -15,6 +17,7 @@ namespace WebMazeMvc.Controllers
     {
         private NewsRepository _newsRepository;
         private UserRepository _userRepository;
+        private FileService _fileService;
         private IMapper _mapper;
 
         public NewsController(NewsRepository newsRepository,
@@ -50,15 +53,17 @@ namespace WebMazeMvc.Controllers
         [HttpPost]
         public IActionResult Add(AddNewsViewModel viewModel)
         {
-            var user = _userRepository.Get(viewModel.CreaterId);
+            var news = _mapper.Map<News>(viewModel);
+            news.Creater = _userRepository.Get(viewModel.CreaterId);
+            _newsRepository.Save(news);
 
-            var news = new News()
+            var path = _fileService.GetPath(news.Id, "news");
+            using (var fileStream = new FileStream(path, FileMode.Create))
             {
-                Title = viewModel.Title,
-                Source = viewModel.Source,
-                Creater = user
-            };
+                viewModel.File.CopyTo(fileStream);
+            }
 
+            news.Url = _fileService.GetCatUrl(news.Id);
             _newsRepository.Save(news);
 
             return RedirectToAction("All", "News");

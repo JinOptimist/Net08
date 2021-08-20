@@ -1,16 +1,18 @@
 ﻿@model AddNewsViewModel
-<form action="/News/Add" method="post">
-	<div>
-		@Html.TextBoxFor(x => x.Title) @WebMazeMvc.Localize.Index.NewsPage_Title
-	</div>
+<form action="/News/Add" method="post" enctype="multipart/form-data">
+    <div>
+        @Html.TextBoxFor(x => x.Title) @WebMazeMvc.Localize.Index.NewsPage_Title
+    </div>
+    <div>
+        NewsImage: <input type="file" name="File" />
+    </div>
+    <div>
+        @Html.TextBoxFor(x => x.Source) @WebMazeMvc.Localize.Index.NewsPage_Source
+    </div>
 
-	<div>
-		@Html.TextBoxFor(x => x.Source) @WebMazeMvc.Localize.Index.NewsPage_Source
-	</div>
-
-	<div>
-		@Html.TextBoxFor(x => x.CreaterId) @WebMazeMvc.Localize.Index.NewsPage_CreaterId
-	</div>
+    <div>
+        @Html.TextBoxFor(x => x.CreaterId) @WebMazeMvc.Localize.Index.NewsPage_CreaterId
+    </div>
 
     <div>
         <input type="submit" value="@WebMazeMvc.Localize.Index.NewsPage_AddNews" />

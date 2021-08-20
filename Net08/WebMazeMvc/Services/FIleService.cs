@@ -16,11 +16,11 @@ namespace WebMazeMvc.Services
             _webHostEnvironment = webHostEnvironment;
         }
 
-        public string GetCatPath(long catId)
+        public string GetPath(long catId, string folderName )
         {
             var projectPath = _webHostEnvironment.WebRootPath;
             var fileName = $"{catId}.png";
-            return Path.Combine(projectPath, "image\\cats", fileName);
+            return Path.Combine(projectPath, $"image\\{folderName}", fileName);
         }
 
         public string GetCatUrl(long catId)
