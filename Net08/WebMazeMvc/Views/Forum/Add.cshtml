@@ -1,0 +1,22 @@
+﻿@model AddForumViewModel
+
+@section Head{
+    <link rel="stylesheet" href="~/css/forum.css?v=9">
+}
+
+<div class="hmenu">
+<ul>
+    <li class="active"><a href="#" title="Вернуться к предыдущему шагу">&laquo; Назад</a></li>
+</ul>
+</div>
+<form action="/Forum/Add" method="post">
+    <div>
+        @Html.TextBoxFor(x => x.Topic)
+    </div>
+    <div>
+        @Html.DropDownListFor(x => x.NewsId, Model.AllNewsOptions)
+    </div>
+    <div>
+        <input type="submit" value="Добавить" />
+    </div>
+</form>
