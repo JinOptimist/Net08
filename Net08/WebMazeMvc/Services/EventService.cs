@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using WebMazeMvc.EfStuff.Model;
 using WebMazeMvc.EfStuff.Repositories;
 using WebMazeMvc.Models;
@@ -32,15 +33,6 @@ namespace WebMazeMvc.Services
             new DateTime (DateTime.Today.Year, 7,1),
             new DateTime (DateTime.Today.Year, 10,1)
         };
-
-        private List<int> daysInQuartal = new List<int>()
-        {
-            DateTime.IsLeapYear(DateTime.Today.Year) == true ? 91 : 90,
-            91,
-            92,
-            92
-        };
-
 
         public bool WeekEvent(Event weekEvent) => dayOfWeekNow == weekEvent.DayOfWeek;
 
@@ -84,26 +76,26 @@ namespace WebMazeMvc.Services
 
                     var dayOfQuartalNow = (DateTime.Now - firstDaysOfQuartal[(int)numberOfQuartalNow - 1]).Days;
 
-                    quartalEvent.DayOfQuartal = quartalEvent.DayOfQuartal > daysInQuartal[(int)numberOfQuartalNow]
-                        == true
-                        ? daysInQuartal[(int)numberOfQuartalNow]
-                        : quartalEvent.DayOfQuartal;
+                    var daysInQuartal = Enumerable.Range(-2, 0)
+                        .Select(x => DateTime.DaysInMonth(DateTime.Today.Year, (int)numberOfQuartalNow * 3 - x))
+                        .Sum();
+
+                    quartalEvent.DayOfQuartal = Math.Min(quartalEvent.DayOfQuartal, daysInQuartal);
 
                     return dayOfQuartalNow == quartalEvent.DayOfQuartal;
 
                 case TypeOfQuartalEnum.ByNumberOFMounth:
 
-                    var numberOfMonthinQuartalToday = (int)DateTime.Today.Month - (numberOfQuartalNow - 1) * numberOfMonthInQuartal;
+                    var numberOfMonthInQuartalToday = (int)DateTime.Today.Month - (numberOfQuartalNow - 1) * numberOfMonthInQuartal;
 
-                    if (quartalEvent.NumberOfMonth != numberOfMonthinQuartalToday)
+                    if (quartalEvent.NumberOfMonth != numberOfMonthInQuartalToday)
                     {
                         return false;
                     }
 
                     quartalEvent.DayOfMonthForQuartal = Math.Min(quartalEvent.DayOfMonthForQuartal, daysInThisMonth);
 
-                    return quartalEvent.DayOfMonthForQuartal == DateTime.Today.Day;
-              
+                    return quartalEvent.DayOfMonthForQuartal == DateTime.Today.Day;     
             }
             throw new Exception("Error. Wrong type of quartal");
         }
@@ -120,7 +112,7 @@ namespace WebMazeMvc.Services
         public List<string> GetEventsToday()
         {
             var user =_userService.GetCurrent();
-
+             
             var events = _eventRepository.GetAllUserEvent(user);
 
             var eventsName = new List<string>();
