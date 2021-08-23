@@ -57,7 +57,8 @@ namespace WebMazeMvc
                 )
             );
             services.AddScoped<EventService>(container =>
-               new EventService()
+               new EventService(container.GetService<EventRepository>(),
+               container.GetService<UserService>())
            );
 
             services.AddScoped<FileService>(container =>

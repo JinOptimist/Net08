@@ -45,52 +45,12 @@ namespace WebMazeMvc.Controllers
         }
         public IActionResult ShowEvent()
         {
-            var events = _eventRepository.GetAll();
+            var viewModel = _eventService.GetEventsToday();
 
-            var viewModel = new List<string>();
-
-            foreach (var item in events)
-            {
-                switch (item.TypeOfEvent)
-                {
-                    case TypeOfEventEnum.week:
-                        if (_eventService.WeekEvent(item))
-                        {
-                            viewModel.Add(item.EventText);
-                        };
-                        break;
-                    case TypeOfEventEnum.month:
-                        if (_eventService.MonthEvent(item))
-                        {
-                            viewModel.Add(item.EventText);
-                        };
-                        break;
-                    case TypeOfEventEnum.quartal:
-                        if (_eventService.QuarterEvent(item))
-                        {
-                            viewModel.Add(item.EventText);
-                        };
-                        break;
-                    case TypeOfEventEnum.year:
-                        if (_eventService.YearEvent(item))
-                        {
-                            viewModel.Add(item.EventText);
-                        }
-
-                        break;
-                    case TypeOfEventEnum.custom:
-                        if (_eventService.CustomEvent(item))
-                        {
-                            viewModel.Add(item.EventText);
-                        }
-                        break;
-                }
-            }
             return View(viewModel);
         }
         public IActionResult DaysInMonth(TypeOfMonthEnum name) // Недоделано
-        {
-        
+        {  
             return Json(65);
         }
     }

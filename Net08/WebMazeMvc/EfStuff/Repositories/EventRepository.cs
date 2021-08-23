@@ -12,5 +12,10 @@ namespace WebMazeMvc.EfStuff.Repositories
            : base(dbContext)
         {
         }
+        public List<Event> GetAllUserEvent(User user)
+        {
+            var events =  _dbSet.Where(x => x.User.Id == user.Id).Select(x=>x).ToList();
+            return events;
+        }
     }
 }

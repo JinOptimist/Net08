@@ -1,36 +1,29 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using WebMazeMvc.EfStuff.Model;
+using WebMazeMvc.EfStuff.Repositories;
 using WebMazeMvc.Models;
 
 namespace WebMazeMvc.Services
 {
     public class EventService
     {
+        EventRepository _eventRepository { get; set; }
+        UserService _userService { get; set; }
+
+        public EventService(EventRepository eventRepository, UserService userService)
+        {
+            _eventRepository = eventRepository;
+            _userService = userService;
+        }
+
         private const int daysInWeek = 7;
         private const int numberOfMonthInQuartal = 3;
 
         private DayOfWeek dayOfWeekNow = DateTime.Today.DayOfWeek;
         private int dayOfMonthToday = DateTime.Today.Day;
         private int daysInThisMonth = DateTime.DaysInMonth(DateTime.Today.Year, DateTime.Today.Month);
-
-        private Dictionary<int, int> monthByQuartal = new Dictionary<int, int>()
-        {
-            {1,1 },
-            {2,2 },
-            {3,3 },
-            {4,1 },
-            {5,2 },
-            {6,3 },
-            {7,1 },
-            {8,2 },
-            {9,3 },
-            {10,1 },
-            {11,2 },
-            {12,3 },
-        };
+        private double numberOfQuartalNow = Math.Ceiling((double)DateTime.Today.Month / (double)numberOfMonthInQuartal);
 
         private List<DateTime> firstDaysOfQuartal = new List<DateTime>()
         {
@@ -48,91 +41,71 @@ namespace WebMazeMvc.Services
             92
         };
 
-        public bool WeekEvent(Event weekEvent)
-        {
-            if (dayOfWeekNow == weekEvent.DayOfWeek)
-            {
-                return true;
-            }
-            return false;
-        }
+
+        public bool WeekEvent(Event weekEvent) => dayOfWeekNow == weekEvent.DayOfWeek;
+
         public bool MonthEvent(Event monthEvent)
         {
-            if (monthEvent.TypeOfMonth == TypeOfMonthEnum.ByDayOfTheMonth)
+            switch (monthEvent.TypeOfMonth)
             {
-                monthEvent.DayOfMonth = monthEvent.DayOfMonth > daysInThisMonth == true ? daysInThisMonth : monthEvent.DayOfMonth;
+                case TypeOfMonthEnum.ByDayOfTheMonth:
 
-                if (dayOfMonthToday == monthEvent.DayOfMonth)
-                {
-                    return true;
-                }
-                return false;
+                    monthEvent.DayOfMonth = Math.Min(monthEvent.DayOfMonth, daysInThisMonth);
+
+                    return dayOfMonthToday == monthEvent.DayOfMonth;
+
+                case TypeOfMonthEnum.ByWeeksAndNameOfDay:
+
+                    if (dayOfWeekNow != monthEvent.DayOfWeekForMonthEvent)
+                    {
+                        return false;
+                    }
+
+                    var numberOfWeek = Math.Ceiling((double)(dayOfMonthToday / (double)daysInWeek));
+
+                    if (monthEvent.NumberOfWeekOfMonth == NumberOfWeekOfMonthEnum.last)
+                    {
+                        numberOfWeek = (dayOfMonthToday + daysInWeek) > daysInThisMonth ? (int)monthEvent.NumberOfWeekOfMonth : numberOfWeek;
+                    }
+
+                    if (((int)monthEvent.NumberOfWeekOfMonth) == numberOfWeek)
+                    {
+                        return true;
+                    }
+                    break;
             }
-            else if (monthEvent.TypeOfMonth == TypeOfMonthEnum.ByWeeksAndNameOfDay)
-            {
-                if (dayOfWeekNow != monthEvent.DayOfWeekForMonthEvent)
-                {
-                    return false;
-                }
-
-                var numberOfWeek = Math.Ceiling((double)(dayOfMonthToday / (double)daysInWeek));
-
-                if (((int)monthEvent.NumberOfWeekOfMonth) == ((int)NumberOfWeekOfMonthEnum.last))
-                {
-
-                    numberOfWeek = (dayOfMonthToday + daysInWeek) > daysInThisMonth == true ? (int)monthEvent.NumberOfWeekOfMonth : numberOfWeek;
-                }
-
-                if (((int)monthEvent.NumberOfWeekOfMonth) == numberOfWeek)
-                {
-                    return true;
-                }
-            }
-            return false;
+            throw new Exception("Error. Wrong type of month");
         }
         public bool QuarterEvent(Event quartalEvent)
         {
-            if (quartalEvent.TypeOfQuarter == TypeOfQuartalEnum.ByDay)
+            switch (quartalEvent.TypeOfQuarter)
             {
-                var numberOfQuartalNow = Math.Ceiling((double)DateTime.Today.Month / (double)numberOfMonthInQuartal);
+                case TypeOfQuartalEnum.ByDay:
 
-                var dayOfQuartalNow = DateTime.Now.Subtract(firstDaysOfQuartal[(int)numberOfQuartalNow - 1]).Days;
+                    var dayOfQuartalNow = (DateTime.Now - firstDaysOfQuartal[(int)numberOfQuartalNow - 1]).Days;
 
-                quartalEvent.DayOfQuartal = quartalEvent.DayOfQuartal > daysInQuartal[(int)numberOfQuartalNow]
-                    == true
-                    ? daysInQuartal[(int)numberOfQuartalNow]
-                    : quartalEvent.DayOfQuartal;
+                    quartalEvent.DayOfQuartal = quartalEvent.DayOfQuartal > daysInQuartal[(int)numberOfQuartalNow]
+                        == true
+                        ? daysInQuartal[(int)numberOfQuartalNow]
+                        : quartalEvent.DayOfQuartal;
 
-                if (dayOfQuartalNow == quartalEvent.DayOfQuartal)
-                {
-                    return true;
-                }
+                    return dayOfQuartalNow == quartalEvent.DayOfQuartal;
 
-                return false;
+                case TypeOfQuartalEnum.ByNumberOFMounth:
+
+                    var numberOfMonthinQuartalToday = (int)DateTime.Today.Month - (numberOfQuartalNow - 1) * numberOfMonthInQuartal;
+
+                    if (quartalEvent.NumberOfMonth != numberOfMonthinQuartalToday)
+                    {
+                        return false;
+                    }
+
+                    quartalEvent.DayOfMonthForQuartal = Math.Min(quartalEvent.DayOfMonthForQuartal, daysInThisMonth);
+
+                    return quartalEvent.DayOfMonthForQuartal == DateTime.Today.Day;
+              
             }
-            else if (quartalEvent.TypeOfQuarter == TypeOfQuartalEnum.ByNumberOFMounth)
-            {
-                var numberOfMonthinQuartalToday = monthByQuartal.Single(x => x.Key == DateTime.Today.Month).Value;
-
-                if (quartalEvent.NumberOfMonth != numberOfMonthinQuartalToday)
-                {
-                    return false;
-                }
-                if (quartalEvent.DayOfMonthForQuartal > daysInThisMonth)
-                {
-                    return true;
-                }
-
-                quartalEvent.DayOfMonthForQuartal = quartalEvent.DayOfMonthForQuartal > daysInThisMonth
-                    == true
-                    ? daysInThisMonth : quartalEvent.DayOfMonthForQuartal;
-
-                if (quartalEvent.DayOfMonthForQuartal == DateTime.Today.Day)
-                {
-                    return true;
-                }
-            }
-            return false;
+            throw new Exception("Error. Wrong type of quartal");
         }
         public bool YearEvent(Event yearEvent)
         {
@@ -140,13 +113,56 @@ namespace WebMazeMvc.Services
         }
         public bool CustomEvent(Event customEvent)
         {
-            var amountOfDays = DateTime.Now.Subtract(customEvent.DateTimeOfEvent).Days;
+            var amountOfDays = (DateTime.Now - customEvent.DateTimeOfEvent).Days;
 
-            if (amountOfDays % customEvent.PeriodOfDays == 0)
+            return amountOfDays % customEvent.PeriodOfDays == 0;
+        }
+        public List<string> GetEventsToday()
+        {
+            var user =_userService.GetCurrent();
+
+            var events = _eventRepository.GetAllUserEvent(user);
+
+            var eventsName = new List<string>();
+
+            foreach (var item in events)
             {
-                return true;
+                switch (item.TypeOfEvent)
+                {
+                    case TypeOfEventEnum.week:
+                        if (WeekEvent(item))
+                        {
+                            eventsName.Add(item.EventText);
+                        };
+                        break;
+                    case TypeOfEventEnum.month:
+                        if (MonthEvent(item))
+                        {
+                            eventsName.Add(item.EventText);
+                        };
+                        break;
+                    case TypeOfEventEnum.quartal:
+                        if (QuarterEvent(item))
+                        {
+                            eventsName.Add(item.EventText);
+                        };
+                        break;
+                    case TypeOfEventEnum.year:
+                        if (YearEvent(item))
+                        {
+                            eventsName.Add(item.EventText);
+                        }
+
+                        break;
+                    case TypeOfEventEnum.custom:
+                        if (CustomEvent(item))
+                        {
+                            eventsName.Add(item.EventText);
+                        }
+                        break;
+                }  
             }
-            return false;
+            return eventsName;
         }
     }
 }
