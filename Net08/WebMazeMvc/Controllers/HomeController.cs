@@ -1,10 +1,7 @@
 ﻿using MazeCore;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using System.Globalization;
 using System.Linq;
-using System.Threading;
-using WebMazeMvc.Controllers.AuthAttribute;
 using WebMazeMvc.EfStuff;
 using WebMazeMvc.EfStuff.Repositories;
 using WebMazeMvc.Models;

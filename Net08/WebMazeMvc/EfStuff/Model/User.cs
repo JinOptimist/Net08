@@ -26,5 +26,7 @@ namespace WebMazeMvc.EfStuff.Model
 
         public virtual List<Cat> CatsCretatedByMe { get;  set; }
         public virtual List<Event> Events { get; set; }
+
+        public virtual List<BankCard> BankCards { get; set; }
     }
 }
