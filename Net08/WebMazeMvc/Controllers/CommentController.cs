@@ -97,7 +97,7 @@ namespace WebMazeMvc.Controllers
         public IActionResult All(long id)
         {
             var user = _userService.GetCurrent();
-            var allCommentOnForum = _commentRepository.GetAll().Where(x => x.Forum.Id == id).ToList();
+            var allCommentOnForum = _commentRepository.GetAllForQuery().Where(x => x.Forum.Id == id).ToList();
             var viewModels = new List<AllCommentsViewModel>();
             foreach (var comment in allCommentOnForum)
             {
