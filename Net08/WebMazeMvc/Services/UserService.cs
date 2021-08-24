@@ -38,8 +38,8 @@ namespace WebMazeMvc.Services
             return _userRepository.Get(id);
         }
 
-        public bool IsGirl() => GetCurrent()?.Login != "Nina";
+        public bool IsGirl() => GetCurrent()?.Login == "Nina";
 
-        public bool IsAdmin() => GetCurrent()?.Login != "Admin";
+        public bool IsAdmin() => GetCurrent()?.Login == "Admin";
     }
 }

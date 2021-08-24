@@ -1,15 +1,12 @@
-﻿using AutoMapper;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using WebMazeMvc.Controllers.AuthAttribute;
 using WebMazeMvc.EfStuff.Model;
 using WebMazeMvc.EfStuff.Repositories;
 using WebMazeMvc.Models;
 using WebMazeMvc.Services;
+
 
 namespace WebMazeMvc.Controllers
 {
@@ -18,7 +15,6 @@ namespace WebMazeMvc.Controllers
         private CommentRepository _commentRepository;
         private UserRepository _userRepository;
         private UserService _userService;
-
         [HttpGet]
         public IActionResult Add()
         {
@@ -35,7 +31,7 @@ namespace WebMazeMvc.Controllers
                 Message = viewModel.Message,
                 Creater = user
             };
-           
+
             _commentRepository.Save(comment);
 
             return RedirectToAction("All", "News");
@@ -57,15 +53,16 @@ namespace WebMazeMvc.Controllers
             var viewModels = new List<AllCommentsViewModel>();
             foreach (var comment in allCommentOnForum)
             {
+
                 var viewModel = new AllCommentsViewModel()
                 {
                     Message = comment.Message,
-                    CreaterId = comment.Creater.Id,
-                    UserId = user.Id
+                    CreatorId = comment.Creater.Id,
+                    CanDelete = user.Id == comment.Creater.Id
                 };
                 viewModels.Add(viewModel);
             }
-            
+
 
             return View(viewModels);
         }

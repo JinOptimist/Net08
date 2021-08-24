@@ -6,7 +6,7 @@
     {
     <div>
         @comment.Message
-        if (@comment.CreaterId == @comment.UserId )
+        if (@comment.CanDelete)
         {
         <a href="/Comment/Remove?id=@comment.Id">Удалить</a>
         }

@@ -9,7 +9,7 @@ namespace WebMazeMvc.Models
     {
         public long Id { get; set; }
         public string Message { get; set; }
-        public long CreaterId { get; set; }
-        public long UserId { get; set; }
+        public long CreatorId { get; set; }
+        public bool CanDelete { get; set; }
     }
 }

@@ -69,7 +69,7 @@ namespace WebMazeMvc.Controllers
         {
             _catRepository.Remove(id);
 
-            System.IO.File.Delete(_fileService.GetCatPath(id));
+            System.IO.File.Delete(_fileService.GetPath(id,"Cat"));
 
             return RedirectToAction("Gallery");
         }
