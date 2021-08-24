@@ -25,6 +25,11 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Index.resx</DependentUpon>
     </Compile>
+    <Compile Update="Localize\Forum.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Forum.resx</DependentUpon>
+    </Compile>
   </ItemGroup>
 
   <ItemGroup>
@@ -34,6 +39,10 @@
     </EmbeddedResource>
     <EmbeddedResource Update="Localize\Index.Ru.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Localize\Forum.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Forum.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
 

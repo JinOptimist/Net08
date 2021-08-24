@@ -1,0 +1,77 @@
+﻿@model List<MainForumViewModel>
+
+@section Head{
+    <link rel="stylesheet" href="~/css/forum.css?v=9">
+}
+
+<div>
+    <div class="hmenu">
+    <ul>
+        <li class="active"><a href="/Forum/All" title="Обновить список всех форумов">Все форумы</a></li>
+        @if (User.Identity.IsAuthenticated)
+        {
+            <li><a href="/Forum/My" title="Перейти к списку моих форумов">Мои форумы</a></li>
+            <li>
+            <i  title="Список операций">...</i>
+            <ul>
+                <li><a href="/Forum/Add" title="Добавить новый форум">Добавить</a></li>
+            </ul>
+            </li>
+        }
+    </ul>
+    </div>
+    <div>
+    <div class="divTable">
+    <div class="divTableBody">
+    <div class="divTableRow">
+    <div class="divTableCell">
+        @WebMazeMvc.Localize.Forum.Forum_Id
+    </div>
+    <div class="divTableCell">
+        @WebMazeMvc.Localize.Forum.Forum_Topic
+    </div>
+    <div class="divTableCell">
+        @WebMazeMvc.Localize.Forum.Forum_DateCreated
+    </div>
+    <div class="divTableCell">
+        @WebMazeMvc.Localize.Forum.Forum_NameCreater
+    </div>
+    <div class="divTableCell">
+        @WebMazeMvc.Localize.Forum.Forum_Comments
+    </div>
+    <div class="divTableCell">
+        @WebMazeMvc.Localize.Forum.Forum_Operations
+    </div>
+    </div>
+    @foreach (var forum in Model)
+    {
+        <div class="divTableRow">
+        <div class="divTableCell">
+            @forum.Id
+        </div>
+        <div class="divTableCell">
+            @forum.Topic
+        </div>
+        <div class="divTableCell">
+            @forum.DateCreated
+        </div>
+        <div class="divTableCell">
+            @forum.NameCreater
+        </div>
+        <div class="divTableCell">
+            <a href="/Comment/Get?ForumId=@forum.Id" title="Перейти к списку комментариев текущего форума">@forum.CountComments</a>
+        </div>
+        <div class="divTableCell">
+        @if (@forum.CanEdit)
+        {
+            <form action="/Forum/Remove?id=@forum.Id" method="post">
+            <input type="submit" title="Удалить текущий форум" value="Удалить" onclick="return confirm('Вы действительно хотите удалить выбранный форум?')">
+            </form>
+        }
+        </div>
+        </div>
+    }
+    </div>
+    </div>
+    </div>
+</div>
