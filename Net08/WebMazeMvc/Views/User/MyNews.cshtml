@@ -1,6 +1,9 @@
 ﻿@model List<ShortNewsViewModel>
 
-<h1>Мои новости</h1>
+<h1>
+    Мои новости 
+    <a href="/News/DownloadTodayNews">скачать</a>
+</h1>
 <div>
     @foreach (var news in Model)
     {

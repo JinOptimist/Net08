@@ -1,22 +1,22 @@
-﻿ using System;
+﻿
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using WebMazeMvc.EfStuff.Model;
 
 namespace WebMazeMvc.EfStuff.Repositories
 {
-    public class NewsRepository : BaseRepository<News>
+    public class ForumRepository : BaseRepository<Forum>
     {
-        public NewsRepository(MazeDbContext dbContext) 
+        public ForumRepository(MazeDbContext dbContext)
             : base(dbContext)
         {
+
         }
 
-        public List<News> GetWithoutForum()
+        public List<Forum> GetByUserId(long userId)
         {
             return _dbSet
-                .Where(x => x.Forum == null)
+                .Where(x => x.Creater.Id == userId)
                 .ToList();
         }
     }

@@ -23,7 +23,6 @@ namespace WebMazeMvc.EfStuff
         public MazeDbContext(DbContextOptions options) : base(options)
         {
         }
-        
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
