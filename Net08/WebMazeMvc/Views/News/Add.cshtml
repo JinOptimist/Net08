@@ -1,5 +1,5 @@
 ﻿@model AddNewsViewModel
-<form action="/News/Add" method="post" enctype="multipart/form-data">
+<form action="/News/Add" method="post" id="someForm" enctype="multipart/form-data">
     <div>
         @Html.TextBoxFor(x => x.Title) @WebMazeMvc.Localize.Index.NewsPage_Title
     </div>

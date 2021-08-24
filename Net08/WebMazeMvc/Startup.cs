@@ -142,7 +142,9 @@ namespace WebMazeMvc
 
             provider.CreateMap<User, GenreViewModel>();
 
-            provider.CreateMap<Cat, CatViewModel>(); 
+            provider.CreateMap<Cat, CatViewModel>();
+
+            provider.CreateMap<CatViewModel, Cat>();
 
             var mapperConfiguration = new MapperConfiguration(provider);
             var mapper = new Mapper(mapperConfiguration);

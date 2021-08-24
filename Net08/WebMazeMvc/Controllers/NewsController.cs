@@ -1,12 +1,9 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Novacode;
-using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
-using WebMazeMvc.EfStuff;
 using WebMazeMvc.EfStuff.Model;
 using WebMazeMvc.EfStuff.Repositories;
 using WebMazeMvc.Models;
@@ -65,13 +62,13 @@ namespace WebMazeMvc.Controllers
             news.Creater = _userRepository.Get(viewModel.CreaterId);
             _newsRepository.Save(news);
 
-            var path = _fileService.GetPath(news.Id, "news");
+            var path = _fileService.GetNewsPath(news.Id);
             using (var fileStream = new FileStream(path, FileMode.Create))
             {
                 viewModel.NewsFile.CopyTo(fileStream);
             }
 
-            news.Url = _fileService.GetCatUrl(news.Id);
+            news.Url = _fileService.GetNewsUrl(news.Id);
             _newsRepository.Save(news);
 
             return RedirectToAction("All", "News");

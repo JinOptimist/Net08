@@ -1,14 +1,9 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Threading;
-using System.Threading.Tasks;
-using WebMazeMvc.Controllers.AuthAttribute;
 using WebMazeMvc.EfStuff.Model;
 using WebMazeMvc.EfStuff.Repositories;
 using WebMazeMvc.Models;
@@ -53,7 +48,7 @@ namespace WebMazeMvc.Controllers
             cat.Creater = _userService.GetCurrent();
             _catRepository.Save(cat);
 
-            var path = _fileService.GetPath(cat.Id,"cats");
+            var path = _fileService.GetCatPath(cat.Id);
             using (var fileStream = new FileStream(path, FileMode.Create))
             {
                 catViewModel.CatFile.CopyTo(fileStream);
@@ -69,7 +64,7 @@ namespace WebMazeMvc.Controllers
         {
             _catRepository.Remove(id);
 
-            System.IO.File.Delete(_fileService.GetPath(id,"Cat"));
+            System.IO.File.Delete(_fileService.GetCatPath(id));
 
             return RedirectToAction("Gallery");
         }

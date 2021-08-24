@@ -25,10 +25,19 @@ namespace WebMazeMvc.Services
         public string GetCatFolderPath()
             => Path.Combine(_webHostEnvironment.WebRootPath, "image\\cats");
 
+        public string GetNewsFolderPath()
+            => Path.Combine(_webHostEnvironment.WebRootPath, "image\\news");
+
         public string GetCatPath(long catId)
             => Path.Combine(GetCatFolderPath(), $"{catId}.png");
 
+        public string GetNewsPath(long newsId)
+            => Path.Combine(GetNewsFolderPath(), $"{newsId}.png");
+
         public string GetCatUrl(long catId)
             => $"/image/cats/{catId}.png";
+
+        public string GetNewsUrl(long newsId)
+            => $"/image/news/{newsId}.png";
     }
 }
