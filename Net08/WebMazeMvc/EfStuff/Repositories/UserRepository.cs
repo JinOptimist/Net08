@@ -18,5 +18,16 @@ namespace WebMazeMvc.EfStuff.Repositories
             return _dbSet
                 .SingleOrDefault(x => x.Login == login && x.Password == password);
         }
+
+        public User Get(string login)
+        {
+            return _dbSet
+                .SingleOrDefault(x => x.Login == login);
+        }
+
+        public bool Exist(string login)
+        {
+            return _dbSet.Any(x => x.Login == login);
+        }
     }
 }

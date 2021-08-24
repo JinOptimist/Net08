@@ -6,18 +6,16 @@ using WebMazeMvc.EfStuff.Model;
 
 namespace WebMazeMvc.EfStuff.Repositories
 {
-    public class NewsRepository : BaseRepository<News>
+    public class CatRepository : BaseRepository<Cat>
     {
-        public NewsRepository(MazeDbContext dbContext) 
+        public CatRepository(MazeDbContext dbContext) 
             : base(dbContext)
         {
         }
 
-        public List<News> GetWithoutForum()
+        public bool Exist(string name)
         {
-            return _dbSet
-                .Where(x => x.Forum == null)
-                .ToList();
+            return _dbSet.Any(x => x.Name == name);
         }
     }
 }

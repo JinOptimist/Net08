@@ -48,5 +48,10 @@ namespace WebMazeMvc.EfStuff.Repositories
             _dbSet.Remove(model);
             _mazeDbContext.SaveChanges();
         }
+
+        public void Remove(long id)
+        {
+            Remove(Get(id));
+        }
     }
 }
