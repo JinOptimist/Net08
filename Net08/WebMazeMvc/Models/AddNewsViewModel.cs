@@ -18,7 +18,7 @@ namespace WebMazeMvc.Models
 
         public string Topic { get; set; }
 
-        public IFormFile File { get; set; }
+        public IFormFile NewsFile { get; set; }
 
         public List<CommentViewModel> CommentsFromForum { get; set; }
     }

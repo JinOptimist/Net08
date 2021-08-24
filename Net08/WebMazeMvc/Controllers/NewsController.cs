@@ -60,7 +60,7 @@ namespace WebMazeMvc.Controllers
             var path = _fileService.GetPath(news.Id, "news");
             using (var fileStream = new FileStream(path, FileMode.Create))
             {
-                viewModel.File.CopyTo(fileStream);
+                viewModel.NewsFile.CopyTo(fileStream);
             }
 
             news.Url = _fileService.GetCatUrl(news.Id);
