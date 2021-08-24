@@ -10,7 +10,7 @@ using WebMazeMvc.EfStuff;
 namespace WebMazeMvc.Migrations
 {
     [DbContext(typeof(MazeDbContext))]
-    [Migration("20210824074645_AddEvent")]
+    [Migration("20210824173920_AddEvent")]
     partial class AddEvent
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
