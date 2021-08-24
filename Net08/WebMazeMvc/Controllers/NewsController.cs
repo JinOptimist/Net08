@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using Novacode;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -17,15 +18,22 @@ namespace WebMazeMvc.Controllers
     {
         private NewsRepository _newsRepository;
         private UserRepository _userRepository;
+        private CatRepository _catRepository;
         private FileService _fileService;
+        private UserService _userService;
         private IMapper _mapper;
 
         public NewsController(NewsRepository newsRepository,
-            UserRepository userRepository, IMapper mapper)
+            UserRepository userRepository, IMapper mapper,
+            FileService fileService, UserService userService,
+            CatRepository catRepository)
         {
             _newsRepository = newsRepository;
             _userRepository = userRepository;
             _mapper = mapper;
+            _fileService = fileService;
+            _userService = userService;
+            _catRepository = catRepository;
         }
 
         [HttpGet]
@@ -93,6 +101,40 @@ namespace WebMazeMvc.Controllers
             _newsRepository.Remove(news);
 
             return RedirectToAction("All", "News");
+        }
+
+        public IActionResult DownloadTodayNews()
+        {
+            var pathToFile = _fileService.GetTempDocxFilePath();
+
+            var user = _userService.GetCurrent();
+            using (var file = DocX.Create(pathToFile))
+            {
+                foreach (var news in user.NewsCreatedByMe)
+                {
+                    file.InsertParagraph(news.Title);
+                    var p = file.InsertParagraph($"With {news.Comments.Count()} comments");
+                    p.Color(System.Drawing.Color.Red);
+                    file.InsertParagraph("----------------");
+                }
+
+                file.InsertParagraph("А ещё у нас есть куча котиков. Смотрите какие они милые");
+
+                var catFolder = _fileService.GetCatFolderPath();
+                foreach (var catFilePath in Directory.GetFiles(catFolder))
+                {
+                    var pic = file.AddImage(catFilePath, "image/png").CreatePicture();
+                    pic.Width = 400;
+                    pic.Height = 400;
+                    file.InsertParagraph().InsertPicture(pic);
+                }
+
+                file.Save();
+            }
+
+            return PhysicalFile(pathToFile,
+                "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+                "FileForUserName.docx");
         }
     }
 }
