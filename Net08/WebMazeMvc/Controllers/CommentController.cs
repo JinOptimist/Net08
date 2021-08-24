@@ -1,10 +1,9 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
+using WebMazeMvc.EfStuff.Model;
 using WebMazeMvc.EfStuff.Repositories;
 using WebMazeMvc.Models;
 using WebMazeMvc.Services;
@@ -15,6 +14,7 @@ namespace WebMazeMvc.Controllers
     {
         private ForumRepository _forumRepository;
         private NewsRepository _newsRepository;
+        private UserRepository _userRepository;
         private CommentRepository _commentRepository;
         private UserService _userService;
         private IMapper _mapper;
@@ -24,8 +24,10 @@ namespace WebMazeMvc.Controllers
             NewsRepository newsRepository,
             CommentRepository commentRepository,
             UserService userService,
+            UserRepository userRepository,
             IMapper mapper)
         {
+            _userRepository = userRepository;
             _forumRepository = forumRepository;
             _newsRepository = newsRepository;
             _commentRepository = commentRepository;
@@ -127,6 +129,5 @@ namespace WebMazeMvc.Controllers
 
             return RedirectToAction("All", "News");
         }
-
     }
 }
