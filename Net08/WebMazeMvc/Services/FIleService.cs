@@ -16,16 +16,19 @@ namespace WebMazeMvc.Services
             _webHostEnvironment = webHostEnvironment;
         }
 
-        public string GetCatPath(long catId)
+        public string GetTempDocxFilePath()
         {
-            var projectPath = _webHostEnvironment.WebRootPath;
-            var fileName = $"{catId}.png";
-            return Path.Combine(projectPath, "image\\cats", fileName);
+            var fileName = $"{Guid.NewGuid()}.docx";
+            return Path.Combine(_webHostEnvironment.WebRootPath, "temp", fileName);
         }
 
+        public string GetCatFolderPath()
+            => Path.Combine(_webHostEnvironment.WebRootPath, "image\\cats");
+
+        public string GetCatPath(long catId)
+            => Path.Combine(GetCatFolderPath(), $"{catId}.png");
+
         public string GetCatUrl(long catId)
-        {
-            return $"/image/cats/{catId}.png";
-        }
+            => $"/image/cats/{catId}.png";
     }
 }
