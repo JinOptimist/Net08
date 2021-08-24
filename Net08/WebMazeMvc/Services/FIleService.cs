@@ -27,5 +27,17 @@ namespace WebMazeMvc.Services
         {
             return $"/image/cats/{catId}.png";
         }
+
+        public string GetBankPath(long bankId)
+        {
+            var projectPath = _webHostEnvironment.WebRootPath;
+            var fileName = $"{bankId}.png";
+            return Path.Combine(projectPath, "image\\banks", fileName);
+        }
+
+        public string GetBankUrl(long bankId)
+        {
+            return $"/image/banks/{bankId}.png";
+        }
     }
 }

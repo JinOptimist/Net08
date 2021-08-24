@@ -51,6 +51,7 @@
 
   <ItemGroup>
     <Folder Include="wwwroot\image\cats\" />
+    <Folder Include="wwwroot\image\banks\" />
   </ItemGroup>
 
 </Project>

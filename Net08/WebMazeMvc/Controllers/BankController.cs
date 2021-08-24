@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using WebMazeMvc.EfStuff;
@@ -21,12 +22,12 @@ namespace WebMazeMvc.Controllers
 
         private IMapper _mapper;
 
-
-
-        public BankController(BankRepository bankRepository, IMapper mapper)
+        private FileService _fileService;
+        public BankController(BankRepository bankRepository, IMapper mapper, FileService fileService)
         {
             _BankRepository = bankRepository;
             _mapper = mapper;
+            _fileService = fileService;
         }
 
         [HttpGet]
@@ -41,6 +42,14 @@ namespace WebMazeMvc.Controllers
         public IActionResult BanksAdding(BanksAddingViewModel viewModel)
         {
             var bank = _mapper.Map<Bank>(viewModel); 
+            _BankRepository.Save(bank);
+            var path = _fileService.GetBankPath(bank.Id);
+            using (var fileStream = new FileStream(path, FileMode.Create))
+            {
+                viewModel.BankLogoFile.CopyTo(fileStream);
+            }
+
+            bank.Url = _fileService.GetBankUrl(bank.Id);
             _BankRepository.Save(bank);
             return RedirectToAction("AllBanks");
         }

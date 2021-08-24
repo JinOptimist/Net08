@@ -1,5 +1,5 @@
 ﻿@model BanksAddingViewModel 
-<form action="/Bank/BanksAdding" method="post">
+<form action="/Bank/BanksAdding" method="post" enctype="multipart/form-data">
     <div>
         <a href="/Bank/AllBanks">@WebMazeMvc.Localize.Bank.BanksAdding_BackToBanks</a>
     </div>
@@ -13,6 +13,10 @@
     </div>
 
     <div>
-        <input type="submit" value="@WebMazeMvc.Localize.Bank.BanksAdding_AddBankButton"/>
+        Bank img: <input type="file" name="BankLogoFile" />
+    </div>
+
+    <div>
+        <input type="submit" value="@WebMazeMvc.Localize.Bank.BanksAdding_AddBankButton" />
     </div>
 </form>
