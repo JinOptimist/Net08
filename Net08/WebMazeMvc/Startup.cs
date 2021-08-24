@@ -129,6 +129,10 @@ namespace WebMazeMvc
                 .ForMember(
                     nameof(MainCommentViewModel.NameCreater),
                     config => config.MapFrom(comment => comment.Creater.Login));
+            provider.CreateMap<NewEventViewModel, Event>()
+                .ForMember(
+                   nameof(NewEventViewModel.DateTimeOfEvent),
+                   config => config.MapFrom(x => DateTime.Today));
 
             provider.CreateMap<User, UserForRemoveViewModel>();
 

@@ -26,14 +26,6 @@ namespace WebMazeMvc.Services
         private int daysInThisMonth = DateTime.DaysInMonth(DateTime.Today.Year, DateTime.Today.Month);
         private double numberOfQuartalNow = Math.Ceiling((double)DateTime.Today.Month / (double)numberOfMonthInQuartal);
 
-        private List<DateTime> firstDaysOfQuartal = new List<DateTime>()
-        {
-            new DateTime (DateTime.Today.Year, 1,1),
-            new DateTime (DateTime.Today.Year, 4,1),
-            new DateTime (DateTime.Today.Year, 7,1),
-            new DateTime (DateTime.Today.Year, 10,1)
-        };
-
         public bool WeekEvent(Event weekEvent) => dayOfWeekNow == weekEvent.DayOfWeek;
 
         public bool MonthEvent(Event monthEvent)
@@ -71,13 +63,15 @@ namespace WebMazeMvc.Services
         public bool QuarterEvent(Event quartalEvent)
         {
             switch (quartalEvent.TypeOfQuarter)
-            {
+            { 
                 case TypeOfQuartalEnum.ByDay:
 
-                    var dayOfQuartalNow = (DateTime.Now - firstDaysOfQuartal[(int)numberOfQuartalNow - 1]).Days;
+                    var firstMonthOfQuartal =(int)(numberOfQuartalNow * numberOfMonthInQuartal - 2);
 
-                    var daysInQuartal = Enumerable.Range(-2, 0)
-                        .Select(x => DateTime.DaysInMonth(DateTime.Today.Year, (int)numberOfQuartalNow * 3 - x))
+                    var dayOfQuartalNow = (DateTime.Now -new  DateTime(DateTime.Today.Year, firstMonthOfQuartal, 1)).Days;
+
+                    var daysInQuartal = Enumerable.Range(0, 3)
+                        .Select(x => DateTime.DaysInMonth(DateTime.Today.Year, (int)numberOfQuartalNow * numberOfMonthInQuartal - x))
                         .Sum();
 
                     quartalEvent.DayOfQuartal = Math.Min(quartalEvent.DayOfQuartal, daysInQuartal);
