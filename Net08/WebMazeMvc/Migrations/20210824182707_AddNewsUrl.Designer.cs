@@ -10,7 +10,7 @@ using WebMazeMvc.EfStuff;
 namespace WebMazeMvc.Migrations
 {
     [DbContext(typeof(MazeDbContext))]
-    [Migration("20210824180623_AddNewsUrl")]
+    [Migration("20210824182707_AddNewsUrl")]
     partial class AddNewsUrl
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -67,6 +67,32 @@ namespace WebMazeMvc.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Banks");
+                });
+
+            modelBuilder.Entity("WebMazeMvc.EfStuff.Model.BankCard", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("CardNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<long>("OwnerId")
+                        .HasColumnType("bigint");
+
+                    b.Property<int>("ValidityMonth")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ValidityYear")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("OwnerId");
+
+                    b.ToTable("BankCards");
                 });
 
             modelBuilder.Entity("WebMazeMvc.EfStuff.Model.Cat", b =>
@@ -276,6 +302,17 @@ namespace WebMazeMvc.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("WebMazeMvc.EfStuff.Model.BankCard", b =>
+                {
+                    b.HasOne("WebMazeMvc.EfStuff.Model.User", "Owner")
+                        .WithMany("BankCards")
+                        .HasForeignKey("OwnerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Owner");
+                });
+
             modelBuilder.Entity("WebMazeMvc.EfStuff.Model.Cat", b =>
                 {
                     b.HasOne("WebMazeMvc.EfStuff.Model.User", "Creater")
@@ -344,6 +381,8 @@ namespace WebMazeMvc.Migrations
 
             modelBuilder.Entity("WebMazeMvc.EfStuff.Model.User", b =>
                 {
+                    b.Navigation("BankCards");
+
                     b.Navigation("CatsCretatedByMe");
 
                     b.Navigation("CommentsCreatedByMe");

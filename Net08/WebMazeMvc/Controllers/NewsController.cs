@@ -71,7 +71,7 @@ namespace WebMazeMvc.Controllers
             news.Url = _fileService.GetNewsUrl(news.Id);
             _newsRepository.Save(news);
 
-            return RedirectToAction("All", "News");
+            return RedirectToAction("AllNews", "News");
         }
 
         [HttpGet]
