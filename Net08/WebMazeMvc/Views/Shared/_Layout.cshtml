@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="~/css/site.css?v=1">
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/js/site.js"></script>
     @RenderSection("Head", false)
 </head>
 <body>
@@ -16,9 +17,7 @@
 
     <div class="center-block">
         <div class="menu">
-            <a href="/Home/Index">
-                @WebMazeMvc.Localize.Index.LeftMenu_Home
-            </a>
+            <a href="/Home/Index">Home</a>
             @if (User.Identity.IsAuthenticated)
             {
 
@@ -39,12 +38,15 @@
                     <a href="/Comment/AllComment">@WebMazeMvc.Localize.Index.CommentsPage_AllComments</a>
                 }
                 <a href="/User/FavoriteGenres">My Genres</a>
+                <a href="/User/Logout">Exit</a>
+                <a href="/Cat/Gallery">Gallery</a>
             }
             else
             {
                 <a href="/User/Login">Login</a>
             }
 
+            <a href="/Cat/Add">Add cat</a>
             <a href="/Maze/CreateMaze">Create Maze</a>
             <a href="/User/Registration">Registration</a>
             <a href="/Genre/GenreAction">Operation Genre</a>
@@ -60,6 +62,12 @@
             <a href="/Forum/All">Forums</a>
             <a href="/Comment/All">Comments</a>
             <a href="/Bank/AllBanks">Banks</a>
+            <button class="card"> BankCard </button>
+            <div class="card-option hidden">
+                <a href="/BankCard/BankCardAdd">AddCard</a>
+                <a href="/BankCard/BankCardRemove">RemoveCard</a>            
+                <a href="/BankCard/BankCardAll">SeeAll</a>
+            </div>
         </div>
         <div class="content">
             @RenderBody()
