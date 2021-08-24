@@ -5,7 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Migrations\" />
     <Folder Include="wwwroot\image\" />
   </ItemGroup>
 
@@ -55,6 +54,7 @@
 
   <ItemGroup>
     <Folder Include="wwwroot\image\cats\" />
+    <Folder Include="wwwroot\image\news\" />
     <Folder Include="wwwroot\temp\" />
   </ItemGroup>
 

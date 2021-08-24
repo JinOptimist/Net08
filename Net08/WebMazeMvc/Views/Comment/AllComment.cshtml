@@ -1,0 +1,15 @@
+﻿@model List<AllCommentsViewModel>
+
+
+<div>
+    @foreach (var comment in Model)
+    {
+    <div>
+        @comment.Message
+        if (@comment.CanDelete)
+        {
+        <a href="/Comment/Remove?id=@comment.Id">Удалить</a>
+        }
+    </div>
+    }
+</div>

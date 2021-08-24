@@ -1,13 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using WebMazeMvc.EfStuff.Model;
 
 namespace WebMazeMvc.EfStuff.Repositories
 {
-    public abstract class BaseRepository<Model> 
+    public abstract class BaseRepository<Model>
         where Model : BaseModel
     {
         protected MazeDbContext _mazeDbContext;

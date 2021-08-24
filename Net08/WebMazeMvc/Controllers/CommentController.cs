@@ -1,10 +1,9 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
+using WebMazeMvc.EfStuff.Model;
 using WebMazeMvc.EfStuff.Repositories;
 using WebMazeMvc.Models;
 using WebMazeMvc.Services;
@@ -15,6 +14,7 @@ namespace WebMazeMvc.Controllers
     {
         private ForumRepository _forumRepository;
         private NewsRepository _newsRepository;
+        private UserRepository _userRepository;
         private CommentRepository _commentRepository;
         private UserService _userService;
         private IMapper _mapper;
@@ -24,8 +24,10 @@ namespace WebMazeMvc.Controllers
             NewsRepository newsRepository,
             CommentRepository commentRepository,
             UserService userService,
+            UserRepository userRepository,
             IMapper mapper)
         {
+            _userRepository = userRepository;
             _forumRepository = forumRepository;
             _newsRepository = newsRepository;
             _commentRepository = commentRepository;
@@ -90,6 +92,32 @@ namespace WebMazeMvc.Controllers
             _commentRepository.Remove(comment);
 
             return RedirectToAction("All");
+        }
+        [Authorize]
+        public IActionResult All(long id)
+        {
+            var user = _userService.GetCurrent();
+            var allCommentOnForum = _commentRepository.GetByForumId(id);
+            var viewModels = _mapper.Map<List<AllCommentsViewModel>>(allCommentOnForum);
+            foreach (var viewModel in viewModels)
+            {
+                foreach (var comment in allCommentOnForum)
+                {
+                    viewModel.CanDelete = user.Id == comment.Creater.Id;
+                }
+            }
+            return View(viewModels);
+        }
+        [HttpPost]
+        public IActionResult Add(CommentViewModel viewModel)
+        {
+            var user = _userRepository.Get(viewModel.CreaterId);
+
+            var comment = _mapper.Map<Comment>(viewModel);
+
+            _commentRepository.Save(comment);
+
+            return RedirectToAction("All", "News");
         }
     }
 }

@@ -129,9 +129,13 @@ namespace WebMazeMvc
                     nameof(MainCommentViewModel.NameCreater),
                     config => config.MapFrom(comment => comment.Creater.Login));
 
+            provider.CreateMap<AddNewsViewModel, News>();
+
             provider.CreateMap<User, UserForRemoveViewModel>();
 
             provider.CreateMap<Comment, CommentViewModel>(); 
+
+            provider.CreateMap<CommentViewModel, Comment>();
 
             provider.CreateMap<RegistrationViewModel, User>();
 
@@ -141,11 +145,21 @@ namespace WebMazeMvc
 
             provider.CreateMap<User, GenreViewModel>();
 
-            provider.CreateMap<Cat, CatViewModel>(); 
+            provider.CreateMap<Cat, CatViewModel>();
+
+            provider.CreateMap<CatViewModel, Cat>();
 
             provider.CreateMap<BankCard, BankCardGetViewModel>();                      
 
             provider.CreateMap<BankCardAddViewModel, BankCard>();
+
+            provider.CreateMap<AllCommentsViewModel, Comment >();
+
+            provider.CreateMap<Comment, AllCommentsViewModel>();
+
+            provider.CreateMap<Comment, CommentViewModel>();
+
+            provider.CreateMap<CommentViewModel, Comment>();
 
             var mapperConfiguration = new MapperConfiguration(provider);
             var mapper = new Mapper(mapperConfiguration);

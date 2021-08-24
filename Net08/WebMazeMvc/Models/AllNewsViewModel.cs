@@ -13,5 +13,6 @@ namespace WebMazeMvc.Models
 
         public string Source { get; set; }
 
+        public string Url { get; set; }
     }
 }

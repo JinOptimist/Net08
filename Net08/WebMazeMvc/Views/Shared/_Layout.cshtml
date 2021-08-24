@@ -21,13 +21,21 @@
             @if (User.Identity.IsAuthenticated)
             {
 
-                
+
                 <a href="/User/Logout">@WebMazeMvc.Localize.Index.LeftMenu_Exit</a>
                 <a href="/Cat/Gallery">@WebMazeMvc.Localize.Index.LeftMenu_Gallery</a>
 
                 if (userService.IsGirl())
                 {
                     <a href="/Cat/Add">@WebMazeMvc.Localize.Index.LeftMenu_AddCat</a>
+                }
+                if (userService.IsAdmin())
+                {
+                    <a href="/Comment/AllForAdmin">@WebMazeMvc.Localize.Index.CommentsPage_AllComments</a>
+                }
+                else
+                {
+                    <a href="/Comment/AllComment">@WebMazeMvc.Localize.Index.CommentsPage_AllComments</a>
                 }
                 <a href="/User/FavoriteGenres">My Genres</a>
                 <a href="/User/Logout">Exit</a>
@@ -42,8 +50,8 @@
             <a href="/Maze/CreateMaze">Create Maze</a>
             <a href="/User/Registration">Registration</a>
             <a href="/Genre/GenreAction">Operation Genre</a>
-			<a href="/News/All">@WebMazeMvc.Localize.Index.NewsPage_AllNews</a>
-			<a href="/News/Add">@WebMazeMvc.Localize.Index.NewsPage_AddNews</a>
+            <a href="/News/AllNews">@WebMazeMvc.Localize.Index.NewsPage_AllNews</a>
+            <a href="/News/Add">@WebMazeMvc.Localize.Index.NewsPage_AddNews</a>
             @if (User.Identity.IsAuthenticated)
             {
                 <a href="/User/MyNews">MyNews</a>

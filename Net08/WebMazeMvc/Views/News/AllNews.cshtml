@@ -2,21 +2,24 @@
 
 
 <div>
-	@foreach (var news in Model)
-	{
-		<div>
-			@WebMazeMvc.Localize.Index.NewsPage_Title:
-		</div>
-		<div>
-			@news.Title
-		</div>
-		<div>
-			@WebMazeMvc.Localize.Index.NewsPage_Source:
-		</div>
-		<div>
-			@news.Source
-		</div>
-		<div>
-			-----------------------------------------------------------
-		</div>
-	}
+    @foreach (var news in Model)
+    {
+        <div>
+            @WebMazeMvc.Localize.Index.NewsPage_Title:
+        </div>
+        <div>
+            @news.Title
+        </div>
+        <div class="image">
+            <img src="@news.Url" />
+        </div>
+        <div>
+            @WebMazeMvc.Localize.Index.NewsPage_Source:
+        </div>
+        <div>
+            @news.Source
+        </div>
+        <div>
+            -----------------------------------------------------------
+        </div>
+    }

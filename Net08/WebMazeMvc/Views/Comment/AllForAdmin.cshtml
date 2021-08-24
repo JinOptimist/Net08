@@ -1,0 +1,11 @@
+﻿@model List<CommentViewModel>
+
+
+<div>
+    @foreach (var comment in Model)
+    {
+        <div>
+            @comment.Message<a href="/Comment/Remove?id=@comment.Id">Удалить</a>
+        </div>
+    }
+</div>
