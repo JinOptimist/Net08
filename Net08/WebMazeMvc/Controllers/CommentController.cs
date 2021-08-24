@@ -97,21 +97,15 @@ namespace WebMazeMvc.Controllers
         public IActionResult All(long id)
         {
             var user = _userService.GetCurrent();
-            var allCommentOnForum = _commentRepository.GetAllForQuery().Where(x => x.Forum.Id == id).ToList();
-            var viewModels = new List<AllCommentsViewModel>();
-            foreach (var comment in allCommentOnForum)
+            var allCommentOnForum = _commentRepository.GetByForumId(id);
+            var viewModels = _mapper.Map<List<AllCommentsViewModel>>(allCommentOnForum);
+            foreach (var viewModel in viewModels)
             {
-
-                var viewModel = new AllCommentsViewModel()
+                foreach (var comment in allCommentOnForum)
                 {
-                    Message = comment.Message,
-                    CreatorId = comment.Creater.Id,
-                    CanDelete = user.Id == comment.Creater.Id
-                };
-                viewModels.Add(viewModel);
+                    viewModel.CanDelete = user.Id == comment.Creater.Id;
+                }
             }
-
-
             return View(viewModels);
         }
         [HttpPost]
@@ -119,11 +113,7 @@ namespace WebMazeMvc.Controllers
         {
             var user = _userRepository.Get(viewModel.CreaterId);
 
-            var comment = new Comment()
-            {
-                Message = viewModel.Message,
-                Creater = user
-            };
+            var comment = _mapper.Map<Comment>(viewModel);
 
             _commentRepository.Save(comment);
 

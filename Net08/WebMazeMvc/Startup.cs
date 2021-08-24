@@ -153,6 +153,14 @@ namespace WebMazeMvc
 
             provider.CreateMap<BankCardAddViewModel, BankCard>();
 
+            provider.CreateMap<AllCommentsViewModel, Comment >();
+
+            provider.CreateMap<Comment, AllCommentsViewModel>();
+
+            provider.CreateMap<Comment, CommentViewModel>();
+
+            provider.CreateMap<CommentViewModel, Comment>();
+
             var mapperConfiguration = new MapperConfiguration(provider);
             var mapper = new Mapper(mapperConfiguration);
 

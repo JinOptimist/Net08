@@ -27,11 +27,6 @@ namespace WebMazeMvc.EfStuff.Repositories
             return _dbSet.ToList();
         }
 
-        public DbSet<Model> GetAllForQuery()
-        {
-            return _dbSet;
-        }
-
         public void Save(Model model)
         {
             if (model.Id > 0)
