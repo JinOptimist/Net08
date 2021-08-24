@@ -8,8 +8,7 @@
         var url = '/cat/IsUniq?name=' + currentName;
         var promise = $.get(url);
         promise.done(function (respone) {
-                $('.icon').hide();
-
+            $('.icon').hide();                   
                 if (respone) {
                     $('.icon.ok').show();
                     /*self.css('border-color', 'green');*/
@@ -18,9 +17,8 @@
                     //self.css('border-color', 'red');
                 }
             });
-
-        //$('body').show();
-        //$('body').hide();
     });
 
+    //$('body').show();
+    //$('body').hide();
 });

@@ -15,6 +15,7 @@ namespace WebMazeMvc.EfStuff
         public DbSet<Game> Games { get; set; }
         public DbSet<Forum> Forums { get; set; }
         public DbSet<Comment> Comments { get; set; }
+        public DbSet<BankCard> BankCards { get; set; }
 
         public DbSet<Bank> Banks { get; set; }
         public DbSet<Cat> Cats { get; set; }
@@ -57,6 +58,10 @@ namespace WebMazeMvc.EfStuff
             modelBuilder.Entity<Cat>()
                 .HasOne(x => x.Creater)
                 .WithMany(x => x.CatsCretatedByMe);
+
+            modelBuilder.Entity<User>()
+                .HasMany(x => x.BankCards)
+                .WithOne(x => x.Owner);
 
             base.OnModelCreating(modelBuilder);
         }
