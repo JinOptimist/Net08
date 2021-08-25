@@ -149,6 +149,65 @@ namespace WebMazeMvc.Migrations
                     b.ToTable("Comments");
                 });
 
+            modelBuilder.Entity("WebMazeMvc.EfStuff.Model.Event", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("DateTimeOfEvent")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("DayOfMonth")
+                        .HasColumnType("int");
+
+                    b.Property<int>("DayOfMonthForQuartal")
+                        .HasColumnType("int");
+
+                    b.Property<int>("DayOfQuartal")
+                        .HasColumnType("int");
+
+                    b.Property<int>("DayOfWeek")
+                        .HasColumnType("int");
+
+                    b.Property<int>("DayOfWeekForMonthEvent")
+                        .HasColumnType("int");
+
+                    b.Property<string>("EventText")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Month")
+                        .HasColumnType("int");
+
+                    b.Property<int>("NumberOfMonth")
+                        .HasColumnType("int");
+
+                    b.Property<int>("NumberOfWeekOfMonth")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PeriodOfDays")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TypeOfEvent")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TypeOfMonth")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TypeOfQuarter")
+                        .HasColumnType("int");
+
+                    b.Property<long?>("UserId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Event");
+                });
+
             modelBuilder.Entity("WebMazeMvc.EfStuff.Model.Forum", b =>
                 {
                     b.Property<long>("Id")
@@ -336,6 +395,15 @@ namespace WebMazeMvc.Migrations
                     b.Navigation("Forum");
                 });
 
+            modelBuilder.Entity("WebMazeMvc.EfStuff.Model.Event", b =>
+                {
+                    b.HasOne("WebMazeMvc.EfStuff.Model.User", "User")
+                        .WithMany("Events")
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("WebMazeMvc.EfStuff.Model.Forum", b =>
                 {
                     b.HasOne("WebMazeMvc.EfStuff.Model.User", "Creater")
@@ -381,6 +449,8 @@ namespace WebMazeMvc.Migrations
                     b.Navigation("CatsCretatedByMe");
 
                     b.Navigation("CommentsCreatedByMe");
+
+                    b.Navigation("Events");
 
                     b.Navigation("ForumsCreatedByMe");
 
