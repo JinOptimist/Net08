@@ -56,6 +56,10 @@ namespace WebMazeMvc
                     container.GetService<IHttpContextAccessor>()
                 )
             );
+            services.AddScoped<EventService>(container =>
+              new EventService(container.GetService<EventRepository>(),
+              container.GetService<UserService>())
+          );
 
             services.AddScoped<FileService>(container =>
                 new FileService(
@@ -95,6 +99,9 @@ namespace WebMazeMvc
             services.AddScoped<CommentRepository>(container =>
                 new CommentRepository(container.GetService<MazeDbContext>())
                 );
+            services.AddScoped<EventRepository>(container =>
+             new EventRepository(container.GetService<MazeDbContext>())
+             );
         }
 
         private void registerMapper(IServiceCollection services)
@@ -128,6 +135,10 @@ namespace WebMazeMvc
                 .ForMember(
                     nameof(MainCommentViewModel.NameCreater),
                     config => config.MapFrom(comment => comment.Creater.Login));
+            provider.CreateMap<NewEventViewModel, Event>()
+                .ForMember(
+                   nameof(NewEventViewModel.DateTimeOfEvent),
+                   config => config.MapFrom(x => DateTime.Today));
 
             provider.CreateMap<User, UserForRemoveViewModel>();
 
