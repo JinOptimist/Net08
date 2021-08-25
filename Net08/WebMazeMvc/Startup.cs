@@ -62,7 +62,7 @@ namespace WebMazeMvc
                     container.GetService<IWebHostEnvironment>()
                 )
             );
-            
+
 
             services.AddControllersWithViews();
 
@@ -95,6 +95,9 @@ namespace WebMazeMvc
             services.AddScoped<CommentRepository>(container =>
                 new CommentRepository(container.GetService<MazeDbContext>())
                 );
+            services.AddScoped<GamesRepository>(container =>
+                new GamesRepository(container.GetService<MazeDbContext>())
+   );
         }
 
         private void registerMapper(IServiceCollection services)
@@ -131,7 +134,7 @@ namespace WebMazeMvc
 
             provider.CreateMap<User, UserForRemoveViewModel>();
 
-            provider.CreateMap<Comment, CommentViewModel>(); 
+            provider.CreateMap<Comment, CommentViewModel>();
 
             provider.CreateMap<RegistrationViewModel, User>();
 
@@ -141,9 +144,9 @@ namespace WebMazeMvc
 
             provider.CreateMap<User, GenreViewModel>();
 
-            provider.CreateMap<Cat, CatViewModel>(); 
+            provider.CreateMap<Cat, CatViewModel>();
 
-            provider.CreateMap<BankCard, BankCardGetViewModel>();                      
+            provider.CreateMap<BankCard, BankCardGetViewModel>();
 
             provider.CreateMap<BankCardAddViewModel, BankCard>();
 

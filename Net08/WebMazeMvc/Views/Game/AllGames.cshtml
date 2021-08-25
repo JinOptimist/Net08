@@ -1,5 +1,9 @@
 ﻿@model List<GameViewModel>
 
+@section Head{
+    <link rel="stylesheet" href="~/css/game.css">
+}
+
 <div class="allgames">
     @foreach (var game in Model)
     {

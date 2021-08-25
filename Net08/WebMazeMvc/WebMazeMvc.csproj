@@ -6,7 +6,6 @@
 
   <ItemGroup>
     <Folder Include="Migrations\" />
-    <Folder Include="wwwroot\image\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -56,6 +55,7 @@
   <ItemGroup>
     <Folder Include="Migrations\" />
     <Folder Include="wwwroot\image\cats\" />
+    <Folder Include="wwwroot\image\game\" />
     <Folder Include="wwwroot\temp\" />
   </ItemGroup>
 

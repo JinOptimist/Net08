@@ -1,0 +1,189 @@
+﻿.header {
+    background: aqua;
+    font-size: 30px;
+    text-align: center;
+    height: 60px;
+}
+
+    .header img {
+        max-width: 40px;
+        max-height: 40px;
+    }
+
+.center-block {
+    display: flex;
+}
+
+.menu {
+    width: 100px;
+}
+
+.content {
+    flex: 1;
+    border: 1px red solid;
+}
+
+.footer {
+    background: red;
+}
+
+img {
+    max-width: 100px;
+    max-height: 100px;
+}
+
+
+.gallery {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.buttons {
+    display: flex;
+}
+
+.button {
+    flex: 1;
+    text-align: center;
+    border: 1px red solid;
+    margin: 5px;
+}
+
+
+.input-validation-error {
+    border: 1px red solid;
+}
+
+.field-box {
+    display: flex;
+}
+
+.filed-name {
+    width: 200px;
+}
+
+.field-value {
+    flex: 1;
+}
+
+.news {
+    padding-left: 20px;
+    border-left: 1px red solid;
+}
+
+.allgames {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.oneGame {
+    text-align: center;
+    border: 2px blue solid;
+    margin: 4px;
+    flex-direction: column;
+}
+
+.namegame {
+    font-size: 20px;
+}
+
+
+.gamepole {
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: black;
+}
+
+    .gamepole img {
+        max-width: 100px;
+        max-height: 54px;
+    }
+
+.gamehat {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+    .gamehat img {
+        max-width: 200px;
+        max-height: 400px;
+    }
+
+.gameText {
+    flex-wrap: wrap;
+    flex: 1;
+}
+
+.oneGame img {
+    max-width: 50px;
+    max-height: 50px;
+}
+
+.sologamename {
+    max-width: 500px;
+    display: flex;
+    justify-content: center;
+}
+
+.allGamenameGenres {
+    font-size: 12px;
+    max-width: 200px;
+    flex-wrap: wrap;
+    margin-left: 10px;
+    .news
+
+{
+    padding-left: 20px;
+    border-left: 1px red solid;
+}
+
+.gameLinkGenres {
+    text-indent: 20px;
+}
+
+
+
+.menu-Action-Genre p {
+    width: 150px;
+    border: solid;
+    display: flex;
+}
+
+.remove-Box-Genre {
+    display: flex;
+    .icon
+
+{
+    max-width: 20px;
+    max-height: 20px;
+    .linkgame
+
+{
+    font-size: 12px;
+}
+
+.icon-add-cat {
+    height: 15px;
+    width: 15px;
+}
+
+.news {
+    padding-left: 20px;
+    border-left: 1px red solid;
+    display: none;
+}
+
+.gameDeletion {
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+}
+
+.gameDescription {
+    display: flex;
+    flex-wrap: wrap;
+    margin-right: 40px;
+    align-items: flex-end;
+}
