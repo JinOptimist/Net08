@@ -1,0 +1,24 @@
+﻿@model List<BankCardGetViewModel>
+
+<div>
+    <table border="1" align="center" cellspacing="0" cellpadding="10">
+        <caption>Информация по банковским картам</caption>
+        <tr>
+            <th>Id card</th>
+            <th>Number of card</th>
+            <th>Validity Month</th>
+            <th>Validity Year</th>
+            <th>Delete card</th>
+        </tr>
+        @foreach (var card in Model)
+        {
+            <tr>
+                <th>@card.Id</th>
+                <th>@card.CardNumber</th>
+                <th>@card.ValidityMonth</th>
+                <th>@card.ValidityYear</th>
+                <th><a href="/BankCard/BankCardDelete?id=@card.Id" style='text-decoration: none;'> Delete </a></th>
+            </tr>
+        }
+    </table>
+</div>

@@ -43,7 +43,6 @@ namespace WebMazeMvc.Services
                 }
             }
 
-
             await _next(context);
         }
     }

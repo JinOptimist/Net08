@@ -77,6 +77,9 @@ namespace WebMazeMvc
             services.AddScoped<GenreRepository>(container =>
                new GenreRepository(container.GetService<MazeDbContext>())
                );
+            services.AddScoped<BankCardRepository>(container =>
+                new BankCardRepository(container.GetService<MazeDbContext>())
+                );
             services.AddScoped<NewsRepository>(container =>
                 new NewsRepository(container.GetService<MazeDbContext>())
                 );
@@ -137,7 +140,13 @@ namespace WebMazeMvc
             provider.CreateMap<Genre, GenreSelectedViewModel>();
 
             provider.CreateMap<User, GenreViewModel>();
-            
+
+            provider.CreateMap<Cat, CatViewModel>(); 
+
+            provider.CreateMap<BankCard, BankCardGetViewModel>();                      
+
+            provider.CreateMap<BankCardAddViewModel, BankCard>();
+
             var mapperConfiguration = new MapperConfiguration(provider);
             var mapper = new Mapper(mapperConfiguration);
 

@@ -87,74 +87,22 @@ img {
     font-size: 20px;
 }
 
-
-.gamepole {
+.logogame {
+    width: 60px;
     height: 60px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: black;
+    text-align: center;
 }
-
-    .gamepole img {
-        max-width: 100px;
-        max-height: 54px;
-    }
-
-.gamehat {
-    display: flex;
-    flex-wrap: wrap;
-}
-
-    .gamehat img {
-        max-width: 200px;
-        max-height: 400px;
-    }
-
-    .gameText {
-        flex-wrap: wrap;
-        flex: 1;
-    }
 
 .oneGame img {
     max-width: 50px;
     max-height: 50px;
 }
-.sologamename {
-    max-width: 500px;
-    display: flex;
-    justify-content: center;
-}
 
-.allGamenameGenres {
-    font-size: 12px;
-    max-width: 200px;
-    flex-wrap: wrap;
-    margin-left: 10px;
 .news{
     padding-left: 20px;
     border-left: 1px red solid;
 }
 
-.gameLinkGenres {
-    text-indent: 20px;
-}
-
-.gameDescription {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    align-items: center;
-    margin-right: 40px;
-}
-
-.menu-Action-Genre p{
-    width: 150px;
-    border: solid;
-    display:flex;
-}
-.remove-Box-Genre {
-    display: flex;
 .icon {
     max-width: 20px;
     max-height: 20px;
@@ -167,7 +115,6 @@ img {
     width: 15px;
 }
 
-.news{
-    padding-left: 20px;
-    border-left: 1px red solid;
+.hidden {
+    display: none;
 }

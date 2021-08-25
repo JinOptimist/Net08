@@ -1,0 +1,31 @@
+﻿@model BankCardAddViewModel
+    <form action="/BankCard/BankCardAdd" method="post">
+        <div class="field-box">
+            <div class="filed-name">
+                @Html.DisplayNameFor(x => x.CardNumber):
+            </div>
+            <div class="field-value">
+                @Html.TextBoxFor(x => x.CardNumber)
+                @Html.ValidationMessageFor(x => x.CardNumber)
+            </div>
+        </div>
+        <div class="field-box">
+            <div class="filed-name">
+                Срок действия (месяц/год):
+            </div>
+            <div class="field-value">
+                @Html.TextBoxFor(x => x.ValidityMonth) / @Html.TextBoxFor(x => x.ValidityYear)
+                @Html.ValidationMessageFor(x => x.ValidityMonth)
+                @Html.ValidationMessageFor(x => x.ValidityYear)
+            </div>            
+        </div>
+        <div class="field-box">
+            <div class="filed-name">
+                Id владельца:
+            </div>
+            <div class="field-value">
+                @Html.TextBoxFor(x => x.OwnerId)
+            </div>
+        </div>
+        <div> <input type="submit" value="addCard" /> </div>
+    </form>
