@@ -19,6 +19,8 @@ namespace WebMazeMvc.EfStuff
                 InitUsers(service.ServiceProvider);
 
                 InitCats(service.ServiceProvider);
+
+                InitBankCards(service.ServiceProvider);
             }
                 
             return host;
@@ -69,6 +71,55 @@ namespace WebMazeMvc.EfStuff
                 };
 
                 userRepository.Save(userNina);
+            }
+        }
+
+        private static void InitBankCards(IServiceProvider service)
+        {
+            var bankCardRepository = service.GetService<BankCardRepository>();
+            var userRepository = service.GetService<UserRepository>();
+            var nina = userRepository.Get(NinaName);
+
+            var bankCardDefaults = new List<BankCard>() {
+                new BankCard()
+                {
+                    CardNumber = "4855777788889997",
+                    ValidityMonth = 02,
+                    ValidityYear = 2022
+                },
+                new BankCard()
+                {
+                    CardNumber = "4888999977776667",
+                    ValidityMonth = 05,
+                    ValidityYear = 2025
+                },
+                new BankCard()
+                {
+                    CardNumber = "4333222211112222",
+                    ValidityMonth = 11,
+                    ValidityYear = 2024
+                },
+                new BankCard()
+                {
+                    CardNumber = "4565777788885459",
+                    ValidityMonth = 1,
+                    ValidityYear = 2026
+                },
+                new BankCard()
+                {
+                    CardNumber = "4565777788880005",
+                    ValidityMonth = 6,
+                    ValidityYear = 2026
+                }
+            };
+
+            foreach (var bankCard in bankCardDefaults)
+            {
+                if (!bankCardRepository.Exist(bankCard.CardNumber))
+                {
+                    bankCard.Owner = nina;
+                    bankCardRepository.Save(bankCard);
+                }
             }
         }
     }
