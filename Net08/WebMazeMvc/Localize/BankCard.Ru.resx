@@ -123,10 +123,40 @@
   <data name="Bank_Card" xml:space="preserve">
     <value>Банковские карты</value>
   </data>
+  <data name="Delete_Сard" xml:space="preserve">
+    <value>Удалить карту</value>
+  </data>
+  <data name="Id_Card" xml:space="preserve">
+    <value>Id карты</value>
+  </data>
+  <data name="Id_Owner" xml:space="preserve">
+    <value>Id владельца:</value>
+  </data>
+  <data name="Info_Bank_Card" xml:space="preserve">
+    <value>Информация по банковским картам</value>
+  </data>
+  <data name="Info_Bank_Card_One" xml:space="preserve">
+    <value>Информация по банковской карте</value>
+  </data>
+  <data name="Number_Of_Card" xml:space="preserve">
+    <value>Номер карты</value>
+  </data>
   <data name="Remove_Сard" xml:space="preserve">
     <value>Удалить карту</value>
   </data>
+  <data name="Save_file_doc" xml:space="preserve">
+    <value>Сохранить .doc</value>
+  </data>
   <data name="See_All" xml:space="preserve">
     <value>Все карты</value>
+  </data>
+  <data name="Validity_Month" xml:space="preserve">
+    <value>Срок действия (месяц)</value>
+  </data>
+  <data name="Validity_Month_Year" xml:space="preserve">
+    <value>Срок действия (месяц/год):</value>
+  </data>
+  <data name="Validity_Year" xml:space="preserve">
+    <value>Срок действия (год)</value>
   </data>
 </root>

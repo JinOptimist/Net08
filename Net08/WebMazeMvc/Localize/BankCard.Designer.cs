@@ -79,6 +79,60 @@ namespace WebMazeMvc.Localize {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Delete сard.
+        /// </summary>
+        public static string Delete_Сard {
+            get {
+                return ResourceManager.GetString("Delete_Сard", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Card Id.
+        /// </summary>
+        public static string Id_Card {
+            get {
+                return ResourceManager.GetString("Id_Card", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Owner Id:.
+        /// </summary>
+        public static string Id_Owner {
+            get {
+                return ResourceManager.GetString("Id_Owner", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Information about bank cards:.
+        /// </summary>
+        public static string Info_Bank_Card {
+            get {
+                return ResourceManager.GetString("Info_Bank_Card", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Information about bank card:.
+        /// </summary>
+        public static string Info_Bank_Card_One {
+            get {
+                return ResourceManager.GetString("Info_Bank_Card_One", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Number of card.
+        /// </summary>
+        public static string Number_Of_Card {
+            get {
+                return ResourceManager.GetString("Number_Of_Card", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to RemoveCard.
         /// </summary>
         public static string Remove_Сard {
@@ -88,11 +142,47 @@ namespace WebMazeMvc.Localize {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Save .doc.
+        /// </summary>
+        public static string Save_file_doc {
+            get {
+                return ResourceManager.GetString("Save_file_doc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to SeeAll.
         /// </summary>
         public static string See_All {
             get {
                 return ResourceManager.GetString("See_All", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Validity Month.
+        /// </summary>
+        public static string Validity_Month {
+            get {
+                return ResourceManager.GetString("Validity_Month", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Validity (month/year):.
+        /// </summary>
+        public static string Validity_Month_Year {
+            get {
+                return ResourceManager.GetString("Validity_Month_Year", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Validity Year.
+        /// </summary>
+        public static string Validity_Year {
+            get {
+                return ResourceManager.GetString("Validity_Year", resourceCulture);
             }
         }
     }
