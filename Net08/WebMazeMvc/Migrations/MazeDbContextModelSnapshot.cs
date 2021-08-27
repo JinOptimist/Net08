@@ -67,6 +67,32 @@ namespace WebMazeMvc.Migrations
                     b.ToTable("Banks");
                 });
 
+            modelBuilder.Entity("WebMazeMvc.EfStuff.Model.BankCard", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("CardNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<long>("OwnerId")
+                        .HasColumnType("bigint");
+
+                    b.Property<int>("ValidityMonth")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ValidityYear")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("OwnerId");
+
+                    b.ToTable("BankCards");
+                });
+
             modelBuilder.Entity("WebMazeMvc.EfStuff.Model.Cat", b =>
                 {
                     b.Property<long>("Id")
@@ -88,32 +114,6 @@ namespace WebMazeMvc.Migrations
                     b.HasIndex("CreaterId");
 
                     b.ToTable("Cats");
-                });
-
-            modelBuilder.Entity("WebMazeMvc.EfStuff.Model.BankCard", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("CardNumber")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<long?>("OwnerId")
-                        .HasColumnType("bigint");
-
-                    b.Property<int>("ValidityMonth")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ValidityYear")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("OwnerId");
-
-                    b.ToTable("BankCards");
                 });
 
             modelBuilder.Entity("WebMazeMvc.EfStuff.Model.Comment", b =>
@@ -297,6 +297,17 @@ namespace WebMazeMvc.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("WebMazeMvc.EfStuff.Model.BankCard", b =>
+                {
+                    b.HasOne("WebMazeMvc.EfStuff.Model.User", "Owner")
+                        .WithMany("BankCards")
+                        .HasForeignKey("OwnerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Owner");
+                });
+
             modelBuilder.Entity("WebMazeMvc.EfStuff.Model.Cat", b =>
                 {
                     b.HasOne("WebMazeMvc.EfStuff.Model.User", "Creater")
@@ -304,15 +315,6 @@ namespace WebMazeMvc.Migrations
                         .HasForeignKey("CreaterId");
 
                     b.Navigation("Creater");
-                });
-
-            modelBuilder.Entity("WebMazeMvc.EfStuff.Model.BankCard", b =>
-                {
-                    b.HasOne("WebMazeMvc.EfStuff.Model.User", "Owner")
-                        .WithMany("BankCards")
-                        .HasForeignKey("OwnerId");
-
-                    b.Navigation("Owner");
                 });
 
             modelBuilder.Entity("WebMazeMvc.EfStuff.Model.Comment", b =>
@@ -374,9 +376,9 @@ namespace WebMazeMvc.Migrations
 
             modelBuilder.Entity("WebMazeMvc.EfStuff.Model.User", b =>
                 {
-                    b.Navigation("CatsCretatedByMe");
-
                     b.Navigation("BankCards");
+
+                    b.Navigation("CatsCretatedByMe");
 
                     b.Navigation("CommentsCreatedByMe");
 
