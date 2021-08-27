@@ -11,6 +11,7 @@ using Microsoft.Extensions.Hosting;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 using WebMazeMvc.EfStuff;
 using WebMazeMvc.EfStuff.Model;
@@ -50,19 +51,9 @@ namespace WebMazeMvc
 
             registerMapper(services);
 
-            services.AddScoped<UserService>(container =>
-                new UserService(
-                    container.GetService<UserRepository>(),
-                    container.GetService<IHttpContextAccessor>()
-                )
-            );
+            services.NiceRegister<UserService>();
 
-            services.AddScoped<FileService>(container =>
-                new FileService(
-                    container.GetService<IWebHostEnvironment>()
-                )
-            );
-            
+            services.NiceRegister<FileService>();
 
             services.AddControllersWithViews();
 
@@ -71,35 +62,22 @@ namespace WebMazeMvc
 
         private void registerRepositories(IServiceCollection services)
         {
-            services.AddScoped<UserRepository>(container =>
-                new UserRepository(container.GetService<MazeDbContext>())
-                );
-            services.AddScoped<GenreRepository>(container =>
-               new GenreRepository(container.GetService<MazeDbContext>())
-               );
-            services.AddScoped<BankCardRepository>(container =>
-                new BankCardRepository(container.GetService<MazeDbContext>())
-                );
-            services.AddScoped<NewsRepository>(container =>
-                new NewsRepository(container.GetService<MazeDbContext>())
-                );
-            services.AddScoped<BankRepository>(container =>
-                new BankRepository(container.GetService<MazeDbContext>())
-                );
-            services.AddScoped<ForumRepository>(container =>
-                new ForumRepository(container.GetService<MazeDbContext>())
-                );
-            services.AddScoped<CatRepository>(container =>
-                new CatRepository(container.GetService<MazeDbContext>())
-                );
-            services.AddScoped<CommentRepository>(container =>
-                new CommentRepository(container.GetService<MazeDbContext>())
-                );
+            var assembly = Assembly.GetAssembly(typeof(BaseRepository<>));
+
+            var repositories = assembly.GetTypes()
+                .Where(x =>
+                    x.IsClass
+                    && x.BaseType.IsGenericType
+                    && x.BaseType.GetGenericTypeDefinition() == typeof(BaseRepository<>));
+
+            foreach (var repositoryType in repositories)
+            {
+                services.NiceRegister(repositoryType);
+            }
         }
 
         private void registerMapper(IServiceCollection services)
         {
-
             var provider = new MapperConfigurationExpression();
 
             provider.CreateMap<News, ShortNewsViewModel>();
@@ -131,7 +109,7 @@ namespace WebMazeMvc
 
             provider.CreateMap<User, UserForRemoveViewModel>();
 
-            provider.CreateMap<Comment, CommentViewModel>(); 
+            provider.CreateMap<Comment, CommentViewModel>();
 
             provider.CreateMap<RegistrationViewModel, User>();
 
@@ -141,9 +119,9 @@ namespace WebMazeMvc
 
             provider.CreateMap<User, GenreViewModel>();
 
-            provider.CreateMap<Cat, CatViewModel>(); 
+            provider.CreateMap<Cat, CatViewModel>();
 
-            provider.CreateMap<BankCard, BankCardGetViewModel>();                      
+            provider.CreateMap<BankCard, BankCardGetViewModel>();
 
             provider.CreateMap<BankCardAddViewModel, BankCard>();
 
