@@ -19,5 +19,13 @@ namespace WebMazeMvc.EfStuff.Repositories
                 .Where(x => x.Creater.Id == userId)
                 .ToList();
         }
+
+        public List<Forum> AllWithPage(int page, int perPage)
+        {
+            return _dbSet
+                .Skip((page - 1) * perPage)
+                .Take(perPage)
+                .ToList();
+        }
     }
 }

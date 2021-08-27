@@ -1,5 +1,5 @@
-﻿@model List<MainForumViewModel>
-
+﻿@model AllForumsViewModel
+@**@
 @section Head{
     <link rel="stylesheet" href="~/css/forum.css?v=9">
 }
@@ -22,56 +22,73 @@
     </div>
     <div>
     <div class="divTable">
-    <div class="divTableBody">
-    <div class="divTableRow">
-    <div class="divTableCell">
-        @WebMazeMvc.Localize.Forum.Forum_Id
-    </div>
-    <div class="divTableCell">
-        @WebMazeMvc.Localize.Forum.Forum_Topic
-    </div>
-    <div class="divTableCell">
-        @WebMazeMvc.Localize.Forum.Forum_DateCreated
-    </div>
-    <div class="divTableCell">
-        @WebMazeMvc.Localize.Forum.Forum_NameCreater
-    </div>
-    <div class="divTableCell">
-        @WebMazeMvc.Localize.Forum.Forum_Comments
-    </div>
-    <div class="divTableCell">
-        @WebMazeMvc.Localize.Forum.Forum_Operations
-    </div>
-    </div>
-    @foreach (var forum in Model)
-    {
-        <div class="divTableRow">
-        <div class="divTableCell">
-            @forum.Id
+        <div class="divTableBody">
+            <div class="divTableRow">
+                <div class="divTableCell">
+                    @WebMazeMvc.Localize.Forum.Forum_Id
+                </div>
+                <div class="divTableCell">
+                    @WebMazeMvc.Localize.Forum.Forum_Topic
+                </div>
+                <div class="divTableCell">
+                    @WebMazeMvc.Localize.Forum.Forum_DateCreated
+                </div>
+                <div class="divTableCell">
+                    @WebMazeMvc.Localize.Forum.Forum_NameCreater
+                </div>
+                <div class="divTableCell">
+                    @WebMazeMvc.Localize.Forum.Forum_Comments
+                </div>
+                <div class="divTableCell">
+                    @WebMazeMvc.Localize.Forum.Forum_Operations
+                </div>
+            </div>
+            @foreach (var forum in Model.Forums)
+            {
+                <div class="divTableRow">
+                    <div class="divTableCell">
+                        @forum.Id
+                    </div>
+                    <div class="divTableCell">
+                        @forum.Topic
+                    </div>
+                    <div class="divTableCell">
+                        @forum.DateCreated
+                    </div>
+                    <div class="divTableCell">
+                        @forum.NameCreater
+                    </div>
+                    <div class="divTableCell">
+                        <a href="/Comment/Get?ForumId=@forum.Id" title="Перейти к списку комментариев текущего форума">@forum.CountComments</a>
+                    </div>
+                    <div class="divTableCell">
+                    @if (@forum.CanEdit)
+                    {
+                        <form action="/Forum/Remove?id=@forum.Id" method="post">
+                            <input type="submit" title="Удалить текущий форум" value="Удалить" onclick="return confirm('Вы действительно хотите удалить выбранный форум?')">
+                        </form>
+                    }
+                    </div>
+                </div>
+            }
+            </div>
         </div>
-        <div class="divTableCell">
-            @forum.Topic
-        </div>
-        <div class="divTableCell">
-            @forum.DateCreated
-        </div>
-        <div class="divTableCell">
-            @forum.NameCreater
-        </div>
-        <div class="divTableCell">
-            <a href="/Comment/Get?ForumId=@forum.Id" title="Перейти к списку комментариев текущего форума">@forum.CountComments</a>
-        </div>
-        <div class="divTableCell">
-        @if (@forum.CanEdit)
+    <div>
+        @for (int i = 1; i <= Model.TotalRecordCount / Model.RecodPerPage; i++)
         {
-            <form action="/Forum/Remove?id=@forum.Id" method="post">
-            <input type="submit" title="Удалить текущий форум" value="Удалить" onclick="return confirm('Вы действительно хотите удалить выбранный форум?')">
-            </form>
+            <a href="/Forum/All?page=@i">
+                @i
+            </a>
         }
-        </div>
-        </div>
-    }
     </div>
+    <div>
+        pager
+        @Model.CurrentPageStartRecordNumber
+        /
+        @(Model.Page * Model.RecodPerPage)
+        of 
+        @Model.TotalRecordCount
     </div>
+
     </div>
 </div>
