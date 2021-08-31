@@ -142,6 +142,24 @@ namespace WebMazeMvc.Localize {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to out of.
+        /// </summary>
+        public static string Out_of {
+            get {
+                return ResourceManager.GetString("Out_of", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Positions from.
+        /// </summary>
+        public static string Positions_from {
+            get {
+                return ResourceManager.GetString("Positions_from", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to RemoveCard.
         /// </summary>
         public static string Remove_Сard {
@@ -165,6 +183,15 @@ namespace WebMazeMvc.Localize {
         public static string See_All {
             get {
                 return ResourceManager.GetString("See_All", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to to.
+        /// </summary>
+        public static string To {
+            get {
+                return ResourceManager.GetString("To", resourceCulture);
             }
         }
         

@@ -16,5 +16,7 @@ namespace WebMazeMvc.EfStuff.Model
 
         [Required]
         public virtual User Owner { get; set; }
+
+        public virtual Bank BankIssuing { get; set; }
     }
 }

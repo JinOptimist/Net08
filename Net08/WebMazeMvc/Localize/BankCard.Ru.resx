@@ -144,6 +144,12 @@
   <data name="Number_Of_Card" xml:space="preserve">
     <value>Номер карты</value>
   </data>
+  <data name="Out_of" xml:space="preserve">
+    <value>из</value>
+  </data>
+  <data name="Positions_from" xml:space="preserve">
+    <value>Позиция с</value>
+  </data>
   <data name="Remove_Сard" xml:space="preserve">
     <value>Удалить карту</value>
   </data>
@@ -152,6 +158,9 @@
   </data>
   <data name="See_All" xml:space="preserve">
     <value>Все карты</value>
+  </data>
+  <data name="To" xml:space="preserve">
+    <value>до</value>
   </data>
   <data name="Validity_Month" xml:space="preserve">
     <value>Срок действия (месяц)</value>

@@ -144,6 +144,12 @@
   <data name="Number_Of_Card" xml:space="preserve">
     <value>Number of card</value>
   </data>
+  <data name="Out_of" xml:space="preserve">
+    <value>out of</value>
+  </data>
+  <data name="Positions_from" xml:space="preserve">
+    <value>Positions from</value>
+  </data>
   <data name="Remove_Сard" xml:space="preserve">
     <value>RemoveCard</value>
   </data>
@@ -152,6 +158,9 @@
   </data>
   <data name="See_All" xml:space="preserve">
     <value>SeeAll</value>
+  </data>
+  <data name="To" xml:space="preserve">
+    <value>to</value>
   </data>
   <data name="Validity_Month" xml:space="preserve">
     <value>Validity Month</value>

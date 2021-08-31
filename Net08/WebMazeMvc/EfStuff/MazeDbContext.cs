@@ -63,6 +63,10 @@ namespace WebMazeMvc.EfStuff
                 .HasMany(x => x.BankCards)
                 .WithOne(x => x.Owner);
 
+            modelBuilder.Entity<Bank>()
+                .HasMany(x => x.BankCards)
+                .WithOne(x => x.BankIssuing);
+
             base.OnModelCreating(modelBuilder);
         }
 
