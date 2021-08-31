@@ -19,18 +19,20 @@ namespace WebMazeMvc.Controllers
         private readonly IMapper _mapper;
         private UserRepository _userRepository;
         private FileService _fileService;
-        
-        public BankCardController(BankCardRepository bankCardRepository, 
-            IMapper mapper, 
-            UserRepository userRepository, 
-            FileService fileService)
+        private UserService _userService;
+
+        public BankCardController(BankCardRepository bankCardRepository,
+            IMapper mapper,
+            UserRepository userRepository,
+            FileService fileService, UserService userService)
         {
             _bankCardRepository = bankCardRepository;
             _mapper = mapper;
             _userRepository = userRepository;
             _fileService = fileService;
+            _userService = userService;
         }
-        
+
         [HttpGet]
         public IActionResult BankCardGet(long id)
         {
@@ -47,12 +49,20 @@ namespace WebMazeMvc.Controllers
         }
 
         [HttpGet]
-        public IActionResult BankCardAll()
+        public IActionResult BankCardAll(int page = 1, int perpage = 10)
         {
-            var allCards = _bankCardRepository.GetAll();
+            var allCards = _bankCardRepository.AllWithPage(page, perpage);
             var viewModels = _mapper.Map<List<BankCardGetViewModel>>(allCards);
 
-            return View(viewModels);
+            var viewModel = new BankCardAllViewModel()
+            {
+                Page = page,
+                RecordPerPage = perpage,
+                TotalRecordCount = _bankCardRepository.Count(),
+                BankCards = viewModels
+            };
+
+            return View(viewModel);
         }
 
         [HttpGet]
@@ -111,7 +121,7 @@ namespace WebMazeMvc.Controllers
         {
             var pathToFile = _fileService.GetTempDocxFilePath();
             var allCards = _bankCardRepository.GetAll();
-            
+
             using (var file = DocX.Create(pathToFile))
             {
                 Table table = file.AddTable(allCards.Count + 1, 4);
@@ -137,6 +147,27 @@ namespace WebMazeMvc.Controllers
             return PhysicalFile(pathToFile,
                 "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
                 "FileForUserName.docx");
+        }
+
+        [HttpGet]
+        public IActionResult CreateBankCardsForTrain()
+        {
+            var user = _userService.GetCurrent();
+
+            for (var i = 0; i < 50; i++)
+            {
+                var bankCard = new BankCard()
+                {
+                    CardNumber = "4855777788889997",
+                    ValidityMonth = 5,
+                    ValidityYear = 2025,
+                    Owner = user
+                };
+
+                _bankCardRepository.Save(bankCard);
+            }
+
+            return RedirectToAction("BankCardAll");
         }
     }
 }

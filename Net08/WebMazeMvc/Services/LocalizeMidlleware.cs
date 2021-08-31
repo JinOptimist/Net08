@@ -24,8 +24,16 @@ namespace WebMazeMvc.Services
             var user = userService.GetCurrent();
 
             if (user == null)
-            {
-                CultureInfo.DefaultThreadCurrentUICulture = new CultureInfo("en-EN");
+            {                
+                if (!context.Request.Cookies.Any(x => x.Key == "lang"))
+                {
+                    CultureInfo.DefaultThreadCurrentUICulture = new CultureInfo("en-EN");
+                }
+                else
+                {
+                    var cultureName = context.Request.Cookies["lang"];
+                    CultureInfo.DefaultThreadCurrentUICulture = new CultureInfo(cultureName);
+                }                
             }
             else
             {
@@ -43,7 +51,7 @@ namespace WebMazeMvc.Services
                 }
             }
 
-            await _next(context);
+            await _next.Invoke(context);
         }
     }
 }

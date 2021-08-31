@@ -16,5 +16,12 @@ namespace WebMazeMvc.EfStuff.Repositories
         {
             return _dbSet.Any(x => x.CardNumber == cardNumber);
         }
+
+        public List<BankCard> AllWithPage(int page, int perpage)
+        {
+            return _dbSet.Skip((page - 1) * perpage)
+                .Take(perpage)
+                .ToList();
+        }
     }
 }

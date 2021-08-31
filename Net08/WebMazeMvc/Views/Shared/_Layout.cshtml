@@ -7,6 +7,7 @@
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/js/site.js"></script>
+    <script src="~/js/localize.js"></script>
     @RenderSection("Head", false)
 </head>
 <body>
@@ -42,8 +43,8 @@
             <a href="/Maze/CreateMaze">Create Maze</a>
             <a href="/User/Registration">Registration</a>
             <a href="/Genre/GenreAction">Operation Genre</a>
-			<a href="/News/All">@WebMazeMvc.Localize.Index.NewsPage_AllNews</a>
-			<a href="/News/Add">@WebMazeMvc.Localize.Index.NewsPage_AddNews</a>
+            <a href="/News/All">@WebMazeMvc.Localize.Index.NewsPage_AllNews</a>
+            <a href="/News/Add">@WebMazeMvc.Localize.Index.NewsPage_AddNews</a>
             @if (User.Identity.IsAuthenticated)
             {
                 <a href="/User/MyNews">MyNews</a>
@@ -67,6 +68,11 @@
     </div>
     <div class="footer">
         Подвал
+        <select class="language">
+            <option value="ru-RU">Рус</option>
+            <option value="en-EN">Eng</option>
+            <option value="zz-ZZ">ZZ</option>
+        </select>
     </div>
 </body>
 </html>

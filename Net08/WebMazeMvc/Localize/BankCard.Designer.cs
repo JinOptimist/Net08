@@ -61,6 +61,15 @@ namespace WebMazeMvc.Localize {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add 50 cards.
+        /// </summary>
+        public static string Add_50_cards {
+            get {
+                return ResourceManager.GetString("Add_50_cards", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to AddCard.
         /// </summary>
         public static string Add_Сard {
