@@ -1,12 +1,14 @@
-﻿@model BankCardGetViewModel
+﻿@using WebMazeMvc.Localize
+
+@model BankCardGetViewModel
 
 <table border="1" align="center" cellspacing="0" cellpadding="10">
-    <caption>Информация по банковской карте</caption>
+    <caption>@BankCard.Info_Bank_Card_One</caption>
     <tr>
-        <th>Id card</th>
-        <th>Number of card</th>
-        <th>Validity Month</th>
-        <th>Validity Year</th>
+        <th>@BankCard.Id_Card</th>
+        <th>@BankCard.Number_Of_Card</th>
+        <th>@BankCard.Validity_Month</th>
+        <th>@BankCard.Validity_Year</th>
     </tr>
     <tr>
         <th>@Model.Id</th>

@@ -27,6 +27,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Localize\BankCard.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>BankCard.resx</DependentUpon>
+    </Compile>
     <Compile Update="Localize\Index.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -40,6 +45,13 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Update="Localize\BankCard.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>BankCard.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Localize\BankCard.Ru.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Update="Localize\Index.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Index.Designer.cs</LastGenOutput>
@@ -55,6 +67,7 @@
 
   <ItemGroup>
     <Folder Include="wwwroot\image\cats\" />
+    <Folder Include="wwwroot\temp\" />
     <Folder Include="wwwroot\temp\" />
   </ItemGroup>
 

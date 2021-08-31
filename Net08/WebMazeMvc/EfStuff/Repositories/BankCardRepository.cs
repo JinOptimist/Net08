@@ -11,5 +11,17 @@ namespace WebMazeMvc.EfStuff.Repositories
         public BankCardRepository(MazeDbContext dbContext) : base(dbContext)
         {
         }
+
+        public bool Exist(string cardNumber)
+        {
+            return _dbSet.Any(x => x.CardNumber == cardNumber);
+        }
+
+        public List<BankCard> AllWithPage(int page, int perpage)
+        {
+            return _dbSet.Skip((page - 1) * perpage)
+                .Take(perpage)
+                .ToList();
+        }
     }
 }

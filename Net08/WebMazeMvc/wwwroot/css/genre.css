@@ -1,7 +1,6 @@
 ﻿
 .show-genre span {
     font-weight: 600;
-    color: darkblue;
 }
 
 .show-genre {
@@ -62,4 +61,24 @@
 }
 .form-add-genre-input{
     margin-top: 25px;
+}
+
+.comedy {
+    color: gold;
+}
+
+.horror {
+    color: red;
+}
+
+.drama {
+    color: blue;
+}
+
+.crime {
+    color: slategrey;
+}
+
+.other {
+    color: royalblue;
 }

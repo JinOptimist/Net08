@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using Novacode;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,6 +9,7 @@ using WebMazeMvc.EfStuff;
 using WebMazeMvc.EfStuff.Model;
 using WebMazeMvc.EfStuff.Repositories;
 using WebMazeMvc.Models;
+using WebMazeMvc.Services;
 
 namespace WebMazeMvc.Controllers
 {
@@ -16,14 +18,21 @@ namespace WebMazeMvc.Controllers
         private readonly BankCardRepository _bankCardRepository;
         private readonly IMapper _mapper;
         private UserRepository _userRepository;
+        private FileService _fileService;
+        private UserService _userService;
 
-        public BankCardController(BankCardRepository bankCardRepository, IMapper mapper, UserRepository userRepository)
+        public BankCardController(BankCardRepository bankCardRepository,
+            IMapper mapper,
+            UserRepository userRepository,
+            FileService fileService, UserService userService)
         {
             _bankCardRepository = bankCardRepository;
             _mapper = mapper;
             _userRepository = userRepository;
+            _fileService = fileService;
+            _userService = userService;
         }
-        
+
         [HttpGet]
         public IActionResult BankCardGet(long id)
         {
@@ -40,12 +49,20 @@ namespace WebMazeMvc.Controllers
         }
 
         [HttpGet]
-        public IActionResult BankCardAll()
+        public IActionResult BankCardAll(int page = 1, int perpage = 10)
         {
-            var allCards = _bankCardRepository.GetAll();
+            var allCards = _bankCardRepository.AllWithPage(page, perpage);
             var viewModels = _mapper.Map<List<BankCardGetViewModel>>(allCards);
 
-            return View(viewModels);
+            var viewModel = new BankCardAllViewModel()
+            {
+                Page = page,
+                RecordPerPage = perpage,
+                TotalRecordCount = _bankCardRepository.Count(),
+                BankCards = viewModels
+            };
+
+            return View(viewModel);
         }
 
         [HttpGet]
@@ -95,6 +112,60 @@ namespace WebMazeMvc.Controllers
         {
             var card = _bankCardRepository.Get(id);                       
             _bankCardRepository.Remove(card);
+
+            return RedirectToAction("BankCardAll");
+        }
+        
+        [HttpGet]
+        public IActionResult DownloadBankCard()
+        {
+            var pathToFile = _fileService.GetTempDocxFilePath();
+            var allCards = _bankCardRepository.GetAll();
+
+            using (var file = DocX.Create(pathToFile))
+            {
+                Table table = file.AddTable(allCards.Count + 1, 4);
+                table.Alignment = Alignment.center;
+                table.Design = TableDesign.TableGrid;
+                table.Rows[0].Cells[0].Paragraphs.First().Append("Id card");
+                table.Rows[0].Cells[1].Paragraphs.First().Append("Card Number");
+                table.Rows[0].Cells[2].Paragraphs.First().Append("Validity Month");
+                table.Rows[0].Cells[3].Paragraphs.First().Append("Validity Year");
+
+                for (int i = 1; i <= allCards.Count; i++)
+                {           
+                    table.Rows[i].Cells[0].Paragraphs.First().Append(allCards[i - 1].Id.ToString());
+                    table.Rows[i].Cells[1].Paragraphs.First().Append(allCards[i - 1].CardNumber);
+                    table.Rows[i].Cells[2].Paragraphs.First().Append(allCards[i - 1].ValidityMonth.ToString());
+                    table.Rows[i].Cells[3].Paragraphs.First().Append(allCards[i - 1].ValidityYear.ToString());
+                }
+
+                file.InsertTable(table);
+                file.Save();
+            }
+
+            return PhysicalFile(pathToFile,
+                "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+                "FileForUserName.docx");
+        }
+
+        [HttpGet]
+        public IActionResult CreateBankCardsForTrain()
+        {
+            var user = _userService.GetCurrent();
+
+            for (var i = 0; i < 50; i++)
+            {
+                var bankCard = new BankCard()
+                {
+                    CardNumber = "4855777788889997",
+                    ValidityMonth = 5,
+                    ValidityYear = 2025,
+                    Owner = user
+                };
+
+                _bankCardRepository.Save(bankCard);
+            }
 
             return RedirectToAction("BankCardAll");
         }
