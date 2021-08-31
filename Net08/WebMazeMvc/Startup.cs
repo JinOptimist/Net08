@@ -126,7 +126,13 @@ namespace WebMazeMvc
             
             provider.CreateMap<BanksAddingViewModel, Bank>();
             provider.CreateMap<Bank, AllBanksForRemoveViewModel>();
-            provider.CreateMap<Bank, ClientOfBankViewModel>();
+            provider.CreateMap<List<User>, ClientOfBankViewModel>()
+                .ForMember(
+                    nameof(ClientOfBankViewModel.Login),
+                    config => config.MapFrom(Users => Users.Select(user => user.Login).ToList()))
+                .ForMember(
+                    nameof(ClientOfBankViewModel.Id),
+                    config => config.MapFrom(Users => Users.Select(user => user.Id).ToList()));
 
             var mapperConfiguration = new MapperConfiguration(provider);
             var mapper = new Mapper(mapperConfiguration);

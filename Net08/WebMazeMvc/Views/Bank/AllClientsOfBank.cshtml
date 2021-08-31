@@ -1,14 +1,16 @@
-﻿@model List<ClientOfBankViewModel>
+﻿@model ClientOfBankViewModel
     <div>
         <a href="/Bank/AllBanks">@WebMazeMvc.Localize.Bank.AllClientsOfBank_BackToBanks</a>
     </div>
-
+    <div>
+        <a href="/Bank/NewClientOfBank?IdBank=@Model.IdBank">Добавить клиента</a>
+    </div>
 <div>
     
-    @foreach (var user in Model)
+    @for (int i=0; i<Model.Id.Count; i++)
     {
     <div>
-        @user.Id     @user.Login
+        @Model.Id[i]     @Model.Login[i]
     </div>
      }
 </div>

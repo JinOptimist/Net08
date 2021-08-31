@@ -5,12 +5,12 @@ using System.Threading.Tasks;
 
 namespace WebMazeMvc.Models
 {
-    public class ClientOfBankViewModel
+    public class NewClientOfBank
     {
-        public List<long> Id { get; set; }
-        public List<string> Login { get; set; }
+        public string Login { get; set; }
 
         public long IdBank { get; set; }
+
 
     }
 }

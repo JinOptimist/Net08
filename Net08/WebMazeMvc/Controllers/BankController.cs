@@ -20,14 +20,17 @@ namespace WebMazeMvc.Controllers
 
         private BankRepository _BankRepository;
 
+        private UserRepository _userRepository;
+
         private IMapper _mapper;
 
         private FileService _fileService;
-        public BankController(BankRepository bankRepository, IMapper mapper, FileService fileService)
+        public BankController(BankRepository bankRepository, IMapper mapper, FileService fileService, UserRepository userRepository)
         {
             _BankRepository = bankRepository;
             _mapper = mapper;
             _fileService = fileService;
+            _userRepository = userRepository;
         }
 
         [HttpGet]
@@ -63,27 +66,40 @@ namespace WebMazeMvc.Controllers
 
             return View(viewModels);
         }
+
+
+
+
         [Authorize]
-        public IActionResult AllClientsOfBank(long id)
+        public IActionResult AllClientsOfBank(long IdBank)
         {
+            var allUsers = _BankRepository.GetAllClients(IdBank);
 
-            var allUsers = _BankRepository.GetAllClients(id);
+            var viewModels = _mapper.Map<ClientOfBankViewModel>(allUsers);
 
-
-             var viewModels = _mapper.Map<List<ClientOfBankViewModel>>(allUsers);
+            viewModels.IdBank = IdBank;
 
             return View(viewModels);
         }
 
         [Authorize]
-        public IActionResult NewClient(long id)
+        public IActionResult NewClientOfBank(long IdBank)
         {
+            var viewModel = new NewClientOfBank();
+            viewModel.IdBank = IdBank;
+            return View(viewModel);
+        }
 
-            //var User= _BankRepository.GetAllClients(id);
-
-
-            //var viewModels = _mapper.Map<List<ClientOfBankViewModel>>(allUsers);
-            return default;// View(viewModels);
+        [Authorize]
+        [HttpPost]
+        public IActionResult NewClientOfBankAdding(long IdBank)
+        {
+            var user = new User();
+            user.Login = IdBank.Login;
+            var Bank = _BankRepository.Get(IdBank);
+            user.MyBanks.Add(Bank);
+            _userRepository.Save(user);
+            return RedirectToAction("AllClientsOfBank", IdBank.IdBank);
         }
 
         [Authorize]

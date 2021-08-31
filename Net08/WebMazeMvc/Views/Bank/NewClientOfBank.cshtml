@@ -1,0 +1,14 @@
+﻿@model NewClientOfBank
+<div>
+    <a href="/Bank/AllClientsOfBankStart?Id=@Model.IdBank">@WebMazeMvc.Localize.Bank.AllBanks_listOfClients</a>
+</div>
+
+
+<form action="/Bank/NewClientOfBankAdding" method="post">
+    <div>
+        @Html.TextBoxFor(x => x.Login)
+    </div>
+    <div>
+        <input type="submit" value="Добавить клиента" />
+    </div>
+</form>
