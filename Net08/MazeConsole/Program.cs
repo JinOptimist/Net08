@@ -1,11 +1,41 @@
 ﻿using MazeCore;
 using System;
+using System.Reflection;
 
 namespace MazeConsole
 {
     class Program
     {
         static void Main(string[] args)
+        {
+
+            var mazeDrawer = new MazeDrawer();
+            Type type = mazeDrawer.GetType();
+
+            ShowTypeInfo(typeof(Maze));
+
+            Console.ReadLine();
+            //Maze();
+        }
+
+        public static void ShowTypeInfo(Type type)
+        {
+            Console.WriteLine(type.FullName);
+
+            Console.WriteLine("------ All Properties");
+            foreach (var propertyInfo in type.GetProperties())
+            {
+                Console.WriteLine($"{propertyInfo.PropertyType.FullName} {propertyInfo.Name}: ");
+            }
+
+            Console.WriteLine("------ All Methods");
+            foreach (var methodInfo in type.GetMethods())
+            {
+                Console.WriteLine($"{methodInfo.ReturnType.FullName} {methodInfo.Name} {methodInfo.GetParameters().Length} ");
+            }
+        }
+
+        public static void Maze()
         {
             var builder = new MazeBuilder();
 

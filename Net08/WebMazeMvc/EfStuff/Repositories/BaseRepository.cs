@@ -53,5 +53,10 @@ namespace WebMazeMvc.EfStuff.Repositories
         {
             Remove(Get(id));
         }
+
+        public int Count()
+        {
+            return _dbSet.Count();
+        }
     }
 }

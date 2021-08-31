@@ -34,18 +34,23 @@ namespace WebMazeMvc.Controllers
             _mapper = mapper;
         }
 
-        public IActionResult All()
+        public IActionResult All(int page = 1, int perPage = 10)
         {
             var user = _userService.GetCurrent();
-            var forums = _forumRepository.GetAll();
+            var forums = _forumRepository.AllWithPage(page, perPage);
             var viewModels = _mapper.Map<List<MainForumViewModel>>(forums);
+            viewModels
+                .ForEach(x => x.CanEdit = x.UserId == user?.Id);
 
-            foreach (var viewModel in viewModels)
+            var viewModel = new AllForumsViewModel()
             {
-                viewModel.CanEdit = viewModel.UserId == user?.Id;
-            }
+                Page = page,
+                RecodPerPage = perPage,
+                TotalRecordCount = _forumRepository.Count(),
+                Forums = viewModels,
+            };
 
-            return View(viewModels);
+            return View(viewModel);
         }
 
         [Authorize]
