@@ -1,0 +1,27 @@
+Base MVC application
+1) Свой Controller для каждой логической части сайта
+2) Используем аттрибуты [HttpGet] и [HttpPost] для работы с формами
+3) Используем авторизационный аттрибуты Пример: OnlyAdminAttribute
+4) Download file. От сервера клиенту. Пример: NewsController => DownloadTodayNews
+5) Upload file. От клиента на сервер. Пример: CatController => Add
+6) Custom validation attribute для ViewModel
+
+База данных
+1) Используем Lazy load
+2) Используем связи OneToOne, ManyToOne, ManyToMany
+3) При использовании enum не забываем фиксировать значения
+4) Выносим в общего родителя общие методы репозиториев
+5) Используем generic
+6) SeedMethod
+
+Сторонние библиотеки
+1) Используем mapper
+2) Создаём файлы, например doc
+
+Общее
+1) Локализация
+2) Свой Midlleware компонент. Пример: LocalizeMidlleware
+3) Авторизация
+4) Не показывать ссылки, на которые не может нажать текущий пользователь
+5) Рефлексия. Пример: Startup => registerRepositories
+6) Пишем UT. Используем Mock
